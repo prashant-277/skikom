@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+import 'package:skicom/History/challenge_history.dart';
+import 'package:skicom/History/competition_history.dart';
+import 'package:skicom/Widgets/appbarCustom.dart';
+import 'package:skicom/constants.dart';
+
+class history_page extends StatefulWidget {
+
+  @override
+  _history_pageState createState() => _history_pageState();
+}
+
+class _history_pageState extends State<history_page> {
+  int current_tab = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    var query = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: Swhite,
+      appBar: commanAppBar(
+        appBar: AppBar(),
+        appbartext: "History",
+        colorImage: Colors.transparent,
+        fontsize: 20,
+        imageBack: false,
+
+      ),
+      body: DefaultTabController(
+      length: 2,
+      child: Column(
+        children: <Widget>[
+          Container(
+            color: SGray,
+            child: TabBar(
+              automaticIndicatorColorAdjustment: true,
+              labelPadding: EdgeInsets.zero,
+              indicatorColor: Colors.transparent,
+              indicatorWeight: 0.1,
+              onTap: (page) {
+                print(page);
+                setState(() {
+                  current_tab = page;
+                });
+              },
+              tabs: [
+                Container(
+                  padding: EdgeInsets.zero,
+                  width: query.width,
+                  color: current_tab == 0 ? kGray : Swhite,
+                  child: Tab(
+                      child: Text("Competition",
+                          style: TextStyle(
+                              fontFamily: "SFPro",
+                              fontWeight: FontWeight.w600,
+                              color: SBlack,
+                              fontSize: 15))),
+                ),
+                Container(
+                  padding: EdgeInsets.zero,
+                  width: query.width,
+                  color: current_tab == 1 ? kGray : Swhite,
+                  child: Tab(
+                      child: Text("Challenge",
+                          style: TextStyle(
+                              fontFamily: "SFPro",
+                              fontWeight: FontWeight.w600,
+                              color: SBlack,
+                              fontSize: 15))),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: TabBarView(
+              children: [
+                Container(child: competition_history(),color: Swhite),
+                Container(child: challenge_history(),color: Swhite)
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+    );
+  }
+}

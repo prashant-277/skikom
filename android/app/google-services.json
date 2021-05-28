@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "692623989347",
+    "project_id": "skicom",
+    "storage_bucket": "skicom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692623989347:android:128010455a8207db107656",
+        "android_client_info": {
+          "package_name": "com.example.skicom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692623989347-96p95ek5arhl82fhpcsird3954tmnjq5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.skicom",
+            "certificate_hash": "61a834cf01355dab8051201255526e374d37f6e5"
+          }
+        },
+        {
+          "client_id": "692623989347-imik35if4ar30jnhfjn23pg9glpjhhhf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZLMtZ25l0X-78iQ01fi7OdgFGXUpubEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692623989347-imik35if4ar30jnhfjn23pg9glpjhhhf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
