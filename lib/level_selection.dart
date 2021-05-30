@@ -175,7 +175,7 @@ class _level_selectionState extends State<level_selection> {
                           child: dashboard_page()));
                 },
                 child: Container(
-                  height: query.height / 8,
+                  height: query.height / 8.5,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("Assets/Icons/next.png"))),
