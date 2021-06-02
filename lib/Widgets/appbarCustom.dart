@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
   final AppBar appBar;
@@ -32,7 +32,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             Image.asset(
               "Assets/Icons/back.png",
-              height: 16,
+              height: 12.sp,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
@@ -42,7 +42,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
                     fontFamily: "SFPro",
                     fontWeight: FontWeight.w600,
                     color: Swhite,
-                    fontSize: 15),
+                    fontSize: medium),
               ),
             ),
           ],
@@ -73,6 +73,7 @@ class commanAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       elevation: 0,
+      centerTitle: false,
       leading: leadingIcon,
       backgroundColor: SBlue,
       title: FlatButton(
@@ -91,7 +92,7 @@ class commanAppBar extends StatelessWidget implements PreferredSizeWidget {
               visible: imageBack,
               child: Image.asset(
                 "Assets/Icons/back.png",
-                 height: 14,
+                 height: 12.sp,
                 color: colorImage,
               ),
             ),

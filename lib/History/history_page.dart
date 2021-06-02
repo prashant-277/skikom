@@ -3,7 +3,7 @@ import 'package:skicom/History/challenge_history.dart';
 import 'package:skicom/History/competition_history.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class history_page extends StatefulWidget {
 
   @override
@@ -22,7 +22,7 @@ class _history_pageState extends State<history_page> {
         appBar: AppBar(),
         appbartext: "History",
         colorImage: Colors.transparent,
-        fontsize: 20,
+        fontsize: 18.sp,
         imageBack: false,
 
       ),
@@ -54,7 +54,7 @@ class _history_pageState extends State<history_page> {
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack,
-                              fontSize: 15))),
+                              fontSize: small))),
                 ),
                 Container(
                   padding: EdgeInsets.zero,
@@ -66,7 +66,7 @@ class _history_pageState extends State<history_page> {
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack,
-                              fontSize: 15))),
+                              fontSize: small))),
                 ),
               ],
             ),

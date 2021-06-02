@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 final buttonColor = Color(0xff00358A);
 final SBlue = Color(0xff002868);
@@ -12,6 +13,9 @@ final SFacebook = Color(0xff3B5998);
 final SGray = Color(0xffBBBBBB);
 final Sgreen = Color(0xff00BB0C);
 final kGray = Color(0xffDFDFDF);
+final header = 22.sp;
+final medium = 14.sp;
+final small = 10.sp;
 
 
 

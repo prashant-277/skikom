@@ -5,7 +5,7 @@ import 'package:skicom/Challenge/challenge/savechallenge_page.dart';
 import 'package:skicom/Challenge/challenge/sos_emergency.dart';
 import 'package:skicom/Challenge/competition/saveActivity_page.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class startChallenge extends StatefulWidget {
   const startChallenge({Key key}) : super(key: key);
 
@@ -49,7 +49,7 @@ class _startChallengeState extends State<startChallenge> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30.0, right: 10),
+                    padding: const EdgeInsets.only(top: 40.0, right: 20),
                     child: InkWell(
                       onTap: () {
                         Navigator.of(context, rootNavigator: true).push(
@@ -63,7 +63,7 @@ class _startChallengeState extends State<startChallenge> {
                           alignment: Alignment.topRight,
                           child: Image.asset(
                             "Assets/Icons/sos_btn.png",
-                            height: query.height * 0.09,
+                            height: 60.sp,
                           )),
                     ),
                   )
@@ -84,7 +84,7 @@ class _startChallengeState extends State<startChallenge> {
                               Text(
                                 "km",
                                 style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: small,
                                     fontFamily: "SFPro",
                                     fontWeight: FontWeight.w500,
                                     color: SGray),
@@ -92,7 +92,7 @@ class _startChallengeState extends State<startChallenge> {
                               Text(
                                 "0.01",
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: medium,
                                     fontFamily: "SFPro",
                                     fontWeight: FontWeight.w600,
                                     color: SBlack),
@@ -104,7 +104,7 @@ class _startChallengeState extends State<startChallenge> {
                               Text(
                                 "Time",
                                 style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: small,
                                     fontFamily: "SFPro",
                                     fontWeight: FontWeight.w500,
                                     color: SGray),
@@ -112,7 +112,7 @@ class _startChallengeState extends State<startChallenge> {
                               Text(
                                 "00:01:25",
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: medium,
                                     fontFamily: "SFPro",
                                     fontWeight: FontWeight.w600,
                                     color: SBlack),
@@ -133,7 +133,7 @@ class _startChallengeState extends State<startChallenge> {
                           },
                           child: Image.asset(
                             "Assets/Icons/pause.png",
-                            height: query.height * 0.1,
+                            height: 60.sp,
                           ),
                         ),
                       ),
@@ -153,7 +153,7 @@ class _startChallengeState extends State<startChallenge> {
                               },
                               child: Image.asset(
                                 "Assets/Icons/finish.png",
-                                height: query.height * 0.1,
+                                height: 60.sp,
                               ),
                             ),
                             SizedBox(width: query.width / 9),
@@ -166,7 +166,7 @@ class _startChallengeState extends State<startChallenge> {
                               },
                               child: Image.asset(
                                 "Assets/Icons/resume.png",
-                                height: query.height * 0.1,
+                                height: 60.sp,
                               ),
                             ),
                           ],

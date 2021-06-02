@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class resetPassword extends StatefulWidget {
   const resetPassword({Key key}) : super(key: key);
@@ -57,7 +58,7 @@ class _resetPasswordState extends State<resetPassword> {
                         fontWeight: FontWeight.w600,
                         fontFamily: "SFPro",
                         height: 1,
-                        fontSize: 30)
+                        fontSize: header)
                     ),
                   ],
                 ),
@@ -72,7 +73,7 @@ class _resetPasswordState extends State<resetPassword> {
                         height: 15,
                       ),
                       Container(
-                        width: query.width / 1.15,
+                        width: 260.sp,
                         child: TextFormField(
                           controller: _pswdCtrl,
                           textAlign: TextAlign.start,
@@ -92,13 +93,11 @@ class _resetPasswordState extends State<resetPassword> {
                               icon: !show
                                   ? Image.asset(
                                 'Assets/Icons/visible.png',
-                                width: 25.0,
-                                height: 25.0,
+                                width: 18.sp,
                               )
                                   : Image.asset(
                                 'Assets/Icons/invisible.png',
-                                width: 25.0,
-                                height: 25.0,
+                                width: 18.sp,
                               ),
                               onPressed: () {
                                 onTap();
@@ -131,8 +130,7 @@ class _resetPasswordState extends State<resetPassword> {
                             prefixIcon: new IconButton(
                               icon: new Image.asset(
                                 'Assets/Icons/password.png',
-                                width: 20.0,
-                                height: 20.0,
+                                width: 15.sp,
                                 color: SBlack,
                               ),
                               onPressed: null,
@@ -144,7 +142,7 @@ class _resetPasswordState extends State<resetPassword> {
                         height: 20,
                       ),
                       Container(
-                        width: query.width / 1.15,
+                        width: 260.sp,
 
                         child: TextFormField(
                           controller: _confirmpswdCtrl,
@@ -165,13 +163,11 @@ class _resetPasswordState extends State<resetPassword> {
                               icon: !confirmshow
                                   ? Image.asset(
                                 'Assets/Icons/visible.png',
-                                width: 25.0,
-                                height: 25.0,
+                                width: 18.sp,
                               )
                                   : Image.asset(
                                 'Assets/Icons/invisible.png',
-                                width: 25.0,
-                                height: 25.0,
+                                width: 18.sp,
                               ),
                               onPressed: () {
                                 onTap1();
@@ -204,8 +200,7 @@ class _resetPasswordState extends State<resetPassword> {
                             prefixIcon: new IconButton(
                               icon: new Image.asset(
                                 'Assets/Icons/password.png',
-                                width: 20.0,
-                                height: 20.0,
+                                width: 15.sp,
                                 color: SBlack,
                               ),
                               onPressed: null,
@@ -217,8 +212,8 @@ class _resetPasswordState extends State<resetPassword> {
                   )),
               SizedBox(height: 25),
               Container(
-                  width: query.width / 1.15,
-                  height: query.height * 0.08,
+                  width: 90.w,
+                  height: 8.0.h,
                   child: basicButton(Swhite, (){}, "Reset")),
             ],
           ),

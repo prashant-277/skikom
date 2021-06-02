@@ -5,6 +5,7 @@ import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/Widgets/textfield.dart';
 import 'package:skicom/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class login_Screen extends StatefulWidget {
   @override
@@ -49,7 +50,7 @@ class _login_ScreenState extends State<login_Screen> {
                             fontWeight: FontWeight.w600,
                             height: 1,
                             fontFamily: "SFPro",
-                            fontSize: 30)),
+                            fontSize: header)),
                   ),
                   Column(
                     children: [
@@ -62,8 +63,7 @@ class _login_ScreenState extends State<login_Screen> {
                         prefixIcon: new IconButton(
                           icon: new Image.asset(
                             'Assets/Icons/profile.png',
-                            width: 20.0,
-                            height: 20.0,
+                            width: 15.sp,
                             color: SBlack,
                           ),
                           onPressed: null,
@@ -81,13 +81,11 @@ class _login_ScreenState extends State<login_Screen> {
                           icon: !show
                               ? Image.asset(
                                   'Assets/Icons/visible.png',
-                                  width: 25.0,
-                                  height: 25.0,
+                                  width: 18.sp,
                                 )
                               : Image.asset(
                                   'Assets/Icons/invisible.png',
-                                  width: 25.0,
-                                  height: 25.0,
+                                  width: 18.sp,
                                 ),
                           onPressed: () {
                             onTap();
@@ -96,8 +94,7 @@ class _login_ScreenState extends State<login_Screen> {
                         prefixIcon: IconButton(
                           icon: new Image.asset(
                             'Assets/Icons/password.png',
-                            width: 20.0,
-                            height: 20.0,
+                            width: 15.sp,
                             color: SBlack,
                           ),
                           onPressed: null,
@@ -107,8 +104,11 @@ class _login_ScreenState extends State<login_Screen> {
                       ),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: InkWell(
-                          onTap: (){
+                        child: FlatButton(
+                          padding: EdgeInsets.zero,
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onPressed: () {
                             Navigator.push(
                                 context,
                                 PageTransition(
@@ -123,16 +123,17 @@ class _login_ScreenState extends State<login_Screen> {
                                   height: 2,
                                   color: Colors.black45,
                                   fontFamily: "SFPro",
-                                  fontSize: 18)),
+                                  fontSize: medium)),
                         ),
                       ),
                     ],
                   ),
                   Container(
-                      height: query.height * 0.08,
-                      width: query.width,
+                      width: 90.w,
+                      height: 8.0.h,
                       child: basicButton(Swhite, () {}, "Login")),
-                  Image.asset("Assets/Icons/loginwith.png"),
+                  Image.asset("Assets/Icons/loginwith.png",
+                  ),
                   Container(
                     height: query.height * 0.28,
                     child: Column(
@@ -144,14 +145,14 @@ class _login_ScreenState extends State<login_Screen> {
                                 BorderRadius.all(Radius.circular(50.0)),
                             border: Border.all(width: 1, color: SGray),
                           ),
-                          width: query.width,
-                          height: query.height * 0.08,
+                          width: 90.w,
+                          height: 8.5.h,
                           child: primarybutton("Continue with google", () {},
                               Swhite, "Assets/Icons/Google.png", SBlack),
                         ),
                         Container(
-                          width: query.width,
-                          height: query.height * 0.08,
+                          width: 90.w,
+                          height: 8.5.h,
                           child: primarybutton("Continue with Facebook", () {},
                               SFacebook, "Assets/Icons/facebook.png", Swhite),
                         ),
@@ -161,8 +162,8 @@ class _login_ScreenState extends State<login_Screen> {
                                 BorderRadius.all(Radius.circular(50.0)),
                             border: Border.all(width: 1, color: SGray),
                           ),
-                          width: query.width,
-                          height: query.height * 0.08,
+                          width: 90.w,
+                          height: 8.5.h,
                           child: primarybutton("Continue with Apple", () {},
                               Swhite, "Assets/Icons/apple.png", SBlack),
                         ),

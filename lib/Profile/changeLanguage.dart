@@ -8,7 +8,7 @@ class changeLanguage extends StatefulWidget {
 }
 
 class _changeLanguageState extends State<changeLanguage> {
-  bool tickEN = false;
+  bool tickEN = true;
   bool tickFN  = false;
 
   @override
@@ -21,7 +21,7 @@ class _changeLanguageState extends State<changeLanguage> {
         imageBack: true,
         appbartext: "Language",
         colorImage: Swhite,
-        fontsize: 15,
+        fontsize: medium,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -56,7 +56,7 @@ class _changeLanguageState extends State<changeLanguage> {
                                 fontFamily: "SFPro",
                                 fontWeight: FontWeight.w600,
                                 color: SBlack,
-                                fontSize: 14),
+                                fontSize: medium),
                           ),
                           Visibility(
                             visible: tickEN,
@@ -98,7 +98,7 @@ class _changeLanguageState extends State<changeLanguage> {
                                 fontFamily: "SFPro",
                                 fontWeight: FontWeight.w600,
                                 color: SBlack,
-                                fontSize: 14),
+                                fontSize: medium),
                           ),
                           Visibility(
                             visible: tickFN,

@@ -7,6 +7,7 @@ import 'package:skicom/Login/termsOfservice.dart';
 import 'package:skicom/constants.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/Login/privacy_policy.dart';
+import 'package:sizer/sizer.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key key}) : super(key: key);
@@ -31,28 +32,28 @@ class _RegistrationPageState extends State<RegistrationPage> {
         children: [
           Text(""),
           Image.asset("Assets/Images/logo.png",
-              fit: BoxFit.fill, height: query.height * 0.18),
+              fit: BoxFit.fill, height: 15.h),
           Container(
-            width: query.width / 1.1,
-            height: query.height * 0.09,
+            width: 90.w,
+            height: 8.5.h,
             child: primarybutton("Continue with google", () {}, Swhite,
                 "Assets/Icons/Google.png", SBlack),
           ),
           Container(
-            width: query.width / 1.1,
-            height: query.height * 0.09,
+            width: 90.w,
+            height: 8.5.h,
             child: primarybutton("Continue with Facebook", () {}, SFacebook,
                 "Assets/Icons/facebook.png", Swhite),
           ),
           Container(
-            width: query.width / 1.1,
-            height: query.height * 0.09,
+            width: 90.w,
+            height: 8.5.h,
             child: primarybutton("Continue with Apple", () {}, Swhite,
                 "Assets/Icons/apple.png", SBlack),
           ),
           Container(
-            width: query.width / 1.1,
-            height: query.height * 0.09,
+            width: 90.w,
+            height: 8.5.h,
             child: primarybutton("Register with Email", () {
               Navigator.push(
                   context,
@@ -70,14 +71,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
               children: [
                 TextSpan(
                   style: TextStyle(
-                      color: SBlack, fontSize: 16, fontFamily: "SFPro"),
+                      color: SBlack, fontSize: medium, fontFamily: "SFPro"),
                   text: "Already have an account?",
                 ),
                 WidgetSpan(child: SizedBox(width: 5)),
                 TextSpan(
                   style: TextStyle(
                       color: SRed,
-                      fontSize: 16,
+                      fontSize: medium,
                       fontWeight: FontWeight.w600,
                       fontFamily: "SFPro"),
                   text: "Login",
@@ -102,7 +103,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   style: TextStyle(
                       height: 1.8,
                       color: SBlack,
-                      fontSize: 14,
+                      fontSize: small,
                       fontFamily: "SFPro"),
                   text: "By registering, you agree to our",
                 ),
@@ -111,7 +112,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   style: TextStyle(
                       height: 1.8,
                       color: SBlack,
-                      fontSize: 14,
+                      fontSize: small,
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.w600,
                       fontFamily: "SFPro"),
@@ -132,7 +133,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   style: TextStyle(
                       height: 1.8,
                       color: SBlack,
-                      fontSize: 14,
+                      fontSize: small,
                       fontFamily: "SFPro"),
                   text: "and",
                 ),
@@ -141,7 +142,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   style: TextStyle(
                       height: 1.8,
                       color: SBlack,
-                      fontSize: 14,
+                      fontSize: small,
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.w600,
                       fontFamily: "SFPro"),

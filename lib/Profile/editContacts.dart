@@ -21,7 +21,7 @@ class _editContactsState extends State<editContacts> {
     return Scaffold(
       appBar: commanAppBar(
         appBar: AppBar(),
-        fontsize: 15,
+        fontsize: medium,
         colorImage: Swhite,
         appbartext: "Edit",
         imageBack: true,

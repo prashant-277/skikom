@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class primarybutton extends StatelessWidget {
   final String text;
   final Function onPressed;
@@ -20,19 +20,19 @@ class primarybutton extends StatelessWidget {
         children: [
           Image.asset(
             imageName,
-            height: 20,
+            width: 6.w,
           ),
           Text(
             text,
             style: TextStyle(
-                fontSize: 16,
+                fontSize: 14.0.sp,
                 fontFamily: "SFPro",
                 fontWeight: FontWeight.w600,
                 color: textcolor),
           ),
           Image.asset(
             imageName,
-            height: 20,
+            width: 6.w,
             color: Colors.transparent,
           ),
         ],
@@ -78,7 +78,7 @@ class basicButton extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-            fontSize: 16,
+            fontSize: 14.sp,
             fontFamily: "SFPro",
             fontWeight: FontWeight.w600,
             color: textcolor),

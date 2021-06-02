@@ -40,36 +40,24 @@ class _changepasswordState extends State<changepassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Swhite,
-      /*appBar: BaseAppBar(appBar: AppBar(),
-      backgroundColor: Swhite,
-      appbartext: "",
-      ),*/
+      appBar: BaseAppBar(
+        appBar: AppBar(),
+        backgroundColor: Swhite,
+        appbartext: "",
+      ),
       body: SingleChildScrollView(
         child: Container(
           color: Swhite,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(""),
-              IconButton(
-                highlightColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Image.asset(
-                  "Assets/Icons/back.png",
-                  height: 15,
-                  color: SBlack,
-                ),
-              ),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Text(
                   "Change password",
                   style: TextStyle(
                       color: SBlack,
-                      fontSize: 25,
+                      fontSize: header,
                       fontFamily: "SFPro",
                       fontWeight: FontWeight.w600),
                 ),

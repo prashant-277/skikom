@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Challenge/competition/competition_map.dart';
@@ -5,7 +6,7 @@ import 'package:skicom/Challenge/competition/startCompetition_page.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class competition_detail extends StatefulWidget {
   @override
   _competition_detailState createState() => _competition_detailState();
@@ -21,7 +22,7 @@ class _competition_detailState extends State<competition_detail> {
         appbartext: "Competition",
         colorImage: Swhite,
         imageBack: true,
-        fontsize: 16,
+        fontsize: medium,
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.transparent,
@@ -48,12 +49,10 @@ class _competition_detailState extends State<competition_detail> {
               Image.asset(
                 "Assets/Images/banner.png",
                 width: quary.width,
-                height: quary.height / 3,
+                height: 200.sp,
                 fit: BoxFit.fill,
               ),
-              SizedBox(
-                height: 15,
-              ),
+
               Padding(
                 padding: const EdgeInsets.only(left: 15.0, bottom: 5),
                 child: Row(
@@ -63,14 +62,14 @@ class _competition_detailState extends State<competition_detail> {
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w600,
                             color: SBlack,
-                            fontSize: 16)),
+                            fontSize: medium)),
                     Text(
                       "valdesqui",
                       style: TextStyle(
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w500,
                           color: SBlack,
-                          fontSize: 16),
+                          fontSize: medium),
                     )
                   ],
                 ),
@@ -84,14 +83,14 @@ class _competition_detailState extends State<competition_detail> {
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w600,
                             color: SBlack,
-                            fontSize: 16)),
+                            fontSize: medium)),
                     Text(
                       "100 points",
                       style: TextStyle(
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w500,
                           color: SBlack,
-                          fontSize: 16),
+                          fontSize: medium),
                     )
                   ],
                 ),
@@ -105,14 +104,14 @@ class _competition_detailState extends State<competition_detail> {
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w600,
                             color: SBlack,
-                            fontSize: 16)),
+                            fontSize: medium)),
                     Text(
                       "12 Jan, 2021",
                       style: TextStyle(
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w500,
                           color: SBlack,
-                          fontSize: 16),
+                          fontSize: medium),
                     )
                   ],
                 ),
@@ -126,14 +125,14 @@ class _competition_detailState extends State<competition_detail> {
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w600,
                             color: SBlack,
-                            fontSize: 16)),
+                            fontSize: medium)),
                     Text(
                       "12:30 PM",
                       style: TextStyle(
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w500,
                           color: SBlack,
-                          fontSize: 16),
+                          fontSize: medium),
                     )
                   ],
                 ),
@@ -142,20 +141,25 @@ class _competition_detailState extends State<competition_detail> {
                 padding: const EdgeInsets.only(left: 15.0, bottom: 5),
                 child: Row(
                   children: [
-                    Text("GPS coordinates : ",
-                        style: TextStyle(
-                            fontFamily: "SFPro",
-                            fontWeight: FontWeight.w600,
-                            color: SBlack,
-                            fontSize: 16)),
-                    Text(
-                      "N 48.11405 E 17.133055",
-                      style: TextStyle(
-                          fontFamily: "SFPro",
-                          fontWeight: FontWeight.w500,
-                          color: SBlack,
-                          fontSize: 16),
-                    )
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("GPS coordinates : ",
+                            style: TextStyle(
+                                fontFamily: "SFPro",
+                                fontWeight: FontWeight.w600,
+                                color: SBlack,
+                                fontSize: medium)),
+                        Text(
+                          "N 48.11405 E 17.133055",
+                          style: TextStyle(
+                              fontFamily: "SFPro",
+                              fontWeight: FontWeight.w500,
+                              color: SBlack,
+                              fontSize: medium),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -168,14 +172,14 @@ class _competition_detailState extends State<competition_detail> {
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w600,
                             color: SBlack,
-                            fontSize: 16)),
+                            fontSize: medium)),
                     Text(
                       "14 C",
                       style: TextStyle(
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w500,
                           color: SBlack,
-                          fontSize: 16),
+                          fontSize: medium),
                     )
                   ],
                 ),
@@ -189,14 +193,14 @@ class _competition_detailState extends State<competition_detail> {
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w600,
                             color: SBlack,
-                            fontSize: 16)),
+                            fontSize: medium)),
                     Text(
                       "Cloudy",
                       style: TextStyle(
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w500,
                           color: SBlack,
-                          fontSize: 16),
+                          fontSize: medium),
                     )
                   ],
                 ),
@@ -211,14 +215,14 @@ class _competition_detailState extends State<competition_detail> {
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w600,
                             color: SBlack,
-                            fontSize: 16)),
+                            fontSize: medium)),
                     Text(
                       "If you are not using it in an AppBar you could wrap the TabBar.",
                       style: TextStyle(
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w500,
                           color: SBlack,
-                          fontSize: 16),
+                          fontSize: medium),
                     )
                   ],
                 ),
@@ -227,6 +231,7 @@ class _competition_detailState extends State<competition_detail> {
                 padding: const EdgeInsets.all(12.0),
                 child: Container(
                     width: quary.width,
+                    height: 45.sp,
                     child: basicButton(Swhite, () {
                       Navigator.of(context, rootNavigator: true).push(
                           PageTransition(

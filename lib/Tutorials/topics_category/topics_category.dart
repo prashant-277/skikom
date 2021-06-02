@@ -3,7 +3,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Home/topicDetail_page.dart';
 import 'package:skicom/Tutorials/topics_category/categoryDetails_page.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class topics_category extends StatefulWidget {
   @override
   _topics_categoryState createState() => _topics_categoryState();
@@ -26,7 +26,6 @@ class _topics_categoryState extends State<topics_category> {
                 child: Column(
                   children: [
                     InkWell(
-
                       onTap: (){
                         Navigator.of(context, rootNavigator: true).push(
                             PageTransition(
@@ -37,7 +36,7 @@ class _topics_categoryState extends State<topics_category> {
                       },
                       child: Container(
                         width: query.width,
-                        height: query.height * 0.12,
+                        height: 70.sp,
                         decoration: BoxDecoration(
                             border: Border.all(color: kGray, width: 1.5),
                             borderRadius:
@@ -53,12 +52,11 @@ class _topics_categoryState extends State<topics_category> {
                                   borderRadius: BorderRadius.circular(10.0),
                                   child: Image.asset(
                                     "Assets/Images/image_noti.png",
-                                    height: query.height * 0.16,
+
                                   )),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: Container(
-                                  height: query.height * 0.12,
                                   child: Column(
                                     crossAxisAlignment:
                                     CrossAxisAlignment.start,
@@ -71,17 +69,18 @@ class _topics_categoryState extends State<topics_category> {
                                             fontFamily: "SFPro",
                                             fontWeight: FontWeight.w600,
                                             color: SBlack,
-                                            fontSize: 16),
+                                            fontSize: medium),
                                       ),
                                       Container(
                                         width: query.width * 0.58,
                                         child: Text(
                                           "You can support the library by liking it on pub...",
+                                          maxLines: 2,
                                           style: TextStyle(
                                               fontFamily: "SFPro",
                                               fontWeight: FontWeight.w500,
                                               color: SBlack,
-                                              fontSize: 12),
+                                              fontSize: small),
                                         ),
                                       ),
                                       Text(
@@ -90,7 +89,7 @@ class _topics_categoryState extends State<topics_category> {
                                             fontFamily: "SFPro",
                                             fontWeight: FontWeight.w500,
                                             color: SGray,
-                                            fontSize: 10),
+                                            fontSize: small),
                                       ),
                                     ],
                                   ),

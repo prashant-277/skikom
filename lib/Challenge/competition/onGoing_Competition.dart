@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Challenge/competition/competition_detail.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class onGoing_Competition extends StatefulWidget {
 
   @override
@@ -21,7 +21,7 @@ class _onGoing_CompetitionState extends State<onGoing_Competition> {
           itemBuilder: (context, index) {
             return Column(
               children: [
-                SizedBox(height: 10),
+                SizedBox(height: 5.sp),
                 GestureDetector(
                   onTap: (){
                     Navigator.of(context, rootNavigator: true).push(
@@ -36,7 +36,7 @@ class _onGoing_CompetitionState extends State<onGoing_Competition> {
                     width: query.width,
                     child: Padding(
                       padding:
-                          const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         children: [
                           SizedBox(height: 5),
@@ -48,12 +48,12 @@ class _onGoing_CompetitionState extends State<onGoing_Competition> {
                                   borderRadius: BorderRadius.circular(10.0),
                                   child: Image.asset(
                                     "Assets/Images/image_1.png",
-                                    height: query.height * 0.18,
+                                    height: 80.sp,
                                   )),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: Container(
-                                  height: query.height * 0.17,
+                                  height: 75.sp,
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,7 +64,7 @@ class _onGoing_CompetitionState extends State<onGoing_Competition> {
                                             fontFamily: "SFPro",
                                             fontWeight: FontWeight.w600,
                                             color: SBlack,
-                                            fontSize: 18),
+                                            fontSize: medium),
                                       ),
                                       Row(
                                         children: [
@@ -73,13 +73,13 @@ class _onGoing_CompetitionState extends State<onGoing_Competition> {
                                                   fontFamily: "SFPro",
                                                   fontWeight: FontWeight.w600,
                                                   color: SBlack,
-                                                  fontSize: 14)),
+                                                  fontSize: small)),
                                           Text("valdesqui",
                                               style: TextStyle(
                                               fontFamily: "SFPro",
                                               fontWeight: FontWeight.w500,
                                               color: SBlack,
-                                              fontSize: 14),)
+                                              fontSize: small),)
                                         ],
                                       ),
                                       Row(
@@ -89,13 +89,13 @@ class _onGoing_CompetitionState extends State<onGoing_Competition> {
                                                   fontFamily: "SFPro",
                                                   fontWeight: FontWeight.w600,
                                                   color: SBlack,
-                                                  fontSize: 14)),
+                                                  fontSize: small)),
                                           Text("100 points",
                                             style: TextStyle(
                                                 fontFamily: "SFPro",
                                                 fontWeight: FontWeight.w500,
                                                 color: SBlack,
-                                                fontSize: 14),)
+                                                fontSize: small),)
                                         ],
                                       ),
                                       Row(
@@ -105,13 +105,13 @@ class _onGoing_CompetitionState extends State<onGoing_Competition> {
                                                   fontFamily: "SFPro",
                                                   fontWeight: FontWeight.w600,
                                                   color: SBlack,
-                                                  fontSize: 14)),
+                                                  fontSize: small)),
                                           Text("12 Jan, 2021",
                                             style: TextStyle(
                                                 fontFamily: "SFPro",
                                                 fontWeight: FontWeight.w500,
                                                 color: SBlack,
-                                                fontSize: 14),)
+                                                fontSize: small),)
                                         ],
                                       ),
                                       Row(
@@ -121,13 +121,13 @@ class _onGoing_CompetitionState extends State<onGoing_Competition> {
                                                   fontFamily: "SFPro",
                                                   fontWeight: FontWeight.w600,
                                                   color: SBlack,
-                                                  fontSize: 13)),
+                                                  fontSize: small)),
                                           Text("14 Feb, 2021",
                                             style: TextStyle(
                                                 fontFamily: "SFPro",
                                                 fontWeight: FontWeight.w500,
                                                 color: SBlack,
-                                                fontSize: 14),)
+                                                fontSize: small),)
                                         ],
                                       )
                                     ],
@@ -137,13 +137,13 @@ class _onGoing_CompetitionState extends State<onGoing_Competition> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.symmetric(vertical: 15.0),
                             child: Text("Track a maximum of Km during one day.",
                               style: TextStyle(
                                   fontFamily: "SFPro",
                                   fontWeight: FontWeight.w600,
                                   color: SBlack,
-                                  fontSize: 10),),
+                                  fontSize: small),),
                           )
                         ],
                       ),

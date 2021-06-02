@@ -1,9 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class competition_map extends StatefulWidget {
   @override
@@ -24,7 +23,7 @@ class _competition_mapState extends State<competition_map> {
     var query = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -41,20 +40,23 @@ class _competition_mapState extends State<competition_map> {
                 ),
                 Column(
                   children: [
-                    SizedBox(height: 10),
-                    IconbuttonG(
-                      () {
+                    SizedBox(height: 20.sp),
+                    IconButton(
+                      onPressed: () {
                         Navigator.pop(context);
                       },
-                      "Assets/Icons/back.png",
-                    ),
+                      icon: Image.asset(
+                        "Assets/Icons/back.png",
+                        height: 15.sp,
+                      ),
+                    )
                   ],
                 ),
               ],
             ),
           ),
           Container(
-        //    height: query.height * 0.18,
+                height: query.height * 0.18,
             width: query.width,
             decoration: BoxDecoration(
                 color: SBlue,
@@ -62,7 +64,7 @@ class _competition_mapState extends State<competition_map> {
                     topLeft: Radius.circular(30.0),
                     topRight: Radius.circular(30.0))),
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(30.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Dashboard_page.dart';
 import 'package:skicom/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class level_selection extends StatefulWidget {
   @override
@@ -29,7 +30,7 @@ class _level_selectionState extends State<level_selection> {
               Text(""),
               Image.asset(
                 "Assets/Images/logo.png",
-                height: query.height * 0.16,
+                height: 15.h,
               ),
               Text(
                 "Choose the level of ski",
@@ -37,10 +38,10 @@ class _level_selectionState extends State<level_selection> {
                     fontFamily: "SFPro",
                     fontWeight: FontWeight.w600,
                     color: SBlack,
-                    fontSize: 25),
+                    fontSize: header),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   setState(() {
                     expert = false;
                     medium = false;
@@ -48,14 +49,12 @@ class _level_selectionState extends State<level_selection> {
                   });
                 },
                 child: Container(
-
                   height: query.height / 7,
                   width: query.width / 1.4,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("Assets/Icons/green.png")),
-                    borderRadius: BorderRadius.all(Radius.circular(100))
-                  ),
+                      borderRadius: BorderRadius.all(Radius.circular(100))),
                   child: Stack(
                     children: [
                       Center(
@@ -68,21 +67,25 @@ class _level_selectionState extends State<level_selection> {
                               fontSize: 24),
                         ),
                       ),
-                      Visibility(
-                        visible: beginner,
-                        child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Image.asset(
-                              "Assets/Icons/select.png",
-                              height: query.height * 0.05,
-                            )),
+                      AnimatedOpacity(
+                        opacity: beginner ? 1 : 0,
+                        duration: Duration(milliseconds: 250),
+                        child: Visibility(
+                          visible: beginner,
+                          child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: Image.asset(
+                                "Assets/Icons/select.png",
+                                height: query.height * 0.05,
+                              )),
+                        ),
                       )
                     ],
                   ),
                 ),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   setState(() {
                     expert = false;
                     medium = true;
@@ -95,8 +98,7 @@ class _level_selectionState extends State<level_selection> {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage("Assets/Icons/blue.png")),
-                        borderRadius: BorderRadius.all(Radius.circular(100))
-                    ),
+                        borderRadius: BorderRadius.all(Radius.circular(100))),
                     child: Stack(
                       children: [
                         Center(
@@ -109,14 +111,18 @@ class _level_selectionState extends State<level_selection> {
                                 fontSize: 24),
                           ),
                         ),
-                        Visibility(
-                          visible: medium,
-                          child: Align(
-                              alignment: Alignment.bottomRight,
-                              child: Image.asset(
-                                "Assets/Icons/select.png",
-                                height: query.height * 0.05,
-                              )),
+                        AnimatedOpacity(
+                          opacity: medium ? 1 : 0,
+                          duration: Duration(milliseconds: 250),
+                          child: Visibility(
+                            visible: medium,
+                            child: Align(
+                                alignment: Alignment.bottomRight,
+                                child: Image.asset(
+                                  "Assets/Icons/select.png",
+                                  height: query.height * 0.05,
+                                )),
+                          ),
                         )
                       ],
                     )),
@@ -137,8 +143,7 @@ class _level_selectionState extends State<level_selection> {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("Assets/Icons/red.png")),
-                      borderRadius: BorderRadius.all(Radius.circular(100))
-                  ),
+                      borderRadius: BorderRadius.all(Radius.circular(100))),
                   child: Stack(
                     children: [
                       Center(
@@ -151,21 +156,25 @@ class _level_selectionState extends State<level_selection> {
                               fontSize: 24),
                         ),
                       ),
-                      Visibility(
-                        visible: expert,
-                        child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Image.asset(
-                              "Assets/Icons/select.png",
-                              height: query.height * 0.05,
-                            )),
+                      AnimatedOpacity(
+                        opacity: expert ? 1 : 0,
+                        duration: Duration(milliseconds: 250),
+                        child: Visibility(
+                          visible: expert,
+                          child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: Image.asset(
+                                "Assets/Icons/select.png",
+                                height: query.height * 0.04.sp,
+                              )),
+                        ),
                       )
                     ],
                   ),
                 ),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.pushReplacement(
                       context,
                       PageTransition(
@@ -175,7 +184,7 @@ class _level_selectionState extends State<level_selection> {
                           child: dashboard_page()));
                 },
                 child: Container(
-                  height: query.height / 8.5,
+                  height: query.height / 7.sp,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("Assets/Icons/next.png"))),

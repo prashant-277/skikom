@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class videoplay_page extends StatefulWidget {
   @override
@@ -26,20 +27,19 @@ class _videoplay_pageState extends State<videoplay_page> {
                         image: AssetImage("Assets/Images/banner.png"),
                         fit: BoxFit.fill)),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 30.0, left: 20),
+                  padding: const EdgeInsets.only(top: 20.0, left: 00),
                   child: Align(
-                    alignment: Alignment.topLeft,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Image.asset(
-                        "Assets/Icons/back.png",
-                        height: query.height * 0.025,
-                        color: Swhite,
-                      ),
-                    ),
-                  ),
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Image.asset(
+                          "Assets/Icons/back.png",
+                          height: 15.sp,
+                          color: Swhite,
+                        ),
+                      )),
                 ),
               ),
               Container(
@@ -55,7 +55,7 @@ class _videoplay_pageState extends State<videoplay_page> {
                           fontWeight: FontWeight.w600,
                           color: SBlack,
                           height: 2.5,
-                          fontSize: 20),
+                          fontSize: medium),
                     ),
                     Container(
                       width: query.width * 1.0,
@@ -67,7 +67,7 @@ class _videoplay_pageState extends State<videoplay_page> {
                             fontWeight: FontWeight.w500,
                             color: SBlack,
                             height: 1.2,
-                            fontSize: 16),
+                            fontSize: medium),
                       ),
                     ),
                     Text(
@@ -77,7 +77,7 @@ class _videoplay_pageState extends State<videoplay_page> {
                           fontWeight: FontWeight.w500,
                           color: SGray,
                           height: 1.5,
-                          fontSize: 14),
+                          fontSize: small),
                     ),
                     Text(
                       "Related videos",
@@ -86,7 +86,7 @@ class _videoplay_pageState extends State<videoplay_page> {
                           fontWeight: FontWeight.w600,
                           color: SBlack,
                           height: 2.5,
-                          fontSize: 20),
+                          fontSize: medium),
                     ),
                   ],
                 ),
@@ -105,7 +105,7 @@ class _videoplay_pageState extends State<videoplay_page> {
                               onTap: () {},
                               child: Container(
                                 width: query.width,
-                                height: query.height * 0.12,
+                                height: 80.sp,
                                 decoration: BoxDecoration(
                                     border:
                                         Border.all(color: kGray, width: 1.5),
@@ -124,33 +124,35 @@ class _videoplay_pageState extends State<videoplay_page> {
                                               BorderRadius.circular(10.0),
                                           child: Image.asset(
                                             "Assets/Images/image_noti.png",
-                                            height: query.height * 0.16,
                                           )),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
                                         child: Container(
                                           height: query.height * 0.12,
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 "What is Lorem Ipsum?",
                                                 style: TextStyle(
-                                                  height: 1.5,
+                                                    height: 1.5,
                                                     fontFamily: "SFPro",
                                                     fontWeight: FontWeight.w600,
                                                     color: SBlack,
-                                                    fontSize: 16),
+                                                    fontSize: medium),
                                               ),
                                               Text(
                                                 "20.05",
                                                 style: TextStyle(
-                                                    fontFamily: "SFPro",height: 1.5,
-                                                    fontWeight:
-                                                        FontWeight.w600,
+                                                    fontFamily: "SFPro",
+                                                    height: 1.5,
+                                                    fontWeight: FontWeight.w600,
                                                     color: SBlack,
-                                                    fontSize: 12),
+                                                    fontSize: small),
                                               ),
                                             ],
                                           ),

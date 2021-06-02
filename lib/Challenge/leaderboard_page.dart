@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class leaderboard_page extends StatefulWidget {
   @override
   _leaderboard_pageState createState() => _leaderboard_pageState();
@@ -18,7 +18,7 @@ class _leaderboard_pageState extends State<leaderboard_page> {
       backgroundColor: Swhite,
       appBar: commanAppBar(
         appBar: AppBar(),
-        fontsize: 16,
+        fontsize: medium,
         imageBack: true,
         colorImage: Swhite,
         appbartext: "Leaderboard",
@@ -28,7 +28,7 @@ class _leaderboard_pageState extends State<leaderboard_page> {
           Container(
             color: kGray,
             width: query.width,
-            height: query.height * 0.08,
+            height: 40.sp,
             child: Row(
               children: [
                 Padding(
@@ -38,7 +38,7 @@ class _leaderboard_pageState extends State<leaderboard_page> {
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w500,
                           color: Colors.black45,
-                          fontSize: 16)),
+                          fontSize: medium)),
                 ),
               ],
             ),
@@ -56,7 +56,6 @@ class _leaderboard_pageState extends State<leaderboard_page> {
                     child: Image.asset("Assets/Images/image_1.png")),
                 SizedBox(width: 25),
                 Container(
-                  height: query.height * 0.08,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -66,13 +65,13 @@ class _leaderboard_pageState extends State<leaderboard_page> {
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack,
-                              fontSize: 15)),
+                              fontSize: medium)),
                       Text("Not ranked",
                           style: TextStyle(
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w500,
                               color: SBlack,
-                              fontSize: 12)),
+                              fontSize: small)),
                     ],
                   ),
                 ),
@@ -83,7 +82,7 @@ class _leaderboard_pageState extends State<leaderboard_page> {
           Container(
             color: kGray,
             width: query.width,
-            height: query.height * 0.08,
+            height: 40.sp,
             child: Center(
               child: Row(
                 children: [
@@ -94,7 +93,7 @@ class _leaderboard_pageState extends State<leaderboard_page> {
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w500,
                             color: Colors.black45,
-                            fontSize: 16)),
+                            fontSize: medium)),
                   ),
                 ],
               ),
@@ -122,7 +121,7 @@ class _leaderboard_pageState extends State<leaderboard_page> {
                                       fontFamily: "SFPro",
                                       fontWeight: FontWeight.w600,
                                       color: SBlack,
-                                      fontSize: 18)),
+                                      fontSize: medium)),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(5.0),
@@ -150,13 +149,13 @@ class _leaderboard_pageState extends State<leaderboard_page> {
                                                 fontFamily: "SFPro",
                                                 fontWeight: FontWeight.w600,
                                                 color: SBlack,
-                                                fontSize: 15)),
+                                                fontSize: medium)),
                                         Text("848 km",
                                             style: TextStyle(
                                                 fontFamily: "SFPro",
                                                 fontWeight: FontWeight.w500,
                                                 color: SBlack,
-                                                fontSize: 12)),
+                                                fontSize: small)),
                                       ],
                                     ),
                                     SliderTheme(

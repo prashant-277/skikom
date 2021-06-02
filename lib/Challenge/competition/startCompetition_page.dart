@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Challenge/competition/saveActivity_page.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class startCompetition_page extends StatefulWidget {
   const startCompetition_page({Key key}) : super(key: key);
 
@@ -59,7 +59,7 @@ class _startCompetition_pageState extends State<startCompetition_page> {
                               Text(
                                 "km",
                                 style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: small,
                                     fontFamily: "SFPro",
                                     fontWeight: FontWeight.w500,
                                     color: SGray),
@@ -67,7 +67,7 @@ class _startCompetition_pageState extends State<startCompetition_page> {
                               Text(
                                 "0.01",
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: medium,
                                     fontFamily: "SFPro",
                                     fontWeight: FontWeight.w600,
                                     color: SBlack),
@@ -79,7 +79,7 @@ class _startCompetition_pageState extends State<startCompetition_page> {
                               Text(
                                 "Time",
                                 style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: small,
                                     fontFamily: "SFPro",
                                     fontWeight: FontWeight.w500,
                                     color: SGray),
@@ -87,7 +87,7 @@ class _startCompetition_pageState extends State<startCompetition_page> {
                               Text(
                                 "00:01:25",
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: medium,
                                     fontFamily: "SFPro",
                                     fontWeight: FontWeight.w600,
                                     color: SBlack),
@@ -108,7 +108,7 @@ class _startCompetition_pageState extends State<startCompetition_page> {
                           },
                           child: Image.asset(
                             "Assets/Icons/pause.png",
-                            height: query.height * 0.1,
+                            height: 60.sp,
                           ),
                         ),
                       ),
@@ -128,7 +128,7 @@ class _startCompetition_pageState extends State<startCompetition_page> {
                               },
                               child: Image.asset(
                                 "Assets/Icons/finish.png",
-                                height: query.height * 0.1,
+                                height: 60.sp,
                               ),
                             ),
                             SizedBox(width: query.width / 9),
@@ -141,7 +141,7 @@ class _startCompetition_pageState extends State<startCompetition_page> {
                               },
                               child: Image.asset(
                                 "Assets/Icons/resume.png",
-                                height: query.height * 0.1,
+                                height: 60.sp,
                               ),
                             ),
                           ],

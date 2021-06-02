@@ -4,7 +4,7 @@ import 'package:skicom/Tutorials/topics_category/topics_category.dart';
 import 'package:skicom/Tutorials/video_category/video_category.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class category_page extends StatefulWidget {
 
   @override
@@ -23,7 +23,7 @@ class _category_pageState extends State<category_page> {
         appBar: AppBar(),
         appbartext: "Category 1",
         colorImage: Swhite,
-        fontsize: 15,
+        fontsize: medium,
         imageBack: true,
         widgets: [
           FlatButton(
@@ -39,9 +39,12 @@ class _category_pageState extends State<category_page> {
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w600,
                           color: Swhite,
-                          fontSize: 15)),
-                  SizedBox(width: 8),
-                  Image.asset("Assets/Icons/search.png",height: 15,)
+                          fontSize: medium)),
+                  SizedBox(width: 10.sp),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Image.asset("Assets/Icons/search.png",height: medium,),
+                  )
                 ],
               ))
         ],
@@ -51,6 +54,7 @@ class _category_pageState extends State<category_page> {
         child: Column(
           children: <Widget>[
             Container(
+              height: 35.sp,
               color: SGray,
               child: TabBar(
                 automaticIndicatorColorAdjustment: true,
@@ -74,7 +78,7 @@ class _category_pageState extends State<category_page> {
                                 fontFamily: "SFPro",
                                 fontWeight: FontWeight.w600,
                                 color: SBlack,
-                                fontSize: 15))),
+                                fontSize: small))),
                   ),
                   Container(
                     padding: EdgeInsets.zero,
@@ -86,7 +90,7 @@ class _category_pageState extends State<category_page> {
                                 fontFamily: "SFPro",
                                 fontWeight: FontWeight.w600,
                                 color: SBlack,
-                                fontSize: 15))),
+                                fontSize: small))),
                   ),
                 ],
               ),

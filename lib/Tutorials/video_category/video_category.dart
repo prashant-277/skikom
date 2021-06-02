@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Tutorials/video_category/videoplay_page.dart';
 import 'package:skicom/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class video_category extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _video_categoryState extends State<video_category> {
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context, rootNavigator: true).push(
                           PageTransition(
                               type: PageTransitionType.fade,
@@ -30,42 +31,45 @@ class _video_categoryState extends State<video_category> {
                               child: videoplay_page()));
                     },
                     child: Container(
-                      // height: query.height*0.46,
                       decoration: BoxDecoration(
                           border: Border.all(color: kGray, width: 1),
-                          borderRadius: BorderRadius.circular(10.0)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Container(
-                              height: query.height * 0.31,
-                              width: query.width,
-                              child: Stack(
-                                children: [
-                                  Container(
+                          borderRadius: BorderRadius.circular(15.0)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: query.height * 0.25,
+                            width: query.width,
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
                                     width: query.width,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: AssetImage(
-                                              "Assets/Images/banner.png")),
+                                              "Assets/Images/banner.png"),
+                                          fit: BoxFit.fill),
                                     ),
                                   ),
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child: Image.asset(
-                                        "Assets/Icons/play.png",
-                                        height: query.height * 0.08,
-                                      ))
-                                ],
-                              ),
+                                ),
+                                Align(
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      "Assets/Icons/play.png",
+                                      height: query.height * 0.08,
+                                    ))
+                              ],
                             ),
-                            Container(
-                              height: query.height * 0.12,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: Container(
                               width: query.width,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     "What is Lorem Ipsum?",
@@ -73,19 +77,19 @@ class _video_categoryState extends State<video_category> {
                                         fontFamily: "SFPro",
                                         fontWeight: FontWeight.w600,
                                         color: SBlack,
-                                        height: 1.5,
-                                        fontSize: 15),
+                                        fontSize: medium),
                                   ),
                                   Container(
-                                    width: query.width * 0.8,
+                                    width: query.width * 0.9,
                                     child: Text(
                                       "Custom Flutter widgets that makes Checkbox and Radio Buttons much cleaner and easier",
+                                      maxLines: 2,
                                       style: TextStyle(
                                           fontFamily: "SFPro",
                                           fontWeight: FontWeight.w500,
                                           color: SBlack,
                                           height: 1.2,
-                                          fontSize: 12),
+                                          fontSize: small),
                                     ),
                                   ),
                                   Text(
@@ -95,13 +99,13 @@ class _video_categoryState extends State<video_category> {
                                         fontWeight: FontWeight.w500,
                                         color: SGray,
                                         height: 1.5,
-                                        fontSize: 10),
+                                        fontSize: small),
                                   ),
                                 ],
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),

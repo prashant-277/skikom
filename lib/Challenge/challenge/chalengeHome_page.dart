@@ -23,7 +23,7 @@ class _challengeHome_pageState extends State<challengeHome_page> {
     return Scaffold(
       appBar: commanAppBar(
         appBar: AppBar(),
-        fontsize: 15,
+        fontsize: medium,
         imageBack: true,
         colorImage: Swhite,
         appbartext: "Challenge",
@@ -41,7 +41,7 @@ class _challengeHome_pageState extends State<challengeHome_page> {
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w600,
                           color: Swhite,
-                          fontSize: 15)),
+                          fontSize: medium)),
                   SizedBox(width: 8),
                   Image.asset("Assets/Icons/search.png",height: 15,)
                 ],
@@ -77,7 +77,7 @@ class _challengeHome_pageState extends State<challengeHome_page> {
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack,
-                              fontSize: 15))),
+                              fontSize: small))),
                 ),
                 Container(
                   padding: EdgeInsets.zero,
@@ -89,7 +89,7 @@ class _challengeHome_pageState extends State<challengeHome_page> {
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack,
-                              fontSize: 15))),
+                              fontSize: small))),
                 ),
               ],
             ),

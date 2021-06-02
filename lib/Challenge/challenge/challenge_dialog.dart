@@ -3,6 +3,7 @@ import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class challenge_dialog extends StatefulWidget {
   @override
@@ -17,7 +18,6 @@ class _challenge_dialogState extends State<challenge_dialog> {
       child: Container(
         decoration: BoxDecoration(
             color: Swhite, borderRadius: BorderRadius.circular(40.0)),
-        height: query.height * 0.6,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -36,16 +36,16 @@ class _challenge_dialogState extends State<challenge_dialog> {
                 borderRadius: BorderRadius.circular(100),
                 child: Image.asset(
                   "Assets/Images/2.png",
-                  height: query.height * 0.13,
+                  height: 80.sp,
                 )),
-            SizedBox(height: 5),
+            SizedBox(height: 10.sp),
             Text("Martin",
                 style: TextStyle(
                     fontFamily: "SFPro",
                     fontWeight: FontWeight.w600,
                     color: SBlack,
-                    fontSize: 18)),
-            SizedBox(height: 5),
+                    fontSize: medium)),
+            SizedBox(height: 10.sp),
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -55,10 +55,10 @@ class _challenge_dialogState extends State<challenge_dialog> {
                         fontFamily: "SFPro",
                         fontWeight: FontWeight.w600,
                         color: SBlack,
-                        fontSize: 14)),
+                        fontSize: medium)),
               ),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 10),
             CustomRadioButton(
               width: query.width * 0.2,
               height: query.height * 0.05,
@@ -88,7 +88,7 @@ class _challenge_dialogState extends State<challenge_dialog> {
                   selectedColor: Colors.white,
                   unSelectedColor: Colors.black,
                   textStyle: TextStyle(
-                    fontSize: 12,
+                    fontSize: small,
                     fontFamily: "SFPro",
                     fontWeight: FontWeight.w500,
                     color: SBlack,
@@ -98,8 +98,10 @@ class _challenge_dialogState extends State<challenge_dialog> {
               },
               selectedColor: SBlue,
             ),
-            SizedBox(height: 5),
-            Container(child: basicButton(Swhite, () {}, "Challenge Now!"))
+            SizedBox(height: 10.sp),
+            Container(
+                height: 6.5.h,
+                child: basicButton(Swhite, () {}, "Challenge Now!"))
           ],
         ),
       ),

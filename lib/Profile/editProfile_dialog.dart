@@ -38,7 +38,7 @@ class _editProfile_dialogState extends State<editProfile_dialog> {
                         fontFamily: "SFPro",
                         fontWeight: FontWeight.w600,
                         color: SBlack,
-                        fontSize: 16),
+                        fontSize: medium),
                   ),
                   IconButton(
                     onPressed: () {

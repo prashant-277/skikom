@@ -6,6 +6,7 @@ import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/Widgets/textfield.dart';
 
 import '../constants.dart';
+import 'package:sizer/sizer.dart';
 
 class forgotPassword extends StatefulWidget {
   @override
@@ -42,7 +43,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                             fontWeight: FontWeight.w600,
                             height: 1,
                             fontFamily: "SFPro",
-                            fontSize: 30)),
+                            fontSize: header)),
                   ),
                   Text(
                       "Enter your email address below and we will send you a reset link",
@@ -50,7 +51,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                           fontWeight: FontWeight.w500,
                           fontFamily: "SFPro",
                           height: 1.5,
-                          fontSize: 18)),
+                          fontSize: medium)),
                   textfield(
                     controller: email_controller,
                     obscureText: false,
@@ -60,8 +61,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                     prefixIcon: new IconButton(
                       icon: new Image.asset(
                         'Assets/Icons/email.png',
-                        width: 25.0,
-                        height: 25.0,
+                        width: 15.sp,
                         color: SBlack,
                       ),
                       onPressed: null,
@@ -70,8 +70,9 @@ class _forgotPasswordState extends State<forgotPassword> {
                     textInputType: TextInputType.name,
                   ),
                   Container(
-                      height: query.height * 0.08,
-                      width: query.width,
+                      width: 90.w,
+                      height: 8.0.h,
+
                       child: basicButton(Swhite, () {
                         Navigator.push(
                             context,

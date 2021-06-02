@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class saveActivity_page extends StatefulWidget {
   @override
   _saveActivity_pageState createState() => _saveActivity_pageState();
@@ -13,10 +13,10 @@ class _saveActivity_pageState extends State<saveActivity_page> {
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: kGray,
+      backgroundColor: SGray,
       appBar: commanAppBar(
         appBar: AppBar(),
-        fontsize: 15,
+        fontsize: medium,
         imageBack: true,
         colorImage: Swhite,
         appbartext: "Save Activity",
@@ -39,7 +39,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                         Text(
                           "Distance",
                           style: TextStyle(
-                              fontSize: 14,
+                              fontSize: small,
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w500,
                               color: SGray),
@@ -48,7 +48,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                         Text(
                           "4.31 km",
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: medium,
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack),
@@ -65,7 +65,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                         Text(
                           "Duration",
                           style: TextStyle(
-                              fontSize: 14,
+                              fontSize: small,
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w500,
                               color: SGray),
@@ -74,7 +74,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                         Text(
                           "02:05:14",
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: medium,
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack),
@@ -91,7 +91,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                         Text(
                           "Speed",
                           style: TextStyle(
-                              fontSize: 14,
+                              fontSize: small,
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w500,
                               color: SGray),
@@ -100,7 +100,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                         Text(
                           "8 km/h",
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: medium,
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack),
@@ -113,7 +113,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
               Container(
                 color: kGray,
                 width: query.width,
-                height: query.height * 0.08,
+                height: 45.sp,
                 child: Center(
                   child: Row(
                     children: [
@@ -124,7 +124,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                                 fontFamily: "SFPro",
                                 fontWeight: FontWeight.w500,
                                 color: SBlack,
-                                fontSize: 16)),
+                                fontSize: medium)),
                       ),
                     ],
                   ),
@@ -133,7 +133,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
               Container(
                 color: Swhite,
                 width: query.width,
-                height: query.height * 0.06,
+                height: 40.sp,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
@@ -145,7 +145,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack,
-                              fontSize: 16)),
+                              fontSize: medium)),
                       /*Text("Please Enter title",
                           style: TextStyle(
                               fontFamily: "SFPro",
@@ -153,12 +153,12 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                               color: SBlack,
                               fontSize: 16)),*/
                       Container(
-                        width: query.width * 0.31,
+                        width: 150.sp,
                         child: TextField(
                           maxLines: 1,
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: medium,
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w500,
                           ),
@@ -182,7 +182,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
               Container(
                 color: Swhite,
                 width: query.width,
-                height: query.height * 0.06,
+                height: 40.sp,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
@@ -194,13 +194,13 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack,
-                              fontSize: 16)),
+                              fontSize: medium)),
                       Text("Challenge",
                           style: TextStyle(
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w500,
                               color: SBlack,
-                              fontSize: 16)),
+                              fontSize: medium)),
                     ],
                   ),
                 ),
@@ -215,6 +215,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
+                        height: 45.sp,
                         width: query.width / 1.2,
                         decoration: BoxDecoration(
                             border: Border.all(color: SBlack, width: 2),
@@ -235,6 +236,7 @@ class _saveActivity_pageState extends State<saveActivity_page> {
                         ),
                       ),
                       Container(
+                          height: 45.sp,
                           width: query.width / 1.2,
                           child: basicButton(Swhite, () {
                             Navigator.pop(context);

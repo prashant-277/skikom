@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class notification_page extends StatefulWidget {
   @override
   _notification_pageState createState() => _notification_pageState();
@@ -19,7 +19,7 @@ class _notification_pageState extends State<notification_page> {
         appBar: AppBar(),
         appbartext: "Notification",
         colorImage: Swhite,
-        fontsize: 18,
+        fontsize: medium,
         imageBack: true,
       ),
       body: Padding(
@@ -45,7 +45,7 @@ class _notification_pageState extends State<notification_page> {
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w600,
                             color: SBlack,
-                            fontSize: 16),
+                            fontSize: medium),
                       ),
                       Container(
                         child: CupertinoSwitch(
@@ -74,7 +74,7 @@ class _notification_pageState extends State<notification_page> {
                         children: [
                           Container(
                             width: query.width,
-                            height: query.height * 0.16,
+                            height: 80.sp,
                             decoration: BoxDecoration(
                                 border: Border.all(color: SGray, width: 1),
                                 borderRadius:
@@ -90,17 +90,15 @@ class _notification_pageState extends State<notification_page> {
                                       borderRadius: BorderRadius.circular(10.0),
                                       child: Image.asset(
                                         "Assets/Images/image_noti.png",
-                                        height: query.height * 0.13,
                                       )),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: Container(
-                                      height: query.height * 0.12,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text(
                                             "Main title",
@@ -108,7 +106,7 @@ class _notification_pageState extends State<notification_page> {
                                                 fontFamily: "SFPro",
                                                 fontWeight: FontWeight.w600,
                                                 color: SBlack,
-                                                fontSize: 20),
+                                                fontSize: medium),
                                           ),
                                           Container(
                                             width: query.width * 0.58,
@@ -118,7 +116,7 @@ class _notification_pageState extends State<notification_page> {
                                                   fontFamily: "SFPro",
                                                   fontWeight: FontWeight.w500,
                                                   color: SBlack,
-                                                  fontSize: 15),
+                                                  fontSize: small),
                                             ),
                                           ),
                                           Text(
@@ -127,7 +125,7 @@ class _notification_pageState extends State<notification_page> {
                                                 fontFamily: "SFPro",
                                                 fontWeight: FontWeight.w500,
                                                 color: SGray,
-                                                fontSize: 12),
+                                                fontSize: small),
                                           ),
                                         ],
                                       ),

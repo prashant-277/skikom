@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Challenge/competition/upComing_competition_Detail.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class upComing_Competition extends StatefulWidget {
   @override
   _upComing_CompetitionState createState() => _upComing_CompetitionState();
@@ -34,7 +34,7 @@ class _upComing_CompetitionState extends State<upComing_Competition> {
                     },
                     child: Container(
                       width: query.width,
-                      height: query.height * 0.16,
+                      height: 80.sp,
                       decoration: BoxDecoration(
                           border: Border.all(color: kGray, width: 1),
                           borderRadius: BorderRadius.all(Radius.circular(10.0))),
@@ -49,13 +49,13 @@ class _upComing_CompetitionState extends State<upComing_Competition> {
                                 borderRadius: BorderRadius.circular(80.0),
                                 child: Image.asset(
                                   "Assets/Images/image_1.png",
-                                  height: query.height * 0.12,
+                                  height: 60.sp,
                                   fit: BoxFit.fill,
                                 )),
                             Padding(
                               padding: const EdgeInsets.only(left: 8.0),
                               child: Container(
-                                height: query.height * 0.065,
+                                height: 35.sp,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -66,19 +66,19 @@ class _upComing_CompetitionState extends State<upComing_Competition> {
                                           fontFamily: "SFPro",
                                           fontWeight: FontWeight.w600,
                                           color: SBlack,
-                                          fontSize: 18),
+                                          fontSize: medium),
                                     ),
                                     Row(
                                       children: [
                                         Image.asset("Assets/Icons/km_away.png",height: query.height*0.022,),
-                                        SizedBox(width: 5,),
+                                        SizedBox(width: small,),
                                         Text(
                                           "12 km " +"away",
                                           style: TextStyle(
                                               fontFamily: "SFPro",
                                               fontWeight: FontWeight.w500,
                                               color: SBlack,
-                                              fontSize: 15),
+                                              fontSize: small),
                                         ),
                                       ],
                                     ),

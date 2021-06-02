@@ -23,7 +23,7 @@ class _competition_pageState extends State<competition_page> {
         appBar: AppBar(),
         appbartext: "Competition",
         colorImage: Swhite,
-        fontsize: 15,
+        fontsize: medium,
         imageBack: true,
         widgets: [
           Padding(
@@ -51,7 +51,7 @@ class _competition_pageState extends State<competition_page> {
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w600,
                             color: Swhite,
-                            fontSize: 15)),
+                            fontSize: small)),
                   ),
                 ),
               ),
@@ -87,7 +87,7 @@ class _competition_pageState extends State<competition_page> {
                                 fontFamily: "SFPro",
                                 fontWeight: FontWeight.w600,
                                 color: current_tab == 0 ? Swhite : SBlack,
-                                fontSize: 15))),
+                                fontSize: small))),
                   ),
                   Container(
                     padding: EdgeInsets.zero,
@@ -99,7 +99,7 @@ class _competition_pageState extends State<competition_page> {
                                 fontFamily: "SFPro",
                                 fontWeight: FontWeight.w600,
                                 color: current_tab == 1 ? Swhite : SBlack,
-                                fontSize: 15))),
+                                fontSize: small))),
                   ),
                 ],
               ),

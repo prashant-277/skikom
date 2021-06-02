@@ -4,7 +4,7 @@ import 'package:skicom/History/competitonHistory_detail.dart';
 
 import '../constants.dart';
 import 'chalengeHistory_detail.dart';
-
+import 'package:sizer/sizer.dart';
 class challenge_history extends StatefulWidget {
   @override
   _challenge_historyState createState() => _challenge_historyState();
@@ -19,7 +19,7 @@ class _challenge_historyState extends State<challenge_history> {
       body:Padding(
         padding: const EdgeInsets.only(top: 15.0),
         child: Container(
-          height: query.height * 0.45,
+
           child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
               itemCount: 3,
@@ -39,7 +39,7 @@ class _challenge_historyState extends State<challenge_history> {
                         },
                         child: Container(
                           width: query.width,
-                          height: query.height * 0.12,
+                          height: 70.sp,
                           decoration: BoxDecoration(
                               border:
                               Border.all(color: kGray, width: 1.5),
@@ -58,12 +58,10 @@ class _challenge_historyState extends State<challenge_history> {
                                     BorderRadius.circular(10.0),
                                     child: Image.asset(
                                       "Assets/Images/image_noti.png",
-                                      height: query.height * 0.16,
                                     )),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Container(
-                                    height: query.height * 0.12,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +73,7 @@ class _challenge_historyState extends State<challenge_history> {
                                               fontFamily: "SFPro",
                                               fontWeight: FontWeight.w600,
                                               color: SBlack,
-                                              fontSize: 18),
+                                              fontSize: medium),
                                         ),
                                         Text(
                                           "date : 14 Feb, 2021",
@@ -84,7 +82,7 @@ class _challenge_historyState extends State<challenge_history> {
                                               fontWeight:
                                               FontWeight.w600,
                                               color: SBlack,
-                                              fontSize: 14),
+                                              fontSize: small),
                                         ),
                                       ],
                                     ),

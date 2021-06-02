@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class topicDetails_page extends StatefulWidget {
   const topicDetails_page({Key key}) : super(key: key);
@@ -17,7 +18,7 @@ class _topicDetails_pageState extends State<topicDetails_page> {
       appBar: commanAppBar(
         appBar: AppBar(),
         imageBack: true,
-        fontsize: 18,
+        fontsize: medium,
         colorImage: Swhite,
         appbartext: "Back",
       ),
@@ -36,7 +37,7 @@ class _topicDetails_pageState extends State<topicDetails_page> {
                     fontFamily: "SFPro",
                     fontWeight: FontWeight.w700,
                     color: SBlack,
-                    fontSize: 18),
+                    fontSize: 18.sp),
               ),
               SizedBox(height: 10),
               Text(
@@ -46,7 +47,7 @@ class _topicDetails_pageState extends State<topicDetails_page> {
                     fontWeight: FontWeight.w500,
                     color: SBlack,
                     height: 1.4,
-                    fontSize: 16),
+                    fontSize: medium),
               ),
               SizedBox(height: 10),
               Image.asset("Assets/Images/img_1.png"),
@@ -69,11 +70,11 @@ class _topicDetails_pageState extends State<topicDetails_page> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Image.asset("Assets/Images/google_rd.png",
-                        height: query.height * 0.11),
+                        height: 60.sp),
                     Image.asset("Assets/Images/fb_rd.png",
-                        height: query.height * 0.11),
+                        height: 60.sp),
                     Image.asset("Assets/Images/insta_rd.png",
-                        height: query.height * 0.11),
+                        height: 60.sp),
                   ],
                 ),
               )

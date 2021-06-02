@@ -7,7 +7,7 @@ import 'package:skicom/Login/resetPassword.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class confirmAccount extends StatefulWidget {
   const confirmAccount({Key key}) : super(key: key);
 
@@ -42,7 +42,7 @@ class _confirmAccountState extends State<confirmAccount> {
                             fontWeight: FontWeight.w600,
                             height: 1,
                             fontFamily: "SFPro",
-                            fontSize: 30)),
+                            fontSize: header)),
                   ],
                 ),
               ),
@@ -56,7 +56,7 @@ class _confirmAccountState extends State<confirmAccount> {
                           "We'll sent an email with 4-digit code to prashant.theappideas@gmail.com",
                           style: TextStyle(
                               fontFamily: "SFPro",
-                              fontSize: 18,
+                              fontSize: medium,
                               color: SBlack,
                               fontWeight: FontWeight.w500),
                           textAlign: TextAlign.start,
@@ -93,8 +93,8 @@ class _confirmAccountState extends State<confirmAccount> {
                 height: 25,
               ),
               Container(
-                  width: query.width / 1.15,
-                  height: query.height * 0.08,
+                  width: 90.w,
+                  height: 8.0.h,
                   child: basicButton(Swhite, () {
                     Navigator.push(
                         context,
@@ -115,7 +115,7 @@ class _confirmAccountState extends State<confirmAccount> {
                       style: TextStyle(
                           color: SBlack,
                           fontFamily: "SFPro",
-                          fontSize: 18,
+                          fontSize: medium,
                           fontWeight: FontWeight.w500),
                       text: "Don't get code?",
                     ),
@@ -124,7 +124,7 @@ class _confirmAccountState extends State<confirmAccount> {
                       style: TextStyle(
                           color: SRed,
                           fontFamily: "SFPro",
-                          fontSize: 18,
+                          fontSize: medium,
                           fontWeight: FontWeight.w600),
                       text: "Resend",
                       recognizer: TapGestureRecognizer()..onTap = () async {},

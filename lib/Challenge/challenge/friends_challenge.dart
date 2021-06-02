@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Challenge/challenge/challenge_dialog.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class friends_challenge extends StatefulWidget {
   @override
   _friends_challengeState createState() => _friends_challengeState();
@@ -18,8 +18,7 @@ class _friends_challengeState extends State<friends_challenge> {
         padding: const EdgeInsets.all(12.0),
         child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12.0,
+                crossAxisCount: 2, crossAxisSpacing: 12.0,
                 mainAxisSpacing: 12.0),
             itemCount: 10,
             itemBuilder: (BuildContext context, int index) {
@@ -49,7 +48,7 @@ class _friends_challengeState extends State<friends_challenge> {
                           borderRadius: BorderRadius.circular(100),
                           child: Image.asset(
                             "Assets/Images/2.png",
-                            height: query.height * 0.13,
+                            height: 75.sp,
                           )),
                       SizedBox(
                         height: 5,
@@ -59,7 +58,7 @@ class _friends_challengeState extends State<friends_challenge> {
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack,
-                              fontSize: 15)),
+                              fontSize: medium)),
                       SizedBox(
                         height: 5,
                       ),
@@ -75,7 +74,7 @@ class _friends_challengeState extends State<friends_challenge> {
                                   fontFamily: "SFPro",
                                   fontWeight: FontWeight.w600,
                                   color: Swhite,
-                                  fontSize: 10)),
+                                  fontSize: small)),
                         ),
                       )
                     ],

@@ -3,7 +3,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Challenge/challenge/chalengeHome_page.dart';
 import 'package:skicom/Challenge/competition/competition_page.dart';
 import 'package:skicom/constants.dart';
-
+import 'package:sizer/sizer.dart';
 class challenge_page extends StatefulWidget {
   @override
   _challenge_pageState createState() => _challenge_pageState();
@@ -22,12 +22,11 @@ class _challenge_pageState extends State<challenge_page> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(""),
+            SizedBox(height: 30.sp),
             Image.asset(
               "Assets/Images/logo.png",
-              height: query.height * 0.16,
+              height: 80.sp,
             ),
-            SizedBox(height: 10),
             GestureDetector(
               onTap: () {
                 Navigator.of(context, rootNavigator: true).push(PageTransition(
@@ -37,7 +36,7 @@ class _challenge_pageState extends State<challenge_page> {
                     child: competition_page()));
               },
               child: Container(
-                height: query.height * 0.25,
+                height: 150.sp,
                 width: query.width / 1.1,
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -50,7 +49,7 @@ class _challenge_pageState extends State<challenge_page> {
                         fontFamily: "SFPro",
                         fontWeight: FontWeight.w600,
                         color: Swhite,
-                        fontSize: 30),
+                        fontSize: header),
                   ),
                 ),
               ),
@@ -64,7 +63,7 @@ class _challenge_pageState extends State<challenge_page> {
                     child: challengeHome_page()));
               },
               child: Container(
-                  height: query.height * 0.25,
+                  height: 150.sp,
                   width: query.width / 1.1,
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -77,7 +76,7 @@ class _challenge_pageState extends State<challenge_page> {
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w600,
                           color: Swhite,
-                          fontSize: 30),
+                          fontSize: header),
                     ),
                   )),
             ),

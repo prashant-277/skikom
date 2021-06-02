@@ -5,6 +5,7 @@ import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/Widgets/textfield.dart';
 import 'package:skicom/constants.dart';
 import 'package:skicom/level_selection.dart';
+import 'package:sizer/sizer.dart';
 
 class emailRegistration extends StatefulWidget {
   const emailRegistration({Key key}) : super(key: key);
@@ -45,12 +46,11 @@ class _emailRegistrationState extends State<emailRegistration> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: query.height,
           width: query.width,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Align(
@@ -60,69 +60,77 @@ class _emailRegistrationState extends State<emailRegistration> {
                           fontWeight: FontWeight.w600,
                           height: 1,
                           fontFamily: "SFPro",
-                          fontSize: 30)),
+                          fontSize: header)),
                 ),
                 Column(
                   children: [
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         showDialog(
                             context: context,
                             builder: (context) => new AlertDialog(
-                              title: Text("Upload photo"),
-                              elevation: 1,
-                              contentPadding: EdgeInsets.all(5.0),
-                              content:
-                              new SingleChildScrollView(
-                                child: new ListBody(
-                                  children: <Widget>[
-                                    Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: FlatButton(
-                                        //onPressed: imageSelectorCameraD1,
-                                        child: Row(
-                                          children: <Widget>[
-                                            Text("Camera"),
-                                          ],
+                                  title: Text("Upload photo"),
+                                  elevation: 1,
+                                  contentPadding: EdgeInsets.all(5.0),
+                                  content: new SingleChildScrollView(
+                                    child: new ListBody(
+                                      children: <Widget>[
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: FlatButton(
+                                            //onPressed: imageSelectorCameraD1,
+                                            child: Row(
+                                              children: <Widget>[
+                                                Text("Camera"),
+                                              ],
+                                            ),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            border: BorderDirectional(
+                                              bottom: BorderSide(
+                                                  width: 0.5,
+                                                  color: Colors.black12),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        border: BorderDirectional(
-                                          bottom: BorderSide(width: 0.5,color: Colors .black12),
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: FlatButton(
+                                            //onPressed: imageSelectorGalleryD1,
+                                            child: Row(
+                                              children: <Widget>[
+                                                Text("Gallery"),
+                                              ],
+                                            ),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            border: BorderDirectional(
+                                              bottom: BorderSide(
+                                                  width: 0.5,
+                                                  color: Colors.black12),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: FlatButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Row(
+                                              children: <Widget>[
+                                                Text("Cancel"),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: FlatButton(
-                                        //onPressed: imageSelectorGalleryD1,
-                                        child: Row(
-                                          children: <Widget>[
-                                            Text("Gallery"),
-                                          ],
-                                        ),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        border: BorderDirectional(
-                                          bottom: BorderSide( width: 0.5, color: Colors .black12),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: FlatButton(
-                                        onPressed: () {Navigator.pop(context);},
-                                        child: Row(
-                                          children: <Widget>[
-                                            Text("Cancel"),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )).then((value) => null);
+                                  ),
+                                )).then((value) => null);
                       },
                       child: Container(
                         height: MediaQuery.of(context).size.height / 6,
@@ -132,15 +140,16 @@ class _emailRegistrationState extends State<emailRegistration> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 ClipRRect(
-                                  borderRadius: new BorderRadius.circular(100.0),
-                                  child: Text(""))
+                                    borderRadius:
+                                        new BorderRadius.circular(100.0),
+                                    child: Text(""))
                               ],
                             ),
                             Align(
                               alignment: Alignment.center,
                               child: Image.asset(
                                 "Assets/Icons/profile pic.png",
-                                height: query.height*0.14,
+                                height: query.height * 0.14,
                               ),
                             ),
                           ],
@@ -156,8 +165,7 @@ class _emailRegistrationState extends State<emailRegistration> {
                       prefixIcon: new IconButton(
                         icon: new Image.asset(
                           'Assets/Icons/profile.png',
-                          width: 20.0,
-                          height: 20.0,
+                          width: 15.sp,
                           color: SBlack,
                         ),
                         onPressed: null,
@@ -174,8 +182,7 @@ class _emailRegistrationState extends State<emailRegistration> {
                       prefixIcon: new IconButton(
                         icon: new Image.asset(
                           'Assets/Icons/email.png',
-                          width: 20.0,
-                          height: 20.0,
+                          width: 15.sp,
                           color: SBlack,
                         ),
                         onPressed: null,
@@ -186,7 +193,7 @@ class _emailRegistrationState extends State<emailRegistration> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Container(
-                        height: query.height * 0.07,
+                        height: 42.sp,
                         decoration: new BoxDecoration(
                           color: Swhite,
                           border: new Border.all(width: 1.0, color: SGray),
@@ -194,54 +201,67 @@ class _emailRegistrationState extends State<emailRegistration> {
                               const Radius.circular(10.0)),
                         ),
                         padding: EdgeInsets.only(left: 15, right: 15),
-                        child: DropdownButton<String>(
-                          isExpanded: true,
-                          hint: Row(
-                            children: [
-                              Image.asset('Assets/Icons/gender.png',
-                                  width: 20.0, height: 20.0, color: SBlack),
-                              SizedBox(width: 8),
-                              Text(
-                                "Gender",
-                                style: TextStyle(
-                                    fontFamily: "SFPro",
-                                    color: Colors.grey,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          style: TextStyle(
-                              fontFamily: "SFPro",
-                              fontWeight: FontWeight.w500,
-                              color: SBlack),
-                          icon: Icon(
-                            Icons.arrow_drop_down,
-                            size: 35,
-                            color: SBlack,
-                          ),
-                          underline: Text(""),
-                          elevation: 0,
-                          items: <String>[
-                            'Male',
-                            'Female',
-                          ].map((String value) {
-                            return new DropdownMenuItem<String>(
-                              value: value,
-                              child: new Text(value,
+                        child: Center(
+                          child: DropdownButton<String>(
+                            isExpanded: true,
+                            hint: Row(
+                              children: [
+                                Image.asset('Assets/Icons/gender.png',
+                                    width: 15.sp, color: SBlack),
+                                SizedBox(width: 8),
+                                Text(
+                                  "Gender",
                                   style: TextStyle(
                                       fontFamily: "SFPro",
-                                      fontWeight: FontWeight.w500,
-                                      color: SBlack)),
-                            );
-                          }).toList(),
-                          value: gender,
-                          onChanged: (newValue) {
-                            setState(() {
-                              gender = newValue;
-                              print(gender);
-                            });
-                          },
+                                      color: Colors.grey,
+                                      fontSize: medium,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                            style: TextStyle(
+                                fontFamily: "SFPro",
+                                fontWeight: FontWeight.w500,
+                                color: SBlack),
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              size: 18.sp,
+                              color: SBlack,
+                            ),
+                            underline: Text(""),
+                            elevation: 0,
+                            items: <String>[
+                              'Male',
+                              'Female',
+                            ].map((String value) {
+                              return new DropdownMenuItem<String>(
+                                value: value,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Image.asset('Assets/Icons/gender.png',
+                                        width: 15.sp, color: SBlack),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left:12.0),
+                                      child: new Text(value,
+                                          style: TextStyle(
+                                              fontFamily: "SFPro",
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: medium,
+                                              color: SBlack)),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                            value: gender,
+                            onChanged: (newValue) {
+                              setState(() {
+                                gender = newValue;
+                                print(gender);
+                              });
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -255,13 +275,11 @@ class _emailRegistrationState extends State<emailRegistration> {
                         icon: !show
                             ? Image.asset(
                                 'Assets/Icons/visible.png',
-                                width: 25.0,
-                                height: 25.0,
+                                width: 18.sp,
                               )
                             : Image.asset(
                                 'Assets/Icons/invisible.png',
-                                width: 25.0,
-                                height: 25.0,
+                                width: 18.sp,
                               ),
                         onPressed: () {
                           onTap();
@@ -270,8 +288,7 @@ class _emailRegistrationState extends State<emailRegistration> {
                       prefixIcon: IconButton(
                         icon: new Image.asset(
                           'Assets/Icons/password.png',
-                          width: 20.0,
-                          height: 20.0,
+                          width: 15.sp,
                           color: SBlack,
                         ),
                         onPressed: null,
@@ -289,13 +306,11 @@ class _emailRegistrationState extends State<emailRegistration> {
                         icon: !confirmshow
                             ? Image.asset(
                                 'Assets/Icons/visible.png',
-                                width: 25.0,
-                                height: 25.0,
+                                width: 18.sp,
                               )
                             : Image.asset(
                                 'Assets/Icons/invisible.png',
-                                width: 25.0,
-                                height: 25.0,
+                                width: 18.sp,
                               ),
                         onPressed: () {
                           onTap1();
@@ -304,8 +319,7 @@ class _emailRegistrationState extends State<emailRegistration> {
                       prefixIcon: IconButton(
                         icon: new Image.asset(
                           'Assets/Icons/password.png',
-                          width: 20.0,
-                          height: 20.0,
+                          width: 15.sp,
                           color: SBlack,
                         ),
                         onPressed: null,
@@ -315,8 +329,9 @@ class _emailRegistrationState extends State<emailRegistration> {
                     ),
                   ],
                 ),
+                SizedBox(height: 30),
                 Container(
-                    height: query.height * 0.1,
+                    height: 45.sp,
                     width: query.width,
                     child: basicButton(Swhite, () {
                       Navigator.pushReplacement(
@@ -327,7 +342,7 @@ class _emailRegistrationState extends State<emailRegistration> {
                               duration: Duration(milliseconds: 300),
                               child: level_selection()));
                     }, "Register")),
-                Text("")
+                Text(""),
               ],
             ),
           ),

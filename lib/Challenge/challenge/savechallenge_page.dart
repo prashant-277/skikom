@@ -4,7 +4,7 @@ import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/constants.dart';
 
 import '../leaderboard_page.dart';
-
+import 'package:sizer/sizer.dart';
 class saveChallenge_page extends StatefulWidget {
   @override
   _saveChallenge_pageState createState() => _saveChallenge_pageState();
@@ -17,14 +17,17 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: kGray,
+      backgroundColor: SGray,
       appBar: commanAppBar(
         appBar: AppBar(),
-        fontsize: 15,
+        fontsize: medium,
         imageBack: true,
         colorImage: Swhite,
         appbartext: "Result",
-        widgets: [IconbuttonG(() {}, "Assets/Icons/delete.png")],
+        widgets: [Padding(
+          padding: const EdgeInsets.only(right:15.0),
+          child: IconbuttonG(() {}, "Assets/Icons/delete.png"),
+        )],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -56,7 +59,7 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
                                           fontFamily: "SFPro",
                                           fontWeight: FontWeight.w600,
                                           color: SBlack,
-                                          fontSize: 18)),
+                                          fontSize: medium)),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(5.0),
@@ -86,13 +89,13 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
                                                     fontFamily: "SFPro",
                                                     fontWeight: FontWeight.w600,
                                                     color: SBlack,
-                                                    fontSize: 15)),
+                                                    fontSize: medium)),
                                             Text("848 km",
                                                 style: TextStyle(
                                                     fontFamily: "SFPro",
                                                     fontWeight: FontWeight.w500,
                                                     color: SBlack,
-                                                    fontSize: 12)),
+                                                    fontSize: small)),
                                           ],
                                         ),
                                         SliderTheme(
@@ -147,7 +150,7 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
               Container(
                 color: kGray,
                 width: query.width,
-                height: query.height * 0.08,
+                height: 45.sp,
                 child: Center(
                   child: Row(
                     children: [
@@ -158,7 +161,7 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
                                 fontFamily: "SFPro",
                                 fontWeight: FontWeight.w500,
                                 color: SBlack,
-                                fontSize: 16)),
+                                fontSize: medium)),
                       ),
                     ],
                   ),
@@ -167,7 +170,7 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
               Container(
                 color: Swhite,
                 width: query.width,
-                height: query.height * 0.06,
+                height: 40.sp,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
@@ -179,7 +182,7 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack,
-                              fontSize: 16)),
+                              fontSize: medium)),
                       /*Text("Please Enter title",
                           style: TextStyle(
                               fontFamily: "SFPro",
@@ -187,12 +190,12 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
                               color: SBlack,
                               fontSize: 16)),*/
                       Container(
-                        width: query.width * 0.31,
+                        width: 150.sp,
                         child: TextField(
                           maxLines: 1,
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: medium,
                             fontFamily: "SFPro",
                             fontWeight: FontWeight.w500,
                           ),
@@ -216,7 +219,7 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
               Container(
                 color: Swhite,
                 width: query.width,
-                height: query.height * 0.06,
+                height: 40.sp,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
@@ -228,55 +231,57 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlack,
-                              fontSize: 16)),
+                              fontSize: medium)),
                       Text("Challenge",
                           style: TextStyle(
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w500,
                               color: SBlack,
-                              fontSize: 16)),
+                              fontSize: medium)),
                     ],
                   ),
                 ),
               ),
               Container(
                 width: query.width,
-                height: query.height * 0.20,
+
                 color: SGray,
-                child: Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: query.width / 1.2,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: SBlack, width: 2),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(height: 10.sp),
+                    Container(
+                      height: 45.sp,
+                      width: query.width / 1.2,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: SBlack, width: 2),
+                          borderRadius: BorderRadius.circular(50)),
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50)),
-                        child: FlatButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          color: Colors.transparent,
-                          child: Text(
-                            "Share with friends",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontFamily: "SFPro",
-                                fontWeight: FontWeight.w600,
-                                color: SBlack),
-                          ),
-                          onPressed: () {},
+                        color: Colors.transparent,
+                        child: Text(
+                          "Share with friends",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: "SFPro",
+                              fontWeight: FontWeight.w600,
+                              color: SBlack),
                         ),
+                        onPressed: () {},
                       ),
-                      Container(
-                          width: query.width / 1.2,
-                          child: basicButton(Swhite, () {
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                          }, "Save"))
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 10.sp),
+                    Container(
+                        height: 45.sp,
+                        width: query.width / 1.2,
+                        child: basicButton(Swhite, () {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        }, "Save")),
+                    SizedBox(height: 10.sp),
+                  ],
                 ),
               ),
             ],
