@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:skicom/Challenge/challenge_selection_page.dart';
 import 'package:skicom/History/history_page.dart';
@@ -5,8 +8,13 @@ import 'package:skicom/Home/homePage.dart';
 import 'package:skicom/Profile/profile_page.dart';
 import 'package:skicom/Tutorials/tutorials_page.dart';
 import 'package:skicom/constants.dart';
+import 'package:skicom/url.dart';
 
 class dashboard_page extends StatefulWidget {
+  var level_id;
+
+  dashboard_page(this.level_id);
+
   @override
   _dashboard_pageState createState() => _dashboard_pageState();
 }
@@ -14,11 +22,16 @@ class dashboard_page extends StatefulWidget {
 class _dashboard_pageState extends State<dashboard_page> {
   int index = 0;
 
+  final url1 = url.basicUrl;
+  final token = url.token;
+  List categorie_data = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Swhite,
-      body: Stack(
+      body: IndexedStack(
+        index: index,
         children: <Widget>[
           new Offstage(
             offstage: index != 0,
@@ -26,7 +39,7 @@ class _dashboard_pageState extends State<dashboard_page> {
               enabled: index == 0,
               child: new MaterialApp(
                 debugShowCheckedModeBanner: false,
-                home: homePage(),
+                home: homePage(widget.level_id),
               ),
             ),
           ),
@@ -43,12 +56,12 @@ class _dashboard_pageState extends State<dashboard_page> {
             child: new TickerMode(
               enabled: index == 2,
               child: new MaterialApp(
-                  debugShowCheckedModeBanner: false, home: tutorials_page()),
+                  debugShowCheckedModeBanner: false,
+                  home: tutorials_page(categorie_data)),
             ),
           ),
           new Offstage(
             offstage: index != 3,
-
             child: new TickerMode(
               enabled: index == 3,
               child: new MaterialApp(
@@ -56,7 +69,6 @@ class _dashboard_pageState extends State<dashboard_page> {
             ),
           ),
           new Offstage(
-
             offstage: index != 4,
             child: new TickerMode(
               enabled: index == 4,
@@ -79,6 +91,9 @@ class _dashboard_pageState extends State<dashboard_page> {
           setState(() {
             this.index = index;
             print(index);
+            if (index == 2) {
+              getcategorydata();
+            }
           });
         },
         items: <BottomNavigationBarItem>[
@@ -205,5 +220,22 @@ class _dashboard_pageState extends State<dashboard_page> {
         ],
       ),
     );
+  }
+
+  Future<void> getcategorydata() async {
+    var url = "$url1/get-categories";
+
+    var map = new Map<String, dynamic>();
+    map["level_id"] = widget.level_id.toString();
+
+    Map<String, String> headers = {"_token": token};
+
+    final response = await http.post(url, body: map, headers: headers);
+    final responseJson = json.decode(response.body);
+    print("res get-categories tutorial " + responseJson.toString());
+    setState(() {
+      categorie_data = responseJson["data"];
+
+    });
   }
 }

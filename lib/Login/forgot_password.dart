@@ -14,6 +14,8 @@ class forgotPassword extends StatefulWidget {
 }
 
 class _forgotPasswordState extends State<forgotPassword> {
+
+  final _formKey = GlobalKey<FormState>();
   TextEditingController email_controller = TextEditingController();
 
   @override
@@ -52,35 +54,42 @@ class _forgotPasswordState extends State<forgotPassword> {
                           fontFamily: "SFPro",
                           height: 1.5,
                           fontSize: medium)),
-                  textfield(
-                    controller: email_controller,
-                    obscureText: false,
-                    hintText: "Email",
-                    functionValidate: commonValidation,
-                    suffixIcon: null,
-                    prefixIcon: new IconButton(
-                      icon: new Image.asset(
-                        'Assets/Icons/email.png',
-                        width: 15.sp,
-                        color: SBlack,
+                  Form(
+                    key: _formKey,
+                    child: textfield(
+                      controller: email_controller,
+                      obscureText: false,
+                      hintText: "Email",
+                      functionValidate: commonValidation,
+                      suffixIcon: null,
+                      prefixIcon: new IconButton(
+                        icon: new Image.asset(
+                          'Assets/Icons/email.png',
+                          width: 15.sp,
+                          color: SBlack,
+                        ),
+                        onPressed: null,
                       ),
-                      onPressed: null,
+                      parametersValidate: "Please enter Email",
+                      textInputType: TextInputType.emailAddress,
+
                     ),
-                    parametersValidate: "Please enter Email",
-                    textInputType: TextInputType.name,
                   ),
                   Container(
                       width: 90.w,
                       height: 8.0.h,
 
                       child: basicButton(Swhite, () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                                type: PageTransitionType.fade,
-                                alignment: Alignment.bottomCenter,
-                                duration: Duration(milliseconds: 300),
-                                child: confirmAccount()));
+                        if(_formKey.currentState.validate()){
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.fade,
+                                  alignment: Alignment.bottomCenter,
+                                  duration: Duration(milliseconds: 300),
+                                  child: confirmAccount()));
+                        }
+
                       }, "Send")),
                 ],
               ),

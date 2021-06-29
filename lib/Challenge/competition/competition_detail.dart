@@ -126,8 +126,7 @@ class _competition_detailState extends State<competition_detail> {
                             fontWeight: FontWeight.w600,
                             color: SBlack,
                             fontSize: medium)),
-                    Text(
-                      "12:30 PM",
+                    Text("12:30 PM",
                       style: TextStyle(
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w500,
@@ -151,7 +150,7 @@ class _competition_detailState extends State<competition_detail> {
                                 color: SBlack,
                                 fontSize: medium)),
                         Text(
-                          "N 48.11405 E 17.133055",
+                          "N 48.11405˚ E 17.133055˚",
                           style: TextStyle(
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w500,
@@ -174,7 +173,7 @@ class _competition_detailState extends State<competition_detail> {
                             color: SBlack,
                             fontSize: medium)),
                     Text(
-                      "14 C",
+                      "14˚ C",
                       style: TextStyle(
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w500,
@@ -233,7 +232,7 @@ class _competition_detailState extends State<competition_detail> {
                     width: quary.width,
                     height: 45.sp,
                     child: basicButton(Swhite, () {
-                      Navigator.of(context, rootNavigator: true).push(
+                      Navigator.of(context, rootNavigator: true).pushReplacement(
                           PageTransition(
                               type: PageTransitionType.fade,
                               alignment: Alignment.bottomCenter,

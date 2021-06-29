@@ -1,8 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/Widgets/textfield.dart';
+import 'package:skicom/Widgets/toastDisplay.dart';
 import 'package:skicom/constants.dart';
+import 'package:skicom/url.dart';
+import 'package:http/http.dart' as http;
 
 class changepassword extends StatefulWidget {
   const changepassword({Key key}) : super(key: key);
@@ -20,7 +27,8 @@ class _changepasswordState extends State<changepassword> {
   bool show = true;
   bool show1 = true;
   bool show2 = true;
-
+  final url1 = url.basicUrl;
+  final token = url.token;
   void onTap() {
     show = !show;
     setState(() {});
@@ -70,12 +78,12 @@ class _changepasswordState extends State<changepassword> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
+                      /*Container(
                           width: MediaQuery.of(context).size.width / 1.15,
                           child: textfield(
                             controller: _oldpswdCtrl,
                             obscureText: show,
-                            hintText: "Password",
+                            hintText: "Old password",
                             functionValidate: commonValidation,
                             suffixIcon: IconButton(
                               color: Colors.grey,
@@ -103,16 +111,16 @@ class _changepasswordState extends State<changepassword> {
                               ),
                               onPressed: null,
                             ),
-                            parametersValidate: "Please enter Password",
+                            parametersValidate: "Please enter old password",
                             textInputType: TextInputType.name,
                           )),
-                      SizedBox(height: 10),
+                      SizedBox(height: 10),*/
                       Container(
                           width: MediaQuery.of(context).size.width / 1.15,
                           child: textfield(
                             controller: _newpswdCtrl,
                             obscureText: show1,
-                            hintText: "Password",
+                            hintText: "New password",
                             functionValidate: commonValidation,
                             suffixIcon: IconButton(
                               color: Colors.grey,
@@ -140,8 +148,8 @@ class _changepasswordState extends State<changepassword> {
                               ),
                               onPressed: null,
                             ),
-                            parametersValidate: "Please enter Password",
-                            textInputType: TextInputType.name,
+                            parametersValidate: "Please enter new password",
+                            textInputType: TextInputType.text,
                           )),
                       SizedBox(height: 10),
                       Container(
@@ -149,7 +157,7 @@ class _changepasswordState extends State<changepassword> {
                         child: textfield(
                           controller: _confirmpswdCtrl,
                           obscureText: show2,
-                          hintText: "Password",
+                          hintText: "Confirm password",
                           functionValidate: commonValidation,
                           suffixIcon: IconButton(
                             color: Colors.grey,
@@ -177,14 +185,52 @@ class _changepasswordState extends State<changepassword> {
                             ),
                             onPressed: null,
                           ),
-                          parametersValidate: "Please enter Password",
-                          textInputType: TextInputType.name,
+                          parametersValidate: "Please enter confirm password",
+                          textInputType: TextInputType.text,
                         ),
                       ),
                       SizedBox(height: 30),
                       Container(
                           width: MediaQuery.of(context).size.width / 1.2,
-                          child: basicButton(Swhite, () {}, "Change")),
+                          child: basicButton(Swhite, () async {
+                            if (_formKey.currentState.validate()){
+                              SharedPreferences prefs = await SharedPreferences.getInstance();
+
+                              if(_newpswdCtrl.text.toString()==_confirmpswdCtrl.text.toString()){
+                                final ProgressDialog pr = _getProgress(context);
+                                pr.update(
+                                    message: "Please wait...",
+                                    messageTextStyle: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "SFPro",
+                                        fontSize: medium));
+                                pr.show();
+                                print("done");
+                                var url = "$url1/change-password";
+
+                                Map<String, String> header = {"_token": token};
+
+                                var map = new Map<String, dynamic>();
+                                map["api_token"] = prefs.getString("api_token").toString();
+                                map["password"] = _confirmpswdCtrl.text.toString();
+
+
+                                final response = await http.post(Uri.parse(url),
+                                    body: map, headers: header);
+
+                                final responseJson = json.decode(response.body);
+                                print(responseJson.toString());
+                                if (responseJson["status"].toString() == "success"){
+                                  displayToast(responseJson["message"].toString());
+                                  pr.hide();
+
+                                }
+                              }else{
+                                displayToast("Password not match");
+                              }
+
+                            }
+                          }, "Change")),
                     ],
                   ),
                 ),
@@ -195,4 +241,7 @@ class _changepasswordState extends State<changepassword> {
       ),
     );
   }
+}
+ProgressDialog _getProgress(BuildContext context) {
+  return ProgressDialog(context);
 }

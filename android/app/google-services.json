@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:692623989347:android:128010455a8207db107656",
+        "mobilesdk_app_id": "1:692623989347:android:9165db182a089bec107656",
         "android_client_info": {
-          "package_name": "com.example.skicom"
+          "package_name": "com.theappideas.skicom"
         }
       },
       "oauth_client": [
         {
-          "client_id": "692623989347-96p95ek5arhl82fhpcsird3954tmnjq5.apps.googleusercontent.com",
+          "client_id": "692623989347-q4b769kd8ckmqdqsbuk89dn43cj5shjs.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.skicom",
+            "package_name": "com.theappideas.skicom",
             "certificate_hash": "61a834cf01355dab8051201255526e374d37f6e5"
           }
         },

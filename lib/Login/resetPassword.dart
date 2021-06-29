@@ -214,7 +214,15 @@ class _resetPasswordState extends State<resetPassword> {
               Container(
                   width: 90.w,
                   height: 8.0.h,
-                  child: basicButton(Swhite, (){}, "Reset")),
+                  child: basicButton(Swhite, (){
+                    if(_formKey.currentState.validate()){
+                      if(_pswdCtrl.text.toString()==_confirmpswdCtrl.text.toString()){
+
+                      }else{
+                        print("not matched");
+                      }
+                    }
+                  }, "Reset")),
             ],
           ),
         ),

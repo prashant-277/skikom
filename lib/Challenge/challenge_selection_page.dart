@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Challenge/challenge/chalengeHome_page.dart';
+import 'package:skicom/Challenge/challenge/challenge_groupList.dart';
 import 'package:skicom/Challenge/competition/competition_page.dart';
 import 'package:skicom/constants.dart';
 import 'package:sizer/sizer.dart';
 class challenge_page extends StatefulWidget {
+
   @override
   _challenge_pageState createState() => _challenge_pageState();
 }
@@ -56,11 +58,17 @@ class _challenge_pageState extends State<challenge_page> {
             ),
             GestureDetector(
               onTap: () {
+                /*Navigator.of(context, rootNavigator: true).push(PageTransition(
+                    type: PageTransitionType.fade,
+                    alignment: Alignment.bottomCenter,
+                    duration: Duration(milliseconds: 300),
+                    child: challengeHome_page()));*/
+
                 Navigator.of(context, rootNavigator: true).push(PageTransition(
                     type: PageTransitionType.fade,
                     alignment: Alignment.bottomCenter,
                     duration: Duration(milliseconds: 300),
-                    child: challengeHome_page()));
+                    child: challenge_groupList()));
               },
               child: Container(
                   height: 150.sp,

@@ -1,66 +1,110 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/constants.dart';
 import 'package:sizer/sizer.dart';
+import 'package:http/http.dart' as http;
+import 'package:skicom/url.dart';
+import 'package:html2md/html2md.dart' as html2md;
 
 class termsOfservice extends StatefulWidget {
   @override
   _termsOfserviceState createState() => _termsOfserviceState();
 }
 
-class _termsOfserviceState extends State<termsOfservice> {
+class _termsOfserviceState extends State<termsOfservice>
+    with TickerProviderStateMixin {
+  final url1 = url.basicUrl;
+  final token = url.token;
+  bool _isloading = true;
+  List data = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getTermsofservice();
+  }
+
+  Future<void> getTermsofservice() async {
+    var url = "$url1/get-pages";
+
+    var map = new Map<String, dynamic>();
+    map["slug"] = "Terms-of-service";
+    // map["user_id"] = prefs.getString("userId").toString();
+
+    Map<String, String> headers = {"_token": token};
+
+    final response = await http.post(url, body: map, headers: headers);
+    final responseJson = json.decode(response.body);
+    print("res Terms-of-service  " + responseJson.toString());
+    setState(() {
+      data = responseJson["data"];
+      _isloading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          width: query.width,
-          color: Swhite,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top:20.0),
-                  child: Align(
-                      alignment: Alignment.topRight,
-                      child: IconbuttonG(
-                        () {
-                          Navigator.pop(context);
-                        },
-                        "Assets/Icons/cancel.png",
-                      )),
+                width: query.width,
+                height: query.height,
+                color: Swhite,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child:_isloading == true
+                      ? SpinKitRipple(
+                    color: SLightBlue,
+                    controller: AnimationController(
+                        vsync: this, duration: const Duration(milliseconds: 1200)),
+                  )
+                      :  ListView(
+                    /*mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,*/
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Align(
+                            alignment: Alignment.topRight,
+                            child: IconbuttonG(
+                              () {
+                                Navigator.pop(context);
+                              },
+                              "Assets/Icons/cancel.png",
+                            )),
+                      ),
+                      Row(
+                        children: [
+                          Image.asset(
+                            "Assets/Images/logo.png",
+                            height: 80.sp,
+                          ),
+                        ],
+                      ),
+                      Text(html2md.convert(data[0]["name"].toString()),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              height: 2,
+                              fontFamily: "SFPro",
+                              fontSize: header)),
+                      SizedBox(height: 20),
+                      Text(html2md.convert(data[0]["description"].toString()),
+                        style: TextStyle(
+                            fontSize: medium,
+                            height: 1.3,
+                            fontFamily: "SFPro",
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black45),
+                      )
+                    ],
+                  ),
                 ),
-
-                Image.asset(
-                  "Assets/Images/logo.png",
-                  fit: BoxFit.fill,
-                  height: 16.h,
-                ),
-                Text("Our Terms of Service",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        height: 2,
-                        fontFamily: "SFPro",
-                        fontSize: header)),
-                SizedBox(height: 20),
-                Text(
-                  "Off you go! Try out how the skis feel on your feet when you move. It’s best to try this out on level ground. Move the skis forwards and backwards a little using the ski poles. Hop gently, with both of your legs and from one leg to the other. \n\nOr try to move with your skis, taking small steps forwards. Then remove one ski, and propel yourself forward, like with a kick scooter, and try to slide for as long as possible on one ski. \n\nOff you go! Try out how the skis feel on your feet when you move. It’s best to try this out on level ground. Move the skis forwards and backwards a little using the ski poles. Hop gently, with both of your legs and from one leg to the other.",
-                  style: TextStyle(
-                      fontSize: medium,
-                      height: 1.3,
-                      fontFamily: "SFPro",
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black45),
-                )
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }

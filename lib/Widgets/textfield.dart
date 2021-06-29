@@ -11,7 +11,8 @@ class textfield extends StatelessWidget {
   final TextEditingController controller;
   final Function functionValidate;
   final String parametersValidate;
-
+  final int textlength;
+  final TextCapitalization textcapitalization;
   const textfield({
     this.textInputType,
     this.hintText,
@@ -20,7 +21,7 @@ class textfield extends StatelessWidget {
     this.obscureText,
     this.controller,
     this.functionValidate,
-    this.parametersValidate,
+    this.parametersValidate, this.textlength, this.textcapitalization,
   });
 
   @override
@@ -30,11 +31,14 @@ class textfield extends StatelessWidget {
       child: TextFormField(
         cursorColor: SLightBlue,
         maxLines: 1,
-        keyboardType: TextInputType.text,
+        keyboardType: textInputType,
         style: TextStyle(fontFamily: "SFPro", color: SBlack,fontSize: medium),
         obscureText: obscureText,
         controller: controller,
-       textCapitalization: TextCapitalization.words,
+        textCapitalization: textcapitalization,
+        maxLength: textlength,
+
+       // inputFormatters: [FilteringTextInputFormatter.deny(new RegExp(r" "))],
         decoration: InputDecoration(
             contentPadding: EdgeInsets.fromLTRB(15.0, 18.0, 20.0, 18.0),
             focusedBorder: OutlineInputBorder(

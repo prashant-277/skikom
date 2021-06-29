@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:skicom/Challenge/challenge/friends_challenge.dart';
 import 'package:skicom/Challenge/challenge/requests_challenge.dart';
@@ -5,9 +7,16 @@ import 'package:skicom/Challenge/competition/onGoing_Competition.dart';
 import 'package:skicom/Challenge/competition/upComing_Competition.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class challengeHome_page extends StatefulWidget {
-  const challengeHome_page({Key key}) : super(key: key);
+  var group_id;
+
+  var groupName;
+
+  challengeHome_page(this.group_id, this.groupName);
+
+
 
   @override
   _challengeHome_pageState createState() => _challengeHome_pageState();
@@ -26,9 +35,9 @@ class _challengeHome_pageState extends State<challengeHome_page> {
         fontsize: medium,
         imageBack: true,
         colorImage: Swhite,
-        appbartext: "Challenge",
+        appbartext: widget.groupName,
         widgets: [
-          FlatButton(
+          /*FlatButton(
             highlightColor: Colors.transparent,
               color: Colors.transparent,
               splashColor: Colors.transparent,
@@ -45,7 +54,7 @@ class _challengeHome_pageState extends State<challengeHome_page> {
                   SizedBox(width: 8),
                   Image.asset("Assets/Icons/search.png",height: 15,)
                 ],
-              ))
+              ))*/
         ],
       ),
 
@@ -96,9 +105,10 @@ class _challengeHome_pageState extends State<challengeHome_page> {
           ),
           Expanded(
             child: TabBarView(
+              physics: NeverScrollableScrollPhysics(),
               children: [
-                Container(child: friends_challenge(),color: Swhite),
-                Container(child: requests_challenge(),color: Swhite)
+                Container(child: friends_challenge(widget.group_id),color: Swhite),
+                Container(child: requests_challenge(widget.group_id,),color: Swhite)
               ],
             ),
           ),

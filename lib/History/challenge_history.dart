@@ -1,16 +1,56 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skicom/History/competitonHistory_detail.dart';
 
 import '../constants.dart';
 import 'chalengeHistory_detail.dart';
 import 'package:sizer/sizer.dart';
+import 'package:skicom/url.dart';
+import 'package:http/http.dart' as http;
+
 class challenge_history extends StatefulWidget {
   @override
   _challenge_historyState createState() => _challenge_historyState();
 }
 
-class _challenge_historyState extends State<challenge_history> {
+class _challenge_historyState extends State<challenge_history>
+    with TickerProviderStateMixin{
+  final url1 = url.basicUrl;
+  final token = url.token;
+  final imageurl = url.imageUrl;
+  bool _isloading = true;
+  List historyList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getHistory();
+  }
+
+  Future<void> getHistory() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var url = "$url1/get-all-history";
+
+    var map = new Map<String, dynamic>();
+    map["user_id"] = prefs.getString("userId").toString();
+
+    Map<String, String> headers = {"_token": token};
+
+    final response = await http.post(url, body: map, headers: headers);
+    final responseJson = json.decode(response.body);
+    print("res get-all-history " + responseJson.toString());
+    setState(() {
+      historyList = responseJson["data"];
+      _isloading = false;
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context).size;
@@ -18,11 +58,24 @@ class _challenge_historyState extends State<challenge_history> {
       backgroundColor: Swhite,
       body:Padding(
         padding: const EdgeInsets.only(top: 15.0),
-        child: Container(
-
-          child: ListView.builder(
+        child:_isloading == true
+            ? SpinKitRipple(
+          color: SLightBlue,
+          controller: AnimationController(
+              vsync: this, duration: const Duration(milliseconds: 1200)),
+        )
+            : Container(
+          child: historyList.toString()=="[]"? Container(
+              color: Swhite,
+              child: Center(
+                  child: Text("No data found",style: TextStyle(
+                      fontFamily: "SFPro",
+                      fontWeight: FontWeight.w500,
+                      color: SBlack,
+                      fontSize: medium)))):
+          ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
-              itemCount: 3,
+              itemCount: historyList==null?"":historyList.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -30,12 +83,20 @@ class _challenge_historyState extends State<challenge_history> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.of(context, rootNavigator: true).push(
+
+                          Navigator.of(context,rootNavigator: true).
+                          push(new MaterialPageRoute(builder: (_)=>new
+                          chalengeHistory_detail(jsonDecode(historyList[index]["detail"])
+                              ,historyList[index]["id"])))
+                              .then((val)=>getHistory());
+
+                          /*Navigator.of(context, rootNavigator: true).push(
                               PageTransition(
                                   type: PageTransitionType.fade,
                                   alignment: Alignment.bottomCenter,
                                   duration: Duration(milliseconds: 300),
-                                  child: chalengeHistory_detail()));
+                                  child: chalengeHistory_detail(jsonDecode(historyList[index]["detail"])
+                                      ,historyList[index]["group_id"])));*/
                         },
                         child: Container(
                           width: query.width,
@@ -56,9 +117,16 @@ class _challenge_historyState extends State<challenge_history> {
                                 ClipRRect(
                                     borderRadius:
                                     BorderRadius.circular(10.0),
-                                    child: Image.asset(
-                                      "Assets/Images/image_noti.png",
-                                    )),
+                                    child: FadeInImage(
+                                        image: NetworkImage(historyList[index]["groupdetail"] == null ?
+                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png"
+                                            :imageurl +
+                                            historyList[index]["groupdetail"]["group_image"].toString()),
+                                        fit: BoxFit.fill,
+                                        width: 60.sp,
+                                        height: 60.sp,
+                                        placeholder: AssetImage(
+                                            "Assets/Images/giphy.gif"))),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Container(
@@ -66,8 +134,7 @@ class _challenge_historyState extends State<challenge_history> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          "Challenge name",
+                                        Text(historyList[index]["title"].toString(),
                                           style: TextStyle(
                                               height: 1.5,
                                               fontFamily: "SFPro",
@@ -76,7 +143,7 @@ class _challenge_historyState extends State<challenge_history> {
                                               fontSize: medium),
                                         ),
                                         Text(
-                                          "date : 14 Feb, 2021",
+                                          "date : "+historyList[index]["date"].toString(),
                                           style: TextStyle(
                                               fontFamily: "SFPro",height: 1.5,
                                               fontWeight:

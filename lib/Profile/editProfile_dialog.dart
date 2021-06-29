@@ -82,6 +82,7 @@ class _editProfile_dialogState extends State<editProfile_dialog> {
                   onPressed: null,
                 ),
                 parametersValidate: "Please enter User Name",
+                textcapitalization: TextCapitalization.words,
                 textInputType: TextInputType.name,
               ),
             ),

@@ -24,7 +24,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
         highlightColor: Colors.transparent,
         padding: EdgeInsets.only(left: 0),
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.pop(context,true);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,

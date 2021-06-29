@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Tutorials/topics_category/topics_category.dart';
@@ -5,7 +7,13 @@ import 'package:skicom/Tutorials/video_category/video_category.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/constants.dart';
 import 'package:sizer/sizer.dart';
+import 'package:skicom/url.dart';
+import 'package:http/http.dart' as http;
+
 class category_page extends StatefulWidget {
+  var categorie_id;
+
+  category_page(this.categorie_id);
 
   @override
   _category_pageState createState() => _category_pageState();
@@ -13,6 +21,8 @@ class category_page extends StatefulWidget {
 
 class _category_pageState extends State<category_page> {
   int current_tab = 0;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +36,10 @@ class _category_pageState extends State<category_page> {
         fontsize: medium,
         imageBack: true,
         widgets: [
-          FlatButton(
+         /* FlatButton(
               highlightColor: Colors.transparent,
               color: Colors.transparent,
               splashColor: Colors.transparent,
-
               onPressed: () {},
               child: Row(
                 children: [
@@ -43,10 +52,13 @@ class _category_pageState extends State<category_page> {
                   SizedBox(width: 10.sp),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: Image.asset("Assets/Icons/search.png",height: medium,),
+                    child: Image.asset(
+                      "Assets/Icons/search.png",
+                      height: medium,
+                    ),
                   )
                 ],
-              ))
+              ))*/
         ],
       ),
       body: DefaultTabController(
@@ -97,9 +109,10 @@ class _category_pageState extends State<category_page> {
             ),
             Expanded(
               child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
                 children: [
-                  Container(child: topics_category(),color: Swhite),
-                  Container(child: video_category(),color: Swhite)
+                  Container(child: topics_category(widget.categorie_id), color: Swhite),
+                  Container(child: video_category(widget.categorie_id), color: Swhite)
                 ],
               ),
             ),
