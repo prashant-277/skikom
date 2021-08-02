@@ -1,20 +1,18 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/constants.dart';
 import 'package:sizer/sizer.dart';
 import 'category_page.dart';
-import 'package:skicom/url.dart';
-import 'package:http/http.dart' as http;
 
 class tutorials_page extends StatefulWidget {
   List categorie_data;
 
-  tutorials_page(this.categorie_data);
+  var back;
+
+  tutorials_page(this.categorie_data, this.back);
 
 
 
@@ -23,6 +21,7 @@ class tutorials_page extends StatefulWidget {
 }
 
 class _tutorials_pageState extends State<tutorials_page> {
+
 
   dynamic listImages = [
     "Assets/Icons/green_tuto.png",
@@ -74,6 +73,7 @@ class _tutorials_pageState extends State<tutorials_page> {
       ),
     ) ;
   }
+
   @override
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context).size;
@@ -83,17 +83,19 @@ class _tutorials_pageState extends State<tutorials_page> {
         backgroundColor: Swhite,
         appBar: commanAppBar(
           appBar: AppBar(),
-          imageBack: false,
+          imageBack: widget.back == "back" ? true : false,
           appbartext: "Tutorials",
-          colorImage: Colors.transparent,
+          colorImage: Swhite,
           fontsize: 18.sp,
         ),
         body: SingleChildScrollView(
           child: widget.categorie_data.toString()=="[]" ?
           Container(
+            height: query.height,
               color: Swhite,
               child: Center(
-                  child: Text("No data found",style: TextStyle(
+                  child: Text("No data found",
+                      style: TextStyle(
                       fontFamily: "SFPro",
                       fontWeight: FontWeight.w500,
                       color: SBlack,
@@ -103,7 +105,7 @@ class _tutorials_pageState extends State<tutorials_page> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
               child: ListView.builder(
-                itemCount: widget.categorie_data == null?"":widget.categorie_data.length,
+                itemCount: widget.categorie_data == null ? "" : widget.categorie_data.length,
                 itemBuilder: (context, index){
                   return InkWell(
                     onTap: () {
@@ -112,7 +114,8 @@ class _tutorials_pageState extends State<tutorials_page> {
                               type: PageTransitionType.fade,
                               alignment: Alignment.bottomCenter,
                               duration: Duration(milliseconds: 300),
-                              child: category_page(widget.categorie_data[index]["detail"]["categories_id"])));
+                              child: category_page(widget.categorie_data[index]["detail"]["categories_id"],
+                                  widget.categorie_data[index]["detail"]["categories_name"].toString())));
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 7.0),

@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Home/notification_page.dart';
 import 'package:skicom/Home/topicDetail_page.dart';
+import 'package:skicom/Tutorials/tutorials_page.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -176,13 +177,23 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin{
                                   color: SBlack,
                                   fontSize: medium),
                             ),
-                            Text(
-                              "See all",
-                              style: TextStyle(
-                                  fontFamily: "SFPro",
-                                  fontWeight: FontWeight.w600,
-                                  color: SLightBlue,
-                                  fontSize: medium),
+                            TextButton(
+                              onPressed: (){
+                                Navigator.of(context, rootNavigator: true).push(
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        alignment: Alignment.bottomCenter,
+                                        duration: Duration(milliseconds: 300),
+                                        child: tutorials_page(categorie_data,"back")));
+                              },
+                              child: Text(
+                                "See all",
+                                style: TextStyle(
+                                    fontFamily: "SFPro",
+                                    fontWeight: FontWeight.w600,
+                                    color: SLightBlue,
+                                    fontSize: medium),
+                              ),
                             )
                           ],
                         ),
@@ -307,13 +318,23 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin{
                                     color: SBlack,
                                     fontSize: medium),
                               ),
-                              Text(
-                                "See all",
-                                style: TextStyle(
-                                    fontFamily: "SFPro",
-                                    fontWeight: FontWeight.w600,
-                                    color: SLightBlue,
-                                    fontSize: medium),
+                              TextButton(
+                                onPressed: (){
+                                  Navigator.of(context, rootNavigator: true).push(
+                                      PageTransition(
+                                          type: PageTransitionType.fade,
+                                          alignment: Alignment.bottomCenter,
+                                          duration: Duration(milliseconds: 300),
+                                          child: tutorials_page(categorie_data,"back")));
+                                },
+                                child: Text(
+                                  "See all",
+                                  style: TextStyle(
+                                      fontFamily: "SFPro",
+                                      fontWeight: FontWeight.w600,
+                                      color: SLightBlue,
+                                      fontSize: medium),
+                                ),
                               )
                             ],
                           ),
@@ -358,7 +379,8 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin{
                                               topRight: Radius.circular(15.0),
                                               topLeft: Radius.circular(15.0)),
                                           child: FadeInImage(
-                                              image: NetworkImage(imageurl + categorie_data[index]["topics"][index1]["image"].toString()),
+                                              image: NetworkImage(imageurl +
+                                                  categorie_data[index]["topics"][index1]["image"].toString()),
                                               fit: BoxFit.fill,
                                               width: query.width,
                                               height: 125.sp,

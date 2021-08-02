@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:skicom/Challenge/leaderboard_page.dart';
-import 'package:skicom/Widgets/appbarCustom.dart';
-import 'package:skicom/Widgets/buttons.dart';
-import 'package:skicom/Widgets/toastDisplay.dart';
 import 'package:skicom/constants.dart';
 import 'package:skicom/url.dart';
 import 'package:sizer/sizer.dart';
@@ -35,6 +33,11 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
     print(widget.groupId.toString());
   }
 
+
+  Set<Marker> _markers = {};
+  Set<Polyline> _polylines = {};
+  LatLng currentPostion=LatLng(23.1031871,72.5956003);
+
   @override
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context).size;
@@ -43,31 +46,22 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
       body: SingleChildScrollView(
         child: Container(
           width: query.width,
-//          height: query.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                   height: query.height / 2.7,
                   width: query.width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("Assets/Images/map.png"),
-                          fit: BoxFit.fill)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Image.asset(
-                          "Assets/Icons/back.png",
-                          height: 15,
-                          color: Swhite,
-                        ),
-                      ),
+                  child: GoogleMap(
+                    myLocationEnabled: true,
+                    compassEnabled: true,
+                    tiltGesturesEnabled: true,
+                    markers: _markers,
+                    polylines: _polylines,
+                    mapType: MapType.normal,
+                    initialCameraPosition: CameraPosition(
+                      target: currentPostion,
+                      zoom: 15,
                     ),
                   )),
               Container(
@@ -108,8 +102,7 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
                                       child: FadeInImage(
                                           image: NetworkImage(imageurl +
                                               widget.historyList[index]
-                                                      ["profile"]
-                                                  .toString()),
+                                                      ["profile"].toString()),
                                           fit: BoxFit.fill,
                                           width: 35.sp,
                                           height: 35.sp,
@@ -131,8 +124,7 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
                                           children: [
                                             Text(
                                                 widget.historyList[index]
-                                                        ["username"]
-                                                    .toString(),
+                                                        ["username"].toString(),
                                                 style: TextStyle(
                                                     fontFamily: "SFPro",
                                                     fontWeight: FontWeight.w600,
@@ -140,8 +132,7 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
                                                     fontSize: 15)),
                                             Text(
                                                 widget.historyList[index]
-                                                        ["time"]
-                                                    .toString(),
+                                                        ["time"].toString(),
                                                 style: TextStyle(
                                                     fontFamily: "SFPro",
                                                     fontWeight: FontWeight.w500,
@@ -167,16 +158,12 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
                                               width: query.width * 0.9,
                                               child: Slider(
                                                   value: double.parse(widget
-                                                      .historyList[index]["km"]
-                                                      .toString()),
+                                                      .historyList[index]["km"].toString()),
                                                   min: double.parse(widget
-                                                      .historyList[index]["km"]
-                                                      .toString()),
+                                                      .historyList[index]["km"].toString()),
                                                   max: double.parse(widget
-                                                      .historyList[index]
-                                                          ["for_km"]
-                                                      .toString()
-                                                      .substring(0, 2)),
+                                                      .historyList[index]["for_km"]
+                                                      .toString().substring(0, 2)),
                                                   activeColor: SBlue,
                                                   inactiveColor: kGray,
                                                   onChanged: (double newValue) {
@@ -300,13 +287,14 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
               var url = "$url1/delete-history";
 
               var map = new Map<String, dynamic>();
-              map["id"] = "12";
+              map["id"] = widget.groupId.toString();
 
               Map<String, String> headers = {"_token": token};
 
               final response =
                   await http.post(url, body: map, headers: headers);
               final responseJson = json.decode(response.body);
+
               print("res delet-result  " + responseJson.toString());
 
               if (responseJson["status"].toString() == "success") {

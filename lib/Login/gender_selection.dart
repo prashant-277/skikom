@@ -105,8 +105,7 @@ class _gender_selectionState extends State<gender_selection> {
                     width: MediaQuery.of(context).size.width,
                     child: basicButton(Swhite, () async {
                       if (widget.facebook == "facebook") {
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
 
                         var url = "$url1/facebook-login";
 
@@ -137,8 +136,7 @@ class _gender_selectionState extends State<gender_selection> {
                           prefs.setString("api_token",
                               responseJson["data"]["api_token"].toString());
                           Navigator.pushReplacement(
-                              context,
-                              PageTransition(
+                              context, PageTransition(
                                   type: PageTransitionType.fade,
                                   alignment: Alignment.bottomCenter,
                                   duration: Duration(milliseconds: 300),
@@ -181,8 +179,7 @@ class _gender_selectionState extends State<gender_selection> {
                           prefs.setString("api_token",
                               responseJson["data"]["api_token"].toString());
                           Navigator.pushReplacement(
-                              context,
-                              PageTransition(
+                              context, PageTransition(
                                   type: PageTransitionType.fade,
                                   alignment: Alignment.bottomCenter,
                                   duration: Duration(milliseconds: 300),
@@ -201,8 +198,8 @@ class _gender_selectionState extends State<gender_selection> {
 }
 
 class RadioItem extends StatelessWidget {
-  final RadioModel _item;
 
+  final RadioModel _item;
   RadioItem(this._item);
 
   @override

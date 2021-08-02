@@ -319,7 +319,6 @@ class _login_ScreenState extends State<login_Screen> {
         print("user Id +++++ " + profile["id"].toString());
         onLoginStatusChanged(true, profileData: profile);
 
-
         var url = "$url1/facebook-login";
 
         Map<String, String> header = {"_token": token};
@@ -346,7 +345,6 @@ class _login_ScreenState extends State<login_Screen> {
                   duration: Duration(milliseconds: 300),
                   child: gender_selection(responseJson, "facebook")));
         }
-
         break;
     }
   }

@@ -48,7 +48,8 @@ class _dashboard_pageState extends State<dashboard_page> {
             child: new TickerMode(
               enabled: index == 1,
               child: new MaterialApp(
-                  debugShowCheckedModeBanner: false, home: challenge_page()),
+                  debugShowCheckedModeBanner: false,
+                  home: challenge_page()),
             ),
           ),
           new Offstage(
@@ -57,7 +58,7 @@ class _dashboard_pageState extends State<dashboard_page> {
               enabled: index == 2,
               child: new MaterialApp(
                   debugShowCheckedModeBanner: false,
-                  home: tutorials_page(categorie_data)),
+                  home: tutorials_page(categorie_data,"")),
             ),
           ),
           new Offstage(
@@ -65,7 +66,8 @@ class _dashboard_pageState extends State<dashboard_page> {
             child: new TickerMode(
               enabled: index == 3,
               child: new MaterialApp(
-                  debugShowCheckedModeBanner: false, home: history_page()),
+                  debugShowCheckedModeBanner: false,
+                  home: history_page()),
             ),
           ),
           new Offstage(
@@ -73,7 +75,8 @@ class _dashboard_pageState extends State<dashboard_page> {
             child: new TickerMode(
               enabled: index == 4,
               child: new MaterialApp(
-                  debugShowCheckedModeBanner: false, home: profile_page()),
+                  debugShowCheckedModeBanner: false,
+                  home: profile_page()),
             ),
           ),
         ],

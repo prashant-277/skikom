@@ -123,7 +123,6 @@ class _editContactsState extends State<editContacts> {
                           }else{
                             displayToast("Enter valid phone number");
                           }
-
                         }
 
                       }, widget.checkString == "add" ? "Add" : "Save")),
@@ -139,13 +138,7 @@ class _editContactsState extends State<editContacts> {
 
   Future<void> addSosContact() async {
 
-    final ProgressDialog pr = _getProgress(context);
-    pr.update(
-        message: "Please wait...",
-        messageTextStyle: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontFamily: "SFPro",
-            fontSize: medium));
+    final ProgressDialog pr =  ProgressDialog(context);
     pr.show();
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -171,14 +164,9 @@ class _editContactsState extends State<editContacts> {
 
   Future<void> editSosContact() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final ProgressDialog pr = _getProgress(context);
-    pr.update(
-        message: "Please wait...",
-        messageTextStyle: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontFamily: "SFPro",
-            fontSize: medium));
+    final ProgressDialog pr =  ProgressDialog(context);
     pr.show();
+
     var url = "$url1/edit-sos-contact";
 
     print(prefs.getString("userId").toString());
@@ -193,7 +181,7 @@ class _editContactsState extends State<editContacts> {
     map["phone"] = _numberCtrl.text.toString();
 
     Map<String, String> headers = {"_token": token};
-
+    //
     final response = await http.post(url, body: map, headers: headers);
     final responseJson = json.decode(response.body);
     print("res edit-sos-contact  " + responseJson.toString());
@@ -205,6 +193,3 @@ class _editContactsState extends State<editContacts> {
 
 }
 
-ProgressDialog _getProgress(BuildContext context) {
-  return ProgressDialog(context);
-}

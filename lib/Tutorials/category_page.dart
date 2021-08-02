@@ -13,7 +13,9 @@ import 'package:http/http.dart' as http;
 class category_page extends StatefulWidget {
   var categorie_id;
 
-  category_page(this.categorie_id);
+  var Categories_name;
+
+  category_page(this.categorie_id, this.Categories_name);
 
   @override
   _category_pageState createState() => _category_pageState();
@@ -31,7 +33,7 @@ class _category_pageState extends State<category_page> {
       backgroundColor: Swhite,
       appBar: commanAppBar(
         appBar: AppBar(),
-        appbartext: "Category 1",
+        appbartext: widget.Categories_name.toString(),
         colorImage: Swhite,
         fontsize: medium,
         imageBack: true,

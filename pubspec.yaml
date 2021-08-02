@@ -58,6 +58,7 @@ dependencies:
   latlong:
   progress_dialog:
   html2md: ^1.1.0
+  loading_overlay_pro:
 
 dev_dependencies:
   flutter_test:

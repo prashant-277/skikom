@@ -2,15 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skicom/Challenge/challenge/savechallenge_page.dart';
 import 'package:skicom/Challenge/challenge/sos_emergency.dart';
-import 'package:skicom/Challenge/competition/saveActivity_page.dart';
 import 'package:skicom/Widgets/toastDisplay.dart';
 import 'package:skicom/constants.dart';
 import 'package:sizer/sizer.dart';
@@ -34,7 +33,7 @@ class _startChallengeState extends State<startChallenge> {
   final token = url.token;
 
   GoogleMapController mapController;
-  LatLng currentPostion=LatLng(23.1031871,72.5956003);
+  LatLng currentPostion;
 
   Stopwatch _stopwatch;
   Timer _timer;
@@ -52,6 +51,7 @@ class _startChallengeState extends State<startChallenge> {
   List<LatLng> polylineCoordinates = [];
   List<double> lat_lng = [];
   Polyline polyline = new Polyline(polylineId: PolylineId("null"));
+  PolylinePoints polylinePoints = PolylinePoints();
 
   /*BitmapDescriptor sourceIcon;
   BitmapDescriptor destinationIcon;*/
@@ -304,6 +304,10 @@ class _startChallengeState extends State<startChallenge> {
                                     print("res finish-challenge  " + responseJson.toString());
 
                                     if(responseJson["status"].toString()=="success"){
+                                      setState(() {
+                                        track=1;
+                                        _stopwatch.stop();
+                                      });
                                       Navigator.of(context, rootNavigator: true)
                                           .push(PageTransition(
                                           type: PageTransitionType.fade,
@@ -418,9 +422,11 @@ class _startChallengeState extends State<startChallenge> {
   dis() async {
     distance = await (distance +
             Geolocator.distanceBetween(
-                Inter_lat, Inter_lng, Desti_lat, Desti_lng)) /
-        1000;
-
+                Inter_lat, Inter_lng, Desti_lat, Desti_lng)/1000) ;
+    // distance = distance +
+    //     await polylinePoints.getDistance(
+    //         "AIzaSyAixWpeG2pCQGvAQ-KYHG7CNzEq0v4L7iY", Inter_lat, Inter_lng, Desti_lat, Desti_lng);
+    // print("Total Distance"+distance.toString());
     /* var _distanceInMeters = await Geolocator.distanceBetween(
         Desti_lat,
         Desti_lng,

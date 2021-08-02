@@ -106,7 +106,7 @@ class _requests_challengeState extends State<requests_challenge>
               padding: const EdgeInsets.all(12.0),
               child: isAdmin=="true" ? Container(
                 height: query.height,
-                child: message=="member request not exist"?
+                child: memberrequestList.toString()=="[]"?
                 Container(height:query.height,width:query.width,child: Center(child: Text("No data found",
                     style: TextStyle(
                         fontFamily: "SFPro",
@@ -118,7 +118,7 @@ class _requests_challengeState extends State<requests_challenge>
                         childAspectRatio: 0.55.sp,
                         crossAxisSpacing: 12.0,
                         mainAxisSpacing: 12.0),
-                    itemCount:memberrequestList.length,
+                    itemCount: memberrequestList == null ? "" : memberrequestList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return SingleChildScrollView(
                         child: Container(
@@ -231,8 +231,11 @@ class _requests_challengeState extends State<requests_challenge>
                     }),
               ): Container(
                 height: query.height,
-                child: message=="not found any request"?
-                Container(height:query.height,width:query.width,child: Center(child: Text("No data found",
+                child: requestList.toString()=="[]"?
+                Container(
+                    height:query.height,
+                    width:query.width,
+                    child: Center(child: Text("No data found",
                     style: TextStyle(
                         fontFamily: "SFPro",
                         fontWeight: FontWeight.w500,
@@ -243,7 +246,7 @@ class _requests_challengeState extends State<requests_challenge>
                             childAspectRatio: 0.55.sp,
                             crossAxisSpacing: 12.0,
                             mainAxisSpacing: 12.0),
-                        itemCount: requestList.length,
+                        itemCount: requestList == null ? "" : requestList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return SingleChildScrollView(
                             child: Container(
@@ -263,8 +266,7 @@ class _requests_challengeState extends State<requests_challenge>
                                         child: FadeInImage(
                                             image: NetworkImage(imageurl +
                                                 requestList[index]["touserdetail"]
-                                                        ["profile"]
-                                                    .toString()),
+                                                        ["profile"].toString()),
                                             fit: BoxFit.fill,
                                             width: 60.sp,
                                             height: 60.sp,
@@ -273,8 +275,7 @@ class _requests_challengeState extends State<requests_challenge>
                                     SizedBox(height: 3.sp),
                                     Text(
                                         requestList[index]["touserdetail"]
-                                                ["username"]
-                                            .toString(),
+                                                ["username"].toString(),
                                         style: TextStyle(
                                             fontFamily: "SFPro",
                                             fontWeight: FontWeight.w600,
@@ -296,7 +297,6 @@ class _requests_challengeState extends State<requests_challenge>
                                           challenge = 1;
                                           //getrequestList();
                                         });
-
                                         acceptRequest(index);
                                       },
                                       child: Container(
@@ -334,8 +334,7 @@ class _requests_challengeState extends State<requests_challenge>
                                         height: 25.sp,
                                         decoration: BoxDecoration(
                                             color: SRed,
-                                            borderRadius:
-                                                BorderRadius.circular(5.0)),
+                                            borderRadius: BorderRadius.circular(5.0)),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10.0, vertical: 5),
