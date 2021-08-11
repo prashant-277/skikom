@@ -121,6 +121,7 @@ class _changepasswordState extends State<changepassword> {
                             controller: _newpswdCtrl,
                             obscureText: show1,
                             hintText: "New password",
+                            textcapitalization: TextCapitalization.none,
                             functionValidate: commonValidation,
                             suffixIcon: IconButton(
                               color: Colors.grey,
@@ -159,6 +160,7 @@ class _changepasswordState extends State<changepassword> {
                           obscureText: show2,
                           hintText: "Confirm password",
                           functionValidate: commonValidation,
+                          textcapitalization: TextCapitalization.none,
                           suffixIcon: IconButton(
                             color: Colors.grey,
                             icon: !show2

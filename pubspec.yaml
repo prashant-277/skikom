@@ -35,8 +35,8 @@ dependencies:
   otp_text_field: ^1.1.1
   smooth_page_indicator: ^0.2.3
   google_maps_flutter: ^2.0.1
-  flutter_facebook_login:
-  flutter_facebook_auth:
+  flutter_facebook_login: ^3.0.0
+  #flutter_facebook_auth: ^3.3.2
   custom_radio_grouped_button: ^1.0.6+1
   sizer: ^2.0.13
   http:

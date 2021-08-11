@@ -112,7 +112,6 @@ class _editContactsState extends State<editContacts> {
                         /*Navigator.pop(context);
                         Navigator.pop(context);
                         */
-
                         if(_formKey.currentState.validate()){
                           if(_numberCtrl.text.length==10){
                             if (widget.checkString == "add") {

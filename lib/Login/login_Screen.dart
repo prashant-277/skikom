@@ -194,13 +194,15 @@ class _login_ScreenState extends State<login_Screen> {
                               body: map, headers: header);
 
                           final responseJson = json.decode(response.body);
-                          print(responseJson.toString());
-
+                          print("login ----> " + responseJson.toString());
+                          
                           if (responseJson["data"].toString() != "[]") {
                             prefs.setString("userEmail",responseJson["data"]["email"].toString());
                             prefs.setString("api_token", responseJson["data"]["api_token"].toString());
                             prefs.setString("userId", responseJson["data"]["id"].toString());
                             prefs.setString("username", responseJson["data"]["username"].toString());
+                          //  prefs.setString("userData", jsonEncode(responseJson["data"]));
+
 
                             displayToast(responseJson["message"].toString());
                             pr.hide();
@@ -236,6 +238,7 @@ class _login_ScreenState extends State<login_Screen> {
                           height: 8.5.h,
                           child: primarybutton("Continue with google", () {
                             _handleSignIn().then((FirebaseUser user) async {
+
                               SharedPreferences prefs = await SharedPreferences.getInstance();
 
                               var url = "$url1/google-login";
@@ -322,7 +325,7 @@ class _login_ScreenState extends State<login_Screen> {
         var url = "$url1/facebook-login";
 
         Map<String, String> header = {"_token": token};
-
+print(profile["first_name"].toString());
         var map = new Map<String, dynamic>();
         map["f_name"] = profile["first_name"].toString();
         map["l_name"] = profile["last_name"].toString();

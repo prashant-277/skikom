@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -25,18 +26,73 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
   final imageurl = url.imageUrl;
   final url1 = url.basicUrl;
   final token = url.token;
+  List<LatLng> polylineCoordinates = [];
+  double Source_lat, Source_lang, Desti_lat, Desti_lng;
+  Completer<GoogleMapController> _controller = Completer();
+
+  Set<Polyline> _polylines = {};
+  BitmapDescriptor sourceIcon;
+  BitmapDescriptor destinationIcon;
+  Polyline polyline = new Polyline(polylineId: null);
 
   @override
   void initState() {
     super.initState();
     print(widget.historyList);
     print(widget.groupId.toString());
+    getPolycordinates();
   }
 
-
   Set<Marker> _markers = {};
-  Set<Polyline> _polylines = {};
-  LatLng currentPostion=LatLng(23.1031871,72.5956003);
+  LatLng currentPostion = LatLng(23.1031871, 72.5956003);
+
+  void getPolycordinates() {
+    print(widget.historyList[0]["latlanglist"][0].toString());
+    Source_lat =
+        double.parse(widget.historyList[0]["latlanglist"][1].toString());
+    Source_lang =
+        double.parse(widget.historyList[0]["latlanglist"][2].toString());
+    Desti_lat = double.parse(widget.historyList[0]["latlanglist"]
+            [widget.historyList[0]["latlanglist"].lenght - 2]
+        .toString());
+    Desti_lng = double.parse(widget.historyList[0]["latlanglist"]
+            [widget.historyList[0]["latlanglist"].length - 1]
+        .toString());
+
+    for (int i = 0; i < widget.historyList[0]["latlanglist"].length; i += 2) {
+      if (i == 0) {
+        print(i.toString());
+        polylineCoordinates.add(LatLng(
+            double.parse(widget.historyList[0]["latlanglist"][i]
+                .toString()
+                .substring(1)),
+            double.parse(
+                widget.historyList[0]["latlanglist"][i + 1].toString())));
+      } else if (i == widget.historyList[0]["latlanglist"].length - 2) {
+        print(i.toString());
+        polylineCoordinates.add(LatLng(
+            double.parse(widget.historyList[0]["latlanglist"][i].toString()),
+            double.parse(widget.historyList[0]["latlanglist"][i + 1]
+                .toString()
+                .substring(
+                    0,
+                    widget.historyList[0]["latlanglist"][i + 1]
+                            .toString()
+                            .length -
+                        2))));
+        print("Coordinates Added");
+      } else {
+        print(i.toString());
+        polylineCoordinates.add(LatLng(
+            double.parse(widget.historyList[0]["latlanglist"][i].toString()),
+            double.parse(
+                widget.historyList[0]["latlanglist"][i + 1].toString())));
+      }
+    }
+    set_source_pin(Source_lat, Source_lang);
+    set_destination_pin(Desti_lat, Desti_lng);
+    setPolylines();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,20 +106,24 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                  height: query.height / 2.7,
-                  width: query.width,
-                  child: GoogleMap(
-                    myLocationEnabled: true,
-                    compassEnabled: true,
-                    tiltGesturesEnabled: true,
-                    markers: _markers,
-                    polylines: _polylines,
-                    mapType: MapType.normal,
-                    initialCameraPosition: CameraPosition(
-                      target: currentPostion,
-                      zoom: 15,
-                    ),
-                  )),
+                height: query.height / 2.7,
+                width: query.width,
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(Source_lat, Source_lang),
+                    zoom: 15.0,
+                  ),
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                  myLocationEnabled: true,
+                  compassEnabled: false,
+                  tiltGesturesEnabled: true,
+                  polylines: _polylines,
+                  mapType: MapType.normal,
+                  markers: _markers,
+                ),
+              ),
               Container(
                 //  height: query.height * 0.2,
                 width: query.width,
@@ -102,7 +162,8 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
                                       child: FadeInImage(
                                           image: NetworkImage(imageurl +
                                               widget.historyList[index]
-                                                      ["profile"].toString()),
+                                                      ["profile"]
+                                                  .toString()),
                                           fit: BoxFit.fill,
                                           width: 35.sp,
                                           height: 35.sp,
@@ -124,7 +185,8 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
                                           children: [
                                             Text(
                                                 widget.historyList[index]
-                                                        ["username"].toString(),
+                                                        ["username"]
+                                                    .toString(),
                                                 style: TextStyle(
                                                     fontFamily: "SFPro",
                                                     fontWeight: FontWeight.w600,
@@ -132,7 +194,8 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
                                                     fontSize: 15)),
                                             Text(
                                                 widget.historyList[index]
-                                                        ["time"].toString(),
+                                                        ["time"]
+                                                    .toString(),
                                                 style: TextStyle(
                                                     fontFamily: "SFPro",
                                                     fontWeight: FontWeight.w500,
@@ -158,19 +221,18 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
                                               width: query.width * 0.9,
                                               child: Slider(
                                                   value: double.parse(widget
-                                                      .historyList[index]["km"].toString()),
-                                                  min: double.parse(widget
-                                                      .historyList[index]["km"].toString()),
+                                                      .historyList[index]["km"]
+                                                      .toString()),
+                                                  min: 0.0,
                                                   max: double.parse(widget
-                                                      .historyList[index]["for_km"]
-                                                      .toString().substring(0, 2)),
+                                                      .historyList[index]
+                                                          ["for_km"]
+                                                      .toString()
+                                                      .substring(0, 2)),
                                                   activeColor: SBlue,
                                                   inactiveColor: kGray,
-                                                  onChanged: (double newValue) {
-                                                    /*setState(() {
-                                                                sliderValue = newValue.round();
-                                                              });*/
-                                                  },
+                                                  onChanged:
+                                                      (double newValue) {},
                                                   semanticFormatterCallback:
                                                       (double newValue) {
                                                     return '${newValue.round()}';
@@ -299,6 +361,7 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
 
               if (responseJson["status"].toString() == "success") {
                 Navigator.pop(context, true);
+                Navigator.pop(context, true);
                 pr.hide();
               }
             },
@@ -312,6 +375,47 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
         ],
       ),
     );
+  }
+
+  void onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
+
+  void set_source_pin(double lat, double lng) {
+    setState(() {
+// source pin
+      _markers.add(Marker(
+        markerId: MarkerId('sourcePin'),
+        position: LatLng(lat, lng),
+        icon: sourceIcon,
+      ));
+    });
+  }
+
+  void set_destination_pin(double lat, double long) {
+    setState(() {
+// destination pin
+      _markers.add(Marker(
+          markerId: MarkerId('destPin'),
+          position: LatLng(lat, long),
+          icon: destinationIcon));
+    });
+  }
+
+  setPolylines() async {
+    setState(() {
+      polyline = Polyline(
+          visible: true,
+          width: 5,
+          geodesic: true,
+          zIndex: 1,
+          polylineId: PolylineId("poly"),
+          color: Color.fromARGB(255, 40, 122, 198),
+          points: polylineCoordinates);
+      _polylines.add(polyline);
+
+      print("PolylineCoordinates" + polylineCoordinates.toString());
+    });
   }
 }
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,13 +12,22 @@ import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/constants.dart';
 import 'package:sizer/sizer.dart';
 import 'changepassword.dart';
-
+import 'package:skicom/url.dart';
+import 'package:http/http.dart' as http;
 class profile_page extends StatefulWidget {
   @override
   _profile_pageState createState() => _profile_pageState();
 }
 
+
+
 class _profile_pageState extends State<profile_page> {
+
+  final url1 = url.basicUrl;
+  final token = url.token;
+  var  data;
+  final imageurl = url.imageUrl;
+
   Future<bool> _onWillPop() {
     return showDialog(
       context: context,
@@ -49,6 +60,33 @@ class _profile_pageState extends State<profile_page> {
       ),
     ) ;
   }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserdetail();
+  }
+  Future<void> getUserdetail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var url = "$url1/get-single-user";
+
+    var map = new Map<String, dynamic>();
+
+    map["user_id"] = prefs.getString("userId").toString();
+
+    Map<String, String> headers = {"_token": token};
+
+
+    final response = await http.post(url, body: map, headers: headers);
+    final responseJson = json.decode(response.body);
+    print("res get-single-user  " + responseJson.toString());
+    if(responseJson["status"].toString()=="success"){
+      setState(() {
+        data = responseJson["data"];
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context).size;
@@ -72,7 +110,9 @@ class _profile_pageState extends State<profile_page> {
                           contentPadding: EdgeInsets.only(
                               left: 0, right: 0, bottom: 15, top: 0),
                           backgroundColor: Swhite,
-                          content: editProfile_dialog()));
+                          content: editProfile_dialog(data))).then((value) {
+                            setState(() {getUserdetail();});
+                  });
                 },
                 child: Container(
                   width: query.width * 0.25,
@@ -114,9 +154,16 @@ class _profile_pageState extends State<profile_page> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              "Assets/Images/2.png",
-                              height: 65.sp,
+                            ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: FadeInImage(
+                                    image: NetworkImage(imageurl +
+                                        data["profile"].toString()),
+                                    fit: BoxFit.fill,
+                                    height: 65.sp,
+                                    width: 65.sp,
+                                    placeholder: AssetImage(
+                                        "Assets/Images/giphy.gif"))
                             ),
                             SizedBox(
                               width: 10,
@@ -125,7 +172,7 @@ class _profile_pageState extends State<profile_page> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "William Myre",
+                                  data["username"].toString(),
                                   style: TextStyle(
                                       height: 1.5,
                                       fontFamily: "SFPro",
@@ -134,7 +181,7 @@ class _profile_pageState extends State<profile_page> {
                                       fontSize: medium),
                                 ),
                                 Text(
-                                  "williammyre@gmail.com",
+                                  data["email"].toString(),
                                   style: TextStyle(
                                       fontFamily: "SFPro",
                                       height: 1.5,
@@ -298,7 +345,7 @@ class _profile_pageState extends State<profile_page> {
                               ),
                             ),
                           ),
-                          InkWell(
+                          /*InkWell(
                             onTap: () {
                               Navigator.of(context, rootNavigator: true).push(
                                   PageTransition(
@@ -337,7 +384,7 @@ class _profile_pageState extends State<profile_page> {
                                 ),
                               ),
                             ),
-                          ),
+                          ),*/
                           InkWell(
                             onTap: () {
                               Navigator.of(context, rootNavigator: true).push(
@@ -378,6 +425,7 @@ class _profile_pageState extends State<profile_page> {
                               ),
                             ),
                           ),
+                          Text(""),
                           InkWell(
                             onTap: () async {
                               SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -424,4 +472,6 @@ class _profile_pageState extends State<profile_page> {
       ),
     );
   }
+
+
 }

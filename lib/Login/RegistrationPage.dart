@@ -13,7 +13,6 @@ import 'package:skicom/Login/emailRegistration.dart';
 import 'package:skicom/Login/gender_selection.dart';
 import 'package:skicom/Login/login_Screen.dart';
 import 'package:skicom/Login/termsOfservice.dart';
-import 'package:skicom/Widgets/toastDisplay.dart';
 import 'package:skicom/constants.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/Login/privacy_policy.dart';
@@ -53,7 +52,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   void initState() {
     super.initState();
     checkIsLogin();
-
   }
   @override
   Widget build(BuildContext context) {
@@ -194,9 +192,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       Navigator.push(
                           context,
                           PageTransition(
-                              type: PageTransitionType.fade,
+                              type: PageTransitionType.bottomToTop,
                               alignment: Alignment.bottomCenter,
-                              duration: Duration(milliseconds: 300),
+                              duration: Duration(milliseconds: 200),
                               child: termsOfservice()));
                     },
                 ),
@@ -224,9 +222,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       Navigator.push(
                           context,
                           PageTransition(
-                              type: PageTransitionType.fade,
+                              type: PageTransitionType.bottomToTop,
                               alignment: Alignment.bottomCenter,
-                              duration: Duration(milliseconds: 300),
+                              duration: Duration(milliseconds: 200),
                               child: privacy_policy()));
                     },
                 ),
@@ -279,6 +277,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         final responseJson = json.decode(response.body);
         print(responseJson.toString());
         print(responseJson["data"]["api_token"].toString());
+
         if (responseJson["status"].toString() == "Success") {
           Navigator.pushReplacement(
               context,

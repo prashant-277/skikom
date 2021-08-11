@@ -24,21 +24,22 @@ class _videoplay_pageState extends State<videoplay_page>  with TickerProviderSta
   final token = url.token;
   bool _isloading = true;
   List video_data = [];
+  List relatedVideo_data = [];
   VideoPlayerController _controller;
   DateTime before,after;
 
   @override
   void initState() {
     super.initState();
-    getvideoDetal();
+    getvideoDetal(widget.id.toString());
     print(widget.id.toString());
   }
 
-  Future<void> getvideoDetal() async {
+  Future<void> getvideoDetal(String widgetId) async {
     var url = "$url1/get-video-detail";
 
     var map = new Map<String, dynamic>();
-    map["id"] = widget.id.toString();
+    map["id"] = widgetId.toString();
 
     Map<String, String> headers = {"_token": token};
 
@@ -46,7 +47,8 @@ class _videoplay_pageState extends State<videoplay_page>  with TickerProviderSta
     final responseJson = json.decode(response.body);
     print("res get-video-detail  " + responseJson.toString());
     setState(() {
-      video_data = responseJson["data"];
+      video_data = responseJson["data"]["video"];
+      relatedVideo_data = responseJson["data"]["related_video"];
       _isloading = false;
       before = DateTime.tryParse(video_data[0]["created_at"]);
       after = DateTime.now();
@@ -124,7 +126,13 @@ class _videoplay_pageState extends State<videoplay_page>  with TickerProviderSta
                       ),
                     ),
                     Text(
-                      after.difference(before).inHours.toString() +" hr ago",
+                      DateTime.now().difference(DateTime.tryParse(
+                          video_data[0]["created_at"])).inHours <= 24 ?
+                      DateTime.now().difference(DateTime.tryParse(
+                          video_data[0]["created_at"])).inHours.toString()+" hr ago" :
+                      DateTime.now().difference(DateTime.tryParse(
+                          video_data[0]["created_at"])).inDays.toString()
+                          +" days ago",
                       style: TextStyle(
                           fontFamily: "SFPro",
                           fontWeight: FontWeight.w500,
@@ -149,14 +157,18 @@ class _videoplay_pageState extends State<videoplay_page>  with TickerProviderSta
                   height: query.height * 0.34,
                   child: ListView.builder(
                       physics: AlwaysScrollableScrollPhysics(),
-                      itemCount: 10,
+                      itemCount: relatedVideo_data.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
                             children: [
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  setState(() {
+                                    getvideoDetal(relatedVideo_data[index]["id"].toString());
+                                  });
+                                },
                                 child: Container(
                                   width: query.width,
                                   height: 80.sp,
@@ -175,9 +187,15 @@ class _videoplay_pageState extends State<videoplay_page>  with TickerProviderSta
                                       children: [
                                         ClipRRect(
                                             borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Image.asset(
-                                                "Assets/Images/image_noti.png")),
+                                            BorderRadius.circular(10.0),
+                                            child: FadeInImage(
+                                                image: NetworkImage(imageurl +
+                                                    relatedVideo_data[index]["image"].toString()),
+                                                fit: BoxFit.fill,
+                                                width: 60.sp,
+                                                height: 60.sp,
+                                                placeholder: AssetImage(
+                                                    "Assets/Images/giphy.gif"))),
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(left: 8.0),
@@ -189,8 +207,7 @@ class _videoplay_pageState extends State<videoplay_page>  with TickerProviderSta
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Text(
-                                                  "What is Lorem Ipsum?",
+                                                Text(relatedVideo_data[index]["title"].toString(),
                                                   style: TextStyle(
                                                       height: 1.5,
                                                       fontFamily: "SFPro",
@@ -199,7 +216,7 @@ class _videoplay_pageState extends State<videoplay_page>  with TickerProviderSta
                                                       fontSize: medium),
                                                 ),
                                                 Text(
-                                                  "20.05",
+                                                  relatedVideo_data[index]["details"].toString(),
                                                   style: TextStyle(
                                                       fontFamily: "SFPro",
                                                       height: 1.5,

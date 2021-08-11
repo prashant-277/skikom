@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skicom/Challenge/challenge/savechallenge_page.dart';
 import 'package:skicom/Challenge/challenge/sos_emergency.dart';
@@ -42,12 +43,12 @@ class _startChallengeState extends State<startChallenge> {
   bool finishResume = false;
   Set<Marker> _markers = {};
   Set<Polyline> _polylines = {};
-  double Source_lat = 0,
-      Source_lang = 0,
-      Desti_lat = 0,
-      Desti_lng = 0,
-      Inter_lat = 0,
-      Inter_lng = 0;
+  double Source_lat ,
+      Source_lang ,
+      Desti_lat ,
+      Desti_lng ,
+      Inter_lat ,
+      Inter_lng ;
   List<LatLng> polylineCoordinates = [];
   List<double> lat_lng = [];
   Polyline polyline = new Polyline(polylineId: PolylineId("null"));
@@ -59,6 +60,8 @@ class _startChallengeState extends State<startChallenge> {
   int count_srs = 0;
   int track = 0;
   double distance;
+
+  int dist_count=0;
 
   @override
   void initState() {
@@ -92,6 +95,7 @@ class _startChallengeState extends State<startChallenge> {
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
+
 
   Future<bool> _onWillPop() {
     return showDialog(
@@ -150,6 +154,15 @@ class _startChallengeState extends State<startChallenge> {
         false;
   }
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    _stopwatch.stop();
+    if (mounted) {
+      setState (() => {});
+    }
+  }
   @override
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context).size;
@@ -280,8 +293,15 @@ class _startChallengeState extends State<startChallenge> {
                                 onTap: () {
                                   setState(() async {
                                     track = 1;
-                                    start_tracking();
-
+                                    //start_tracking();
+                                    final ProgressDialog pr = _getProgress(context);
+                                    pr.update(
+                                        message: "Please wait...",
+                                        messageTextStyle: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "SFPro",
+                                            fontSize: medium));
+                                    pr.show();
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
 
                                     var url = "$url1/finish-challenge";
@@ -295,6 +315,7 @@ class _startChallengeState extends State<startChallenge> {
                                     map["user_id"] = prefs.getString("userId").toString();
                                     map["time"] = formatTime(_stopwatch.elapsedMilliseconds).toString();
                                     map["km"] = distance.toString();
+                                    map["latlanglist"] = lat_lng.toString();
 
                                     Map<String, String> headers = {"_token": token};
 
@@ -304,6 +325,8 @@ class _startChallengeState extends State<startChallenge> {
                                     print("res finish-challenge  " + responseJson.toString());
 
                                     if(responseJson["status"].toString()=="success"){
+                                      pr.hide();
+
                                       setState(() {
                                         track=1;
                                         _stopwatch.stop();
@@ -387,7 +410,12 @@ class _startChallengeState extends State<startChallenge> {
           lat_lng.add(Desti_lng);
 
           setPolylines();
-          dis();
+          if(dist_count!=0){
+            dis();
+          }
+          else{
+            dist_count++;
+          }
 
           if (count_srs == 0) {
             set_source_pin(Desti_lat, Desti_lng);
@@ -455,4 +483,7 @@ class _startChallengeState extends State<startChallenge> {
           icon: BitmapDescriptor.defaultMarker));
     });
   }
+}
+ProgressDialog _getProgress(BuildContext context) {
+  return ProgressDialog(context);
 }

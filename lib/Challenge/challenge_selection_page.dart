@@ -21,7 +21,7 @@ class _challenge_pageState extends State<challenge_page> {
         width: query.width,
         height: query.height,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 30.sp),
@@ -29,7 +29,7 @@ class _challenge_pageState extends State<challenge_page> {
               "Assets/Images/logo.png",
               height: 80.sp,
             ),
-            GestureDetector(
+            /*GestureDetector(
               onTap: () {
                 Navigator.of(context, rootNavigator: true).push(PageTransition(
                     type: PageTransitionType.fade,
@@ -55,7 +55,8 @@ class _challenge_pageState extends State<challenge_page> {
                   ),
                 ),
               ),
-            ),
+            ),*/
+
             GestureDetector(
               onTap: () {
                 /*Navigator.of(context, rootNavigator: true).push(PageTransition(
@@ -88,6 +89,7 @@ class _challenge_pageState extends State<challenge_page> {
                     ),
                   )),
             ),
+            Container(height: query.height*0.2)
           ],
         ),
       ),

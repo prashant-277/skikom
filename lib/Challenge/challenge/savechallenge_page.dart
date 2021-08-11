@@ -26,8 +26,34 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
   double sliderValue = 500.0;
   final url1 = url.basicUrl;
   final token = url.token;
-
+  final imageurl = url.imageUrl;
+  bool _isloading = true;
+  List resultdata = [];
   TextEditingController title_ctrl = TextEditingController();
+
+
+  @override
+  void initState() {
+    super.initState();
+    getChallengeResult();
+  }
+
+  Future<void> getChallengeResult() async {
+    var url = "$url1/get-challenge-result";
+
+    var map = new Map<String, dynamic>();
+    map["group_id"] = widget.group_id.toString();
+
+    Map<String, String> headers = {"_token": token};
+
+    final response = await http.post(url, body: map, headers: headers);
+    final responseJson = json.decode(response.body);
+    print("res get-challenge-result  " + responseJson.toString());
+    setState(() {
+      resultdata = responseJson["data"];
+      _isloading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,125 +82,123 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
             width: query.width,
             color: Swhite,
             child: Column(
+
               children: [
                 SizedBox(height: 10),
-                Container(
-                  height: query.height * 0.48,
-                  width: query.width,
-                  child: ListView.builder(
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            Container(
-                              color: Swhite,
-                              width: query.width,
-                              height: query.height * 0.10,
-                              child: Row(
-                                //mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0),
-                                    child: Text((index + 1).toString(),
-                                        style: TextStyle(
-                                            fontFamily: "SFPro",
-                                            fontWeight: FontWeight.w600,
-                                            color: SBlack,
-                                            fontSize: medium)),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100.0),
-                                        child: Image.asset(
-                                          "Assets/Images/image_1.png",
-                                          // height: query.height * 0.2,
-                                        )),
-                                  ),
-                                  SizedBox(width: 15),
-                                  SingleChildScrollView(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    child: Container(
-                                      //   height: query.height * 0.15,
-                                      width: query.width / 1.7,
-                                      child: Column(
-                                        children: [
-                                          Text(""),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("Michelbr",
-                                                  style: TextStyle(
-                                                      fontFamily: "SFPro",
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: SBlack,
-                                                      fontSize: medium)),
-                                              Text("848 km",
-                                                  style: TextStyle(
-                                                      fontFamily: "SFPro",
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: SBlack,
-                                                      fontSize: small)),
-                                            ],
-                                          ),
-                                          SliderTheme(
-                                              data: SliderThemeData(
-                                                  trackHeight: 3.5,
-                                                  thumbShape:
-                                                      RoundSliderThumbShape(
-                                                          enabledThumbRadius:
-                                                              2.0,
-                                                          elevation: 0),
-                                                  showValueIndicator:
-                                                      ShowValueIndicator.always,
-                                                  valueIndicatorShape:
-                                                      PaddleSliderValueIndicatorShape(),
-                                                  trackShape:
-                                                      CustomTrackShape(),
-                                                  overlayColor:
-                                                      Colors.transparent),
-                                              child: Container(
-                                                width: query.width * 0.9,
-                                                child: Slider(
-                                                    value:
-                                                        sliderValue.toDouble(),
-                                                    min: 1,
-                                                    max: 1000,
-                                                    divisions: 1000,
-                                                    activeColor: SBlue,
-                                                    inactiveColor: kGray,
-                                                    onChanged:
-                                                        (double newValue) {
-                                                      /*setState(() {
-                                                                sliderValue = newValue.round();
-                                                              });*/
-                                                    },
-                                                    semanticFormatterCallback:
-                                                        (double newValue) {
-                                                      return '${newValue.round()}';
-                                                    }),
-                                              )),
-                                          Text("")
-                                        ],
-                                      ),
+                ListView.builder(
+                  shrinkWrap: true,
+                    itemCount: resultdata.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Container(
+                            color: Swhite,
+                            width: query.width,
+                            height: query.height * 0.12,
+                            child: Row(
+                              //mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0),
+                                  child: Text((index + 1).toString(),
+                                      style: TextStyle(
+                                          fontFamily: "SFPro",
+                                          fontWeight: FontWeight.w600,
+                                          color: SBlack,
+                                          fontSize: medium)),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: FadeInImage(
+                                          image: NetworkImage(imageurl +
+                                              resultdata[index]["userdetail"]["profile"].toString()),
+                                          fit: BoxFit.fill,
+                                          width: 60.sp,
+                                          height: 60.sp,
+                                          placeholder: AssetImage(
+                                              "Assets/Images/giphy.gif"))),
+                                ),
+                                SizedBox(width: 10),
+                                SingleChildScrollView(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  child: Container(
+                                    //   height: query.height * 0.15,
+                                    width: query.width / 1.7,
+                                    child: Column(
+                                      children: [
+                                        Text(""),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(resultdata[index]["userdetail"]["username"].toString(),
+                                                style: TextStyle(
+                                                    fontFamily: "SFPro",
+                                                    fontWeight:
+                                                        FontWeight.w600,
+                                                    color: SBlack,
+                                                    fontSize: medium)),
+                                            Text(resultdata[index]["km"].toString() +" km",
+                                                style: TextStyle(
+                                                    fontFamily: "SFPro",
+                                                    fontWeight:
+                                                        FontWeight.w500,
+                                                    color: SBlack,
+                                                    fontSize: small)),
+                                          ],
+                                        ),
+                                        SliderTheme(
+                                            data: SliderThemeData(
+                                                trackHeight: 3.5,
+                                                thumbShape:
+                                                    RoundSliderThumbShape(
+                                                        enabledThumbRadius:2.0,
+                                                        elevation: 0),
+                                                showValueIndicator:
+                                                    ShowValueIndicator.always,
+                                                valueIndicatorShape:
+                                                    PaddleSliderValueIndicatorShape(),
+                                                trackShape:
+                                                    CustomTrackShape(),
+                                                overlayColor:
+                                                    Colors.transparent),
+                                            child: Container(
+                                              width: query.width * 0.9,
+                                              child: Slider(
+                                                  value: double.parse(resultdata[index]["km"].toString()),
+                                                  min: 0.0,
+                                                  max: 50,
+                                                  activeColor: SBlue,
+                                                  inactiveColor: kGray,
+                                                  onChanged:
+                                                      (double newValue) {
+                                                    /*setState(() {
+                                                              sliderValue = newValue.round();
+                                                            });*/
+                                                  },
+                                                  semanticFormatterCallback:
+                                                      (double newValue) {
+                                                    return '${newValue.round()}';
+                                                  }),
+                                            )),
+                                        Text("")
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            Divider(
-                              color: kGray,
-                              thickness: 1,
-                            )
-                          ],
-                        );
-                      }),
-                ),
+                          ),
+                          Divider(
+                            color: kGray,
+                            thickness: 1,
+                          )
+                        ],
+                      );
+                    }),
                 Container(
                   color: kGray,
                   width: query.width,
@@ -341,6 +365,7 @@ class _saveChallenge_pageState extends State<saveChallenge_page> {
                                 Navigator.pop(context);
                                 Navigator.pop(context);
                                 pr.hide();
+
                               }
                             }
                           }, "Save")),

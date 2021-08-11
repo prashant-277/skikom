@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:skicom/Challenge/challenge_selection_page.dart';
+import 'package:skicom/History/challenge_history.dart';
 import 'package:skicom/History/history_page.dart';
 import 'package:skicom/Home/homePage.dart';
 import 'package:skicom/Profile/profile_page.dart';
@@ -67,7 +68,8 @@ class _dashboard_pageState extends State<dashboard_page> {
               enabled: index == 3,
               child: new MaterialApp(
                   debugShowCheckedModeBanner: false,
-                  home: history_page()),
+                  home: challenge_history() //history_page()
+              ),
             ),
           ),
           new Offstage(

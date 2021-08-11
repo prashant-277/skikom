@@ -24,7 +24,6 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> with TickerProviderStateMixin{
   final controller = PageController(viewportFraction: 0.6, initialPage: 1);
-  final controller1 = PageController(viewportFraction: 0.6, initialPage: 1);
 
   final url1 = url.basicUrl;
   final token = url.token;
@@ -302,7 +301,9 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin{
                     itemCount: categorie_data == null ? "" : categorie_data.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index){
-                    return Column(
+                        var controller1 = PageController(viewportFraction: 0.6, initialPage: 1);
+
+                        return Column(
                       children: [
                         Padding(
                           padding:
@@ -423,8 +424,7 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin{
                             children: [
                               SmoothPageIndicator(
                                 controller: controller1,
-                                count: categorie_data[index]["topics"].length <= 3 ? 3
-                                    : categorie_data[index]["topics"].length,
+                                count: categorie_data[index]["topics"].length,
                                 effect: ExpandingDotsEffect(
                                     expansionFactor: 4,
                                     activeDotColor: SLightBlue,

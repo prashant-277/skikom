@@ -24,8 +24,6 @@ class category_page extends StatefulWidget {
 class _category_pageState extends State<category_page> {
   int current_tab = 0;
 
-
-
   @override
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context).size;
