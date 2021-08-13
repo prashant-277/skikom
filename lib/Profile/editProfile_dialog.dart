@@ -40,6 +40,8 @@ class _editProfile_dialogState extends State<editProfile_dialog> {
     _usernameCtrl.text = widget.profiledata["username"].toString();
     _emailCtrl.text = widget.profiledata["email"].toString();
     urlimg1 = url2 + widget.profiledata["profile"].toString();
+
+    print(url2 + "null");
   }
 
   @override
@@ -155,7 +157,7 @@ class _editProfile_dialogState extends State<editProfile_dialog> {
                             borderRadius: BorderRadius.circular(100),
                             child: _image1 == null
                                 ? Image.network(
-                                    urlimg1 == null
+                                    urlimg1 == url2 + "null"
                                         ? "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
                                         : urlimg1,
                                     height: query.height * 0.15,

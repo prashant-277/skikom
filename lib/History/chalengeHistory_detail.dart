@@ -35,6 +35,8 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
   BitmapDescriptor destinationIcon;
   Polyline polyline = new Polyline(polylineId: null);
 
+  List<dynamic> test=[];
+
   @override
   void initState() {
     super.initState();
@@ -47,53 +49,39 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
   LatLng currentPostion = LatLng(23.1031871, 72.5956003);
 
   void getPolycordinates() {
-    print(widget.historyList[0]["latlanglist"][0].toString());
-    Source_lat =
-        double.parse(widget.historyList[0]["latlanglist"][1].toString());
-    Source_lang =
-        double.parse(widget.historyList[0]["latlanglist"][2].toString());
-    Desti_lat = double.parse(widget.historyList[0]["latlanglist"]
-            [widget.historyList[0]["latlanglist"].lenght - 2]
-        .toString());
-    Desti_lng = double.parse(widget.historyList[0]["latlanglist"]
-            [widget.historyList[0]["latlanglist"].length - 1]
-        .toString());
+    //  print("DDDDD"+jsonDecode(widget.historyList[0]["latlanglist"].toString())as List );
+    test = jsonDecode(widget.historyList[0]["latlanglist"]);
+    print(test[test.length -1]);
+    print(test.length.toString());
+    Source_lat = double.parse(test[0].toString());
+    Source_lang = double.parse(test[1].toString());
+    Desti_lat = double.parse(test[test.length - 2].toString());
+    Desti_lng = double.parse(test[test.length -1].toString());
 
-    for (int i = 0; i < widget.historyList[0]["latlanglist"].length; i += 2) {
+    for (int i = 0; i < test.length; i += 2) {
       if (i == 0) {
         print(i.toString());
         polylineCoordinates.add(LatLng(
-            double.parse(widget.historyList[0]["latlanglist"][i]
-                .toString()
-                .substring(1)),
-            double.parse(
-                widget.historyList[0]["latlanglist"][i + 1].toString())));
-      } else if (i == widget.historyList[0]["latlanglist"].length - 2) {
+            double.parse(test[i].toString()),
+            double.parse(test[i + 1].toString())));
+      } else if (i == test.length - 2) {
         print(i.toString());
         polylineCoordinates.add(LatLng(
-            double.parse(widget.historyList[0]["latlanglist"][i].toString()),
-            double.parse(widget.historyList[0]["latlanglist"][i + 1]
+            double.parse(test[i].toString()),
+            double.parse(test[i + 1]
                 .toString()
-                .substring(
-                    0,
-                    widget.historyList[0]["latlanglist"][i + 1]
-                            .toString()
-                            .length -
-                        2))));
+                .substring(0, test[i + 1].toString().length - 2))));
         print("Coordinates Added");
       } else {
         print(i.toString());
-        polylineCoordinates.add(LatLng(
-            double.parse(widget.historyList[0]["latlanglist"][i].toString()),
-            double.parse(
-                widget.historyList[0]["latlanglist"][i + 1].toString())));
+        polylineCoordinates.add(LatLng(double.parse(test[i].toString()),
+            double.parse(test[i + 1].toString())));
       }
     }
     set_source_pin(Source_lat, Source_lang);
     set_destination_pin(Desti_lat, Desti_lng);
     setPolylines();
   }
-
   @override
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context).size;

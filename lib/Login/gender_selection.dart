@@ -133,8 +133,10 @@ class _gender_selectionState extends State<gender_selection> {
                         print(responseJson.toString());
                         print(responseJson["data"]["api_token"].toString());
                         if (responseJson["status"].toString() == "Success") {
-                          prefs.setString("api_token",
-                              responseJson["data"]["api_token"].toString());
+                          prefs.setString("api_token", responseJson["data"]["api_token"].toString());
+                          prefs.setString("userEmail",responseJson["data"]["email"].toString());
+                          prefs.setString("userId", responseJson["data"]["id"].toString());
+                          prefs.setString("username", responseJson["data"]["username"].toString());
                           Navigator.pushReplacement(
                               context, PageTransition(
                                   type: PageTransitionType.fade,
@@ -176,14 +178,59 @@ class _gender_selectionState extends State<gender_selection> {
                         print(responseJson["data"]["api_token"].toString());
 
                         if (responseJson["success"].toString() == "Success") {
-                          prefs.setString("api_token",
-                              responseJson["data"]["api_token"].toString());
+                          prefs.setString("api_token", responseJson["data"]["api_token"].toString());
+                          prefs.setString("userEmail",responseJson["data"]["email"].toString());
+                          prefs.setString("api_token", responseJson["data"]["api_token"].toString());
+                          prefs.setString("userId", responseJson["data"]["id"].toString());
+                          prefs.setString("username", responseJson["data"]["username"].toString());
+
                           Navigator.pushReplacement(
                               context, PageTransition(
                                   type: PageTransitionType.fade,
                                   alignment: Alignment.bottomCenter,
                                   duration: Duration(milliseconds: 300),
                                   child: level_selection()));
+                          displayToast(responseJson["message"].toString());
+                        } else {
+                          displayToast(responseJson["message"].toString());
+                        }
+                      }else if(widget.facebook == "apple"){
+                        print("google");
+                        SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                        print(widget.fbresponse["data"]["f_name"].toString());
+
+                        var url = "$url1/login-apple";
+
+                        Map<String, String> header = {
+                          "_token": token.toString()
+                        };
+                        var map = new Map<String, dynamic>();
+                        map["username"] =
+                            widget.fbresponse["data"]["username"].toString();
+                        map["email"] =
+                            widget.fbresponse["data"]["email"].toString();
+                        map["gender"] = prefs.getString("gender").toString();
+
+                        final response =
+                        await http.post(url, body: map, headers: header);
+                        final responseJson = json.decode(response.body);
+                        print(responseJson.toString());
+                        print(responseJson["data"]["api_token"].toString());
+
+                        if (responseJson["success"].toString() == "Success") {
+                          prefs.setString("api_token", responseJson["data"]["api_token"].toString());
+                          prefs.setString("userEmail",responseJson["data"]["email"].toString());
+                          prefs.setString("api_token", responseJson["data"]["api_token"].toString());
+                          prefs.setString("userId", responseJson["data"]["id"].toString());
+                          prefs.setString("username", responseJson["data"]["username"].toString());
+
+                          Navigator.pushReplacement(
+                              context, PageTransition(
+                              type: PageTransitionType.fade,
+                              alignment: Alignment.bottomCenter,
+                              duration: Duration(milliseconds: 300),
+                              child: level_selection()));
                           displayToast(responseJson["message"].toString());
                         } else {
                           displayToast(responseJson["message"].toString());

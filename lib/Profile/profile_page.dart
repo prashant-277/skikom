@@ -101,7 +101,7 @@ class _profile_pageState extends State<profile_page> {
           imageBack: false,
           widgets: [
             Padding(
-              padding: const EdgeInsets.only(right: 15.0, top: 13, bottom: 12),
+              padding: const EdgeInsets.only(right: 10.0, top: 13, bottom: 12),
               child: InkWell(
                 onTap: () {
                   showDialog(
@@ -115,7 +115,7 @@ class _profile_pageState extends State<profile_page> {
                   });
                 },
                 child: Container(
-                  width: query.width * 0.25,
+                  width: query.width * 0.21,
                   decoration: BoxDecoration(
                     border: Border.all(color: Swhite, width: 1),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -129,7 +129,7 @@ class _profile_pageState extends State<profile_page> {
                               fontFamily: "SFPro",
                               fontWeight: FontWeight.w600,
                               color: SBlue,
-                              fontSize: small)),
+                              fontSize: 10.sp)),
                     ),
                   ),
                 ),
@@ -147,7 +147,7 @@ class _profile_pageState extends State<profile_page> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: query.height/3.2,
+                    height: query.height/3.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -157,11 +157,13 @@ class _profile_pageState extends State<profile_page> {
                             ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
                                 child: FadeInImage(
-                                    image: NetworkImage(imageurl +
-                                        data["profile"].toString()),
+                                    image: NetworkImage(data["profile"].toString() == "null" ?
+                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png"
+                                        :imageurl +
+                                        data["profile"].toString().toString()),
                                     fit: BoxFit.fill,
-                                    height: 65.sp,
-                                    width: 65.sp,
+                                    width: 60.sp,
+                                    height: 60.sp,
                                     placeholder: AssetImage(
                                         "Assets/Images/giphy.gif"))
                             ),
@@ -171,14 +173,17 @@ class _profile_pageState extends State<profile_page> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  data["username"].toString(),
-                                  style: TextStyle(
-                                      height: 1.5,
-                                      fontFamily: "SFPro",
-                                      fontWeight: FontWeight.w600,
-                                      color: SBlack,
-                                      fontSize: medium),
+                                Container(
+                                  width: 125.sp,
+                                  child: Text(
+                                    data["username"].toString(),
+                                    style: TextStyle(
+                                        height: 1.5,
+                                        fontFamily: "SFPro",
+                                        fontWeight: FontWeight.w600,
+                                        color: SBlack,
+                                        fontSize: medium),
+                                  ),
                                 ),
                                 Text(
                                   data["email"].toString(),
@@ -189,10 +194,12 @@ class _profile_pageState extends State<profile_page> {
                                       color: SBlack,
                                       fontSize: small),
                                 ),
+                                SizedBox(height: 10.sp,),
                               ],
                             )
                           ],
                         ),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -258,10 +265,10 @@ class _profile_pageState extends State<profile_page> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 5.sp,),
                   SingleChildScrollView(
                     child: Container(
-                      height: query.height / 2.1,
+                      height: query.height / 2.2,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -425,7 +432,6 @@ class _profile_pageState extends State<profile_page> {
                               ),
                             ),
                           ),
-                          Text(""),
                           InkWell(
                             onTap: () async {
                               SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -460,6 +466,7 @@ class _profile_pageState extends State<profile_page> {
                               ),
                             ),
                           ),
+                          Container(height: 30.sp,)
                         ],
                       ),
                     ),

@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -118,8 +117,107 @@ class _RegistrationPageState extends State<RegistrationPage> {
           Container(
             width: 90.w,
             height: 8.5.h,
-            child: primarybutton("Continue with Apple", () {}, Swhite,
-                "Assets/Icons/apple.png", SBlack),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(50.0)),
+
+            ),
+            child: SignInWithAppleButton(
+              height: 8.5.h,
+              style: SignInWithAppleButtonStyle.whiteOutlined,
+              iconAlignment: IconAlignment.left,
+              text: "Continue with Apple",
+              borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              onPressed: () async {
+                if (Platform.isAndroid) {
+                  var redirectURL = "";
+                  var clientID = "com.example.skicom";
+                  final appleIdCredential = await SignInWithApple.getAppleIDCredential(
+                      scopes: [
+                        AppleIDAuthorizationScopes.email,
+                        AppleIDAuthorizationScopes.fullName,
+                      ],
+                      webAuthenticationOptions: WebAuthenticationOptions(
+                          clientId: clientID, redirectUri: Uri.parse(redirectURL)));
+                  final oAuthProvider = OAuthProvider(providerId: 'apple.com');
+                  final credential = oAuthProvider.getCredential(
+                    idToken: appleIdCredential.identityToken,
+                    accessToken: appleIdCredential.authorizationCode,
+                  );
+                  print(credential);
+                  Navigator.pushReplacement(
+                      context, PageTransition(
+                      type: PageTransitionType.fade,
+                      alignment: Alignment.bottomCenter,
+                      duration: Duration(milliseconds: 300),
+                      child: level_selection()));
+
+                } else {
+                  final credential = await SignInWithApple.getAppleIDCredential(
+                  scopes: [
+                    AppleIDAuthorizationScopes.email,
+                    AppleIDAuthorizationScopes.fullName,
+                  ],
+                  webAuthenticationOptions: WebAuthenticationOptions(
+                    clientId:
+                    'com.aboutyou.dart_packages.sign_in_with_apple.example',
+                    redirectUri: Uri.parse(
+                      'https://flutter-sign-in-with-apple-example.glitch.me/callbacks/sign_in_with_apple',
+                    ),
+                  ),
+                  nonce: 'example-nonce',
+                  state: 'example-state',
+                );
+
+                print(credential);
+                  var url = "$url1/login-apple";
+
+                  Map<String, String> header = {"_token": token};
+
+                  var map = new Map<String, dynamic>();
+                  map["username"] = credential.givenName.toString();
+                  map["email"] = credential.email.toString();
+                  map["gender"] = "";
+
+                  final response = await http.post(url,
+                      body: map, headers: header);
+
+                  final responseJson = json.decode(response.body);
+                  print(responseJson.toString());
+                  if (responseJson["success"].toString() == "Success") {
+                    Navigator.pushReplacement(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.fade,
+                            alignment: Alignment.bottomCenter,
+                            duration: Duration(milliseconds: 300),
+                            child: gender_selection(
+                                responseJson, "apple")));
+                  }
+
+                final signInWithAppleEndpoint = Uri(
+                  scheme: 'https',
+                  host: 'flutter-sign-in-with-apple-example.glitch.me',
+                  path: '/sign_in_with_apple',
+                  queryParameters: <String, String>{
+                    'code': credential.authorizationCode,
+                    if (credential.givenName != null)
+                      'firstName': credential.givenName,
+                    if (credential.familyName != null)
+                      'lastName': credential.familyName,
+                    'useBundleId':
+                    Platform.isIOS || Platform.isMacOS ? 'true' : 'false',
+                    if (credential.state != null) 'state': credential.state,
+                  },
+                );
+
+                final session = await http.Client().post(
+                  signInWithAppleEndpoint,
+                );
+                print(session);
+
+                }
+              },
+            ),
           ),
           Container(
             width: 90.w,

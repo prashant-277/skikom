@@ -97,14 +97,17 @@ class commanAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text(
-                appbartext,
-                style: TextStyle(
-                    fontFamily: "SFPro",
-                    fontWeight: FontWeight.w600,
-                    color: Swhite,
-                    fontSize: fontsize),
+              padding: const EdgeInsets.only(left: 0.0),
+              child: Container(
+                width: 200.sp,
+                child: Text(
+                  appbartext,
+                  style: TextStyle(
+                      fontFamily: "SFPro",
+                      fontWeight: FontWeight.w600,
+                      color: Swhite,
+                      fontSize: fontsize),
+                ),
               ),
             ),
           ],
