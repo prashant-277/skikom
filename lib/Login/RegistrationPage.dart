@@ -81,8 +81,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 };
 
                 var map = new Map<String, dynamic>();
-                map["f_name"] = user.displayName.toString();
-                map["l_name"] = user.displayName.toString();
+                map["username"] = user.displayName.toString();
+                //map["l_name"] = user.displayName.toString();
                 map["email"] = user.email.toString();
                 map["userId"] = user.uid.toString();
                 map["imageUrl"] = user.photoUrl.toString();

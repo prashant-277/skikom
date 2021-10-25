@@ -125,9 +125,9 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin{
         backgroundColor: Swhite,
         appBar: commanAppBar(
           appBar: AppBar(),
-          appbartext: "Hello " +username.toString() + ",",
+          appbartext: "Hello, " +username.toString(),
           colorImage: Colors.transparent,
-          fontsize: 18.sp,
+          fontsize: 15.sp,
           imageBack: false,
           widgets: [
             Padding(

@@ -86,7 +86,7 @@ class _tutorials_pageState extends State<tutorials_page> {
           imageBack: widget.back == "back" ? true : false,
           appbartext: "Tutorials",
           colorImage: Swhite,
-          fontsize: 18.sp,
+          fontsize: 16.sp,
         ),
         body: SingleChildScrollView(
           child: widget.categorie_data.toString()=="[]" ?

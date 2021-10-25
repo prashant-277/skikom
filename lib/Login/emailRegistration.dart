@@ -8,16 +8,13 @@ import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skicom/Login/login_Screen.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/Widgets/textfield.dart';
 import 'package:skicom/Widgets/toastDisplay.dart';
 import 'package:skicom/constants.dart';
-import 'package:skicom/level_selection.dart';
 import 'package:sizer/sizer.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:skicom/url.dart';
 class emailRegistration extends StatefulWidget {
   const emailRegistration({Key key}) : super(key: key);
@@ -31,7 +28,6 @@ class _emailRegistrationState extends State<emailRegistration> {
   File _image1;
   String urlimg1;
   String document_path1;
-  PermissionStatus _status;
   final url1 = url.basicUrl;
   final token = url.token;
 
@@ -53,16 +49,6 @@ class _emailRegistrationState extends State<emailRegistration> {
   void onTap1() {
     confirmshow = !confirmshow;
     setState(() {});
-  }
-
-
-  @override
-  void initState() {
-    super.initState();
-
-    PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.camera)
-        .then(_updateStatus);
   }
 
   @override
@@ -220,7 +206,7 @@ class _emailRegistrationState extends State<emailRegistration> {
                                                 Container(
                                                   width: MediaQuery.of(context).size.width,
                                                   child: FlatButton(
-                                                    onPressed: _askPermissionD1,
+                                                    onPressed: imageSelectorCameraD1,
                                                     child: Row(
                                                       children: <Widget>[
                                                         Text("Camera"),
@@ -492,29 +478,7 @@ class _emailRegistrationState extends State<emailRegistration> {
     );
   }
 
-  void _askPermissionD1() {
-    PermissionHandler().requestPermissions([PermissionGroup.camera]).then(
-        _onStatusRequestedD1);
-  }
-
-  void _onStatusRequestedD1(Map<PermissionGroup, PermissionStatus> value) {
-    final status = value[PermissionGroup.camera];
-    if (status == PermissionStatus.granted) {
-      imageSelectorCameraD1();
-    } else {
-      _updateStatus(status);
-    }
-  }
-
-  _updateStatus(PermissionStatus value) {
-    if (value != _status) {
-      setState(() {
-        _status = value;
-      });
-    }
-  }
-
-  void imageSelectorCameraD1() async {
+   void imageSelectorCameraD1() async {
     Navigator.pop(context);
     var imageFile1 = await ImagePicker.pickImage(
       source: ImageSource.camera,
@@ -601,9 +565,13 @@ class _emailRegistrationState extends State<emailRegistration> {
                       duration: Duration(milliseconds: 300),
                       child: login_Screen())));
         } else {
+          pr.hide();
+
           displayToast(responseJson["message"].toString());
         }
       } else {
+        pr.hide();
+
         final responseStream = await response.stream.bytesToString();
         final responseJson = json.decode(responseStream);
 

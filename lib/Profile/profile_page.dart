@@ -1,6 +1,10 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skicom/Login/RegistrationPage.dart';
@@ -21,12 +25,16 @@ class profile_page extends StatefulWidget {
 
 
 
-class _profile_pageState extends State<profile_page> {
+class _profile_pageState extends State<profile_page> with TickerProviderStateMixin{
+  static final FacebookLogin facebookSignIn = new FacebookLogin();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   final url1 = url.basicUrl;
   final token = url.token;
   var  data;
   final imageurl = url.imageUrl;
+  bool isloading = true;
 
   Future<bool> _onWillPop() {
     return showDialog(
@@ -84,6 +92,7 @@ class _profile_pageState extends State<profile_page> {
     if(responseJson["status"].toString()=="success"){
       setState(() {
         data = responseJson["data"];
+        isloading = false;
       });
     }
   }
@@ -97,7 +106,7 @@ class _profile_pageState extends State<profile_page> {
         appBar: commanAppBar(
           appBar: AppBar(),
           appbartext: "Profile",
-          fontsize: 18.sp,
+          fontsize: 16.sp,
           imageBack: false,
           widgets: [
             Padding(
@@ -115,7 +124,7 @@ class _profile_pageState extends State<profile_page> {
                   });
                 },
                 child: Container(
-                  width: query.width * 0.21,
+                  width: query.width * 0.3,
                   decoration: BoxDecoration(
                     border: Border.all(color: Swhite, width: 1),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -137,7 +146,12 @@ class _profile_pageState extends State<profile_page> {
             )
           ],
         ),
-        body: SingleChildScrollView(
+        body: isloading == true
+            ? SpinKitRipple(
+          color: SLightBlue,
+          controller: AnimationController(
+              vsync: this, duration: const Duration(milliseconds: 1200)),
+        ) :SingleChildScrollView(
           child: Container(
             width: query.width,
             child: Padding(
@@ -147,7 +161,7 @@ class _profile_pageState extends State<profile_page> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: query.height/3.0,
+                    height: 20.h,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -200,7 +214,7 @@ class _profile_pageState extends State<profile_page> {
                           ],
                         ),
 
-                        Row(
+                        /*Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Column(
@@ -261,214 +275,216 @@ class _profile_pageState extends State<profile_page> {
                               ],
                             ),
                           ],
-                        ),
+                        ),*/
                       ],
                     ),
                   ),
-                  SizedBox(height: 5.sp,),
-                  SingleChildScrollView(
-                    child: Container(
-                      height: query.height / 2.2,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context, rootNavigator: true).push(
-                                  PageTransition(
-                                      type: PageTransitionType.fade,
-                                      alignment: Alignment.bottomCenter,
-                                      duration: Duration(milliseconds: 300),
-                                      child: myChallengeGroup()));
-                            },
-                            child: Container(
-                              width: query.width / 1.1,
-                              height: 40.sp,
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1, color: kGray),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "My Challenge group",
-                                        style: TextStyle(
-                                            fontFamily: "SFPro",
-                                            fontWeight: FontWeight.w600,
-                                            color: SBlack,
-                                            fontSize: small),
-                                      ),
-                                      Image.asset(
-                                        "Assets/Icons/right.png",
-                                        height: query.height * 0.02,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                  Container(
+                    height: query.height / 2.1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                PageTransition(
+                                    type: PageTransitionType.fade,
+                                    alignment: Alignment.bottomCenter,
+                                    duration: Duration(milliseconds: 300),
+                                    child: myChallengeGroup()));
+                          },
+                          child: Container(
+                            width: query.width / 1.1,
+                            height: 40.sp,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1, color: kGray),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context, rootNavigator: true).push(
-                                  PageTransition(
-                                      type: PageTransitionType.fade,
-                                      alignment: Alignment.bottomCenter,
-                                      duration: Duration(milliseconds: 300),
-                                      child: sosContacts()));
-                            },
-                            child: Container(
-                              width: query.width / 1.1,
-                              height: 40.sp,
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1, color: kGray),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "SOS Emergency",
-                                        style: TextStyle(
-                                            fontFamily: "SFPro",
-                                            fontWeight: FontWeight.w600,
-                                            color: SBlack,
-                                            fontSize: small),
-                                      ),
-                                      Image.asset(
-                                        "Assets/Icons/right.png",
-                                        height: query.height * 0.02,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          /*InkWell(
-                            onTap: () {
-                              Navigator.of(context, rootNavigator: true).push(
-                                  PageTransition(
-                                      type: PageTransitionType.fade,
-                                      alignment: Alignment.bottomCenter,
-                                      duration: Duration(milliseconds: 300),
-                                      child: changeLanguage()));
-                            },
-                            child: Container(
-                              width: query.width / 1.1,
-                              height: 40.sp,
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1, color: kGray),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Language",
-                                        style: TextStyle(
-                                            fontFamily: "SFPro",
-                                            fontWeight: FontWeight.w600,
-                                            color: SBlack,
-                                            fontSize: small),
-                                      ),
-                                      Image.asset(
-                                        "Assets/Icons/right.png",
-                                        height: query.height * 0.02,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),*/
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context, rootNavigator: true).push(
-                                  PageTransition(
-                                      type: PageTransitionType.fade,
-                                      alignment: Alignment.bottomCenter,
-                                      duration: Duration(milliseconds: 300),
-                                      child: changepassword()));
-                            },
-                            child: Container(
-                              width: query.width / 1.1,
-                              height: 40.sp,
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1, color: kGray),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Change password",
-                                        style: TextStyle(
-                                            fontFamily: "SFPro",
-                                            fontWeight: FontWeight.w600,
-                                            color: SBlack,
-                                            fontSize: small),
-                                      ),
-                                      Image.asset(
-                                        "Assets/Icons/right.png",
-                                        height: query.height * 0.02,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              SharedPreferences prefs = await SharedPreferences.getInstance();
-                              prefs.setString("userEmail", null);
-
-                              Navigator.of(context, rootNavigator: true)
-                                  .pushReplacement(PageTransition(
-                                  type: PageTransitionType.fade,
-                                  alignment: Alignment.bottomCenter,
-                                  duration:
-                                  Duration(milliseconds: 300),
-                                  child: RegistrationPage()));
-                            },
-                            child: Container(
-                              height: 32.sp,
-                              width: query.width * 0.3,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Swhite, width: 1),
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                color: SRed,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: Text("Logout",
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "My Challenge group",
                                       style: TextStyle(
                                           fontFamily: "SFPro",
-                                          fontWeight: FontWeight.w500,
-                                          color: Swhite,
-                                          fontSize: medium)),
+                                          fontWeight: FontWeight.w600,
+                                          color: SBlack,
+                                          fontSize: small),
+                                    ),
+                                    Image.asset(
+                                      "Assets/Icons/right.png",
+                                      height: query.height * 0.02,
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                          Container(height: 30.sp,)
-                        ],
-                      ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                PageTransition(
+                                    type: PageTransitionType.fade,
+                                    alignment: Alignment.bottomCenter,
+                                    duration: Duration(milliseconds: 300),
+                                    child: sosContacts()));
+                          },
+                          child: Container(
+                            width: query.width / 1.1,
+                            height: 40.sp,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1, color: kGray),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "SOS Emergency",
+                                      style: TextStyle(
+                                          fontFamily: "SFPro",
+                                          fontWeight: FontWeight.w600,
+                                          color: SBlack,
+                                          fontSize: small),
+                                    ),
+                                    Image.asset(
+                                      "Assets/Icons/right.png",
+                                      height: query.height * 0.02,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        /*InkWell(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                PageTransition(
+                                    type: PageTransitionType.fade,
+                                    alignment: Alignment.bottomCenter,
+                                    duration: Duration(milliseconds: 300),
+                                    child: changeLanguage()));
+                          },
+                          child: Container(
+                            width: query.width / 1.1,
+                            height: 40.sp,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1, color: kGray),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Language",
+                                      style: TextStyle(
+                                          fontFamily: "SFPro",
+                                          fontWeight: FontWeight.w600,
+                                          color: SBlack,
+                                          fontSize: small),
+                                    ),
+                                    Image.asset(
+                                      "Assets/Icons/right.png",
+                                      height: query.height * 0.02,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),*/
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                PageTransition(
+                                    type: PageTransitionType.fade,
+                                    alignment: Alignment.bottomCenter,
+                                    duration: Duration(milliseconds: 300),
+                                    child: changepassword()));
+                          },
+                          child: Container(
+                            width: query.width / 1.1,
+                            height: 40.sp,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1, color: kGray),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Change password",
+                                      style: TextStyle(
+                                          fontFamily: "SFPro",
+                                          fontWeight: FontWeight.w600,
+                                          color: SBlack,
+                                          fontSize: small),
+                                    ),
+                                    Image.asset(
+                                      "Assets/Icons/right.png",
+                                      height: query.height * 0.02,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                            prefs.setString("userEmail", null);
+                            prefs.setString("api_token", null);
+                            prefs.setString("userId", null);
+                            prefs.setString("username", null);
+                            facebookSignIn.logOut();
+                            _googleSignIn.disconnect();
+                            _auth.signOut();
+                            Navigator.of(context, rootNavigator: true)
+                                .pushReplacement(PageTransition(
+                                type: PageTransitionType.fade,
+                                alignment: Alignment.bottomCenter,
+                                duration:
+                                Duration(milliseconds: 300),
+                                child: RegistrationPage()));
+                          },
+                          child: Container(
+                            height: 32.sp,
+                            width: query.width * 0.3,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Swhite, width: 1),
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              color: SRed,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text("Logout",
+                                    style: TextStyle(
+                                        fontFamily: "SFPro",
+                                        fontWeight: FontWeight.w500,
+                                        color: Swhite,
+                                        fontSize: medium)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(height: 30.sp,)
+                      ],
                     ),
                   ),
                 ],

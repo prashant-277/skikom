@@ -1,11 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:skicom/Login/login_Screen.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/Widgets/buttons.dart';
+import 'package:skicom/Widgets/toastDisplay.dart';
 import 'package:skicom/constants.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:skicom/url.dart';
+import 'package:http/http.dart' as http;
 class resetPassword extends StatefulWidget {
-  const resetPassword({Key key}) : super(key: key);
+  var responseJson;
+
+  resetPassword(this.responseJson);
+
 
   @override
   _resetPasswordState createState() => _resetPasswordState();
@@ -15,7 +24,8 @@ class _resetPasswordState extends State<resetPassword> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _pswdCtrl = TextEditingController();
   TextEditingController _confirmpswdCtrl = TextEditingController();
-
+  final url1 = url.basicUrl;
+  final token = url.token;
 
   String password = '';
   String conffirmpassword = '';
@@ -214,12 +224,37 @@ class _resetPasswordState extends State<resetPassword> {
               Container(
                   width: 90.w,
                   height: 8.0.h,
-                  child: basicButton(Swhite, (){
+                  child: basicButton(Swhite, () async {
                     if(_formKey.currentState.validate()){
                       if(_pswdCtrl.text.toString()==_confirmpswdCtrl.text.toString()){
 
+                        var url = "$url1/reset-password";
+
+                        Map<String, String> header = {"_token": token};
+
+                        var map = new Map<String, dynamic>();
+//3608
+                        map["password"] = _confirmpswdCtrl.text.toString();
+
+                        final response = await http.post(url, body: map, headers: header);
+
+                        final responseJson = json.decode(response.body);
+
+                        print("reset-password === " + responseJson.toString());
+                        if(responseJson["status"].toString()=="failed"){
+                          displayToast(responseJson["message"].toString());
+                        }else{
+                          displayToast(responseJson["message"].toString());
+                          Navigator.pushReplacement(
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.fade,
+                                  alignment: Alignment.bottomCenter,
+                                  duration: Duration(milliseconds: 300),
+                                  child: login_Screen()));
+                        }
                       }else{
-                        print("not matched");
+                        displayToast("Password does not match");
                       }
                     }
                   }, "Reset")),

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skicom/Widgets/buttons.dart';
@@ -31,7 +30,6 @@ class _editGroup_dialogState extends State<editGroup_dialog> with TickerProvider
   File _image1;
   String urlimg1;
   String document_path1;
-  PermissionStatus _status;
   final imageurl = url.imageUrl;
   bool _isloading = true;
   TextEditingController groupName_ctrl = TextEditingController();
@@ -39,9 +37,6 @@ class _editGroup_dialogState extends State<editGroup_dialog> with TickerProvider
   @override
   void initState() {
     super.initState();
-    PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.camera)
-        .then(_updateStatus);
     getGroupInfo();
   }
 
@@ -213,7 +208,7 @@ class _editGroup_dialogState extends State<editGroup_dialog> with TickerProvider
                                       Container(
                                         width: MediaQuery.of(context).size.width,
                                         child: FlatButton(
-                                          onPressed: _askPermissionD1,
+                                          onPressed: imageSelectorCameraD1,
                                           child: Row(
                                             children: <Widget>[
                                               Text("Camera"),
@@ -311,27 +306,7 @@ class _editGroup_dialogState extends State<editGroup_dialog> with TickerProvider
     );
   }
 
-  void _askPermissionD1() {
-    PermissionHandler().requestPermissions([PermissionGroup.camera]).then(
-        _onStatusRequestedD1);
-  }
 
-  void _onStatusRequestedD1(Map<PermissionGroup, PermissionStatus> value) {
-    final status = value[PermissionGroup.camera];
-    if (status == PermissionStatus.granted) {
-      imageSelectorCameraD1();
-    } else {
-      _updateStatus(status);
-    }
-  }
-
-  _updateStatus(PermissionStatus value) {
-    if (value != _status) {
-      setState(() {
-        _status = value;
-      });
-    }
-  }
 
   void imageSelectorCameraD1() async {
     Navigator.pop(context);

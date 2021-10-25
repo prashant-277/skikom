@@ -109,8 +109,8 @@ class _groupMemberPageState extends State<groupMemberPage> with TickerProviderSt
 
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 12.0,
-                    mainAxisSpacing: 12.0),
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0),
                 itemCount: memberList==null ?"":memberList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
@@ -134,16 +134,19 @@ class _groupMemberPageState extends State<groupMemberPage> with TickerProviderSt
                                     "Assets/Images/giphy.gif"))
                         ),
                         SizedBox(
-                          height: 10.sp,
+                          height: 5.sp,
                         ),
-                        Text(memberList[index]["userdetail"]["username"].toString(),
-                            style: TextStyle(
-                                fontFamily: "SFPro",
-                                fontWeight: FontWeight.w600,
-                                color: SBlack,
-                                fontSize: medium)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(memberList[index]["userdetail"]["username"].toString(),
+                              style: TextStyle(
+                                  fontFamily: "SFPro",
+                                  fontWeight: FontWeight.w600,
+                                  color: SBlack,
+                                  fontSize: medium)),
+                        ),
                         SizedBox(
-                          height: 10.sp,
+                          height: 5.sp,
                         ),
                         memberList[index]["is_admin"].toString()=="1" ?
                         Container(

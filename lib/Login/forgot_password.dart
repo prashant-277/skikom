@@ -1,12 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Login/confirmAccount.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/Widgets/buttons.dart';
 import 'package:skicom/Widgets/textfield.dart';
-
+import 'package:skicom/url.dart';
 import '../constants.dart';
 import 'package:sizer/sizer.dart';
+import 'package:http/http.dart' as http;
 
 class forgotPassword extends StatefulWidget {
   @override
@@ -14,7 +17,8 @@ class forgotPassword extends StatefulWidget {
 }
 
 class _forgotPasswordState extends State<forgotPassword> {
-
+  final url1 = url.basicUrl;
+  final token = url.token;
   final _formKey = GlobalKey<FormState>();
   TextEditingController email_controller = TextEditingController();
 
@@ -56,10 +60,12 @@ class _forgotPasswordState extends State<forgotPassword> {
                           fontSize: medium)),
                   Form(
                     key: _formKey,
+
                     child: textfield(
                       controller: email_controller,
                       obscureText: false,
                       hintText: "Email",
+                      textcapitalization: TextCapitalization.none,
                       functionValidate: commonValidation,
                       suffixIcon: null,
                       prefixIcon: new IconButton(
@@ -81,13 +87,7 @@ class _forgotPasswordState extends State<forgotPassword> {
 
                       child: basicButton(Swhite, () {
                         if(_formKey.currentState.validate()){
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  type: PageTransitionType.fade,
-                                  alignment: Alignment.bottomCenter,
-                                  duration: Duration(milliseconds: 300),
-                                  child: confirmAccount()));
+                          forgetPassword();
                         }
 
                       }, "Send")),
@@ -96,5 +96,31 @@ class _forgotPasswordState extends State<forgotPassword> {
             ),
           ),
         ));
+  }
+  Future<void> forgetPassword() async {
+
+    var url = "$url1/forget-password";
+
+    Map<String, String> header = {"_token": token};
+
+    var map = new Map<String, dynamic>();
+
+    map["email"] = email_controller.text.toString();
+
+    final response = await http.post(url, body: map, headers: header);
+
+    final responseJson = json.decode(response.body);
+
+    print("forget-password === " + responseJson.toString());
+
+    if (responseJson["status"].toString() == "success") {
+      Navigator.push(
+          context,
+          PageTransition(
+              type: PageTransitionType.fade,
+              alignment: Alignment.bottomCenter,
+              duration: Duration(milliseconds: 300),
+              child: confirmAccount(responseJson)));
+    }
   }
 }

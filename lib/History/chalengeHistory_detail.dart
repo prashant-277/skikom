@@ -51,7 +51,7 @@ class _chalengeHistory_detailState extends State<chalengeHistory_detail> {
   void getPolycordinates() {
     //  print("DDDDD"+jsonDecode(widget.historyList[0]["latlanglist"].toString())as List );
     test = jsonDecode(widget.historyList[0]["latlanglist"]);
-    print(test[test.length -1]);
+   // print(test[test.length -1]);
     print(test.length.toString());
     Source_lat = double.parse(test[0].toString());
     Source_lang = double.parse(test[1].toString());

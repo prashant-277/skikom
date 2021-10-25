@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -6,10 +8,17 @@ import 'package:page_transition/page_transition.dart';
 import 'package:skicom/Login/resetPassword.dart';
 import 'package:skicom/Widgets/appbarCustom.dart';
 import 'package:skicom/Widgets/buttons.dart';
+import 'package:skicom/Widgets/toastDisplay.dart';
 import 'package:skicom/constants.dart';
 import 'package:sizer/sizer.dart';
+import 'package:skicom/url.dart';
+import 'package:http/http.dart' as http;
+
 class confirmAccount extends StatefulWidget {
-  const confirmAccount({Key key}) : super(key: key);
+  var responseJson;
+
+  confirmAccount(this.responseJson);
+
 
   @override
   _confirmAccountState createState() => _confirmAccountState();
@@ -17,6 +26,9 @@ class confirmAccount extends StatefulWidget {
 
 class _confirmAccountState extends State<confirmAccount> {
   var userotp;
+  final url1 = url.basicUrl;
+  final token = url.token;
+  String otp;
 
   @override
   Widget build(BuildContext context) {
@@ -96,13 +108,8 @@ class _confirmAccountState extends State<confirmAccount> {
                   width: 90.w,
                   height: 8.0.h,
                   child: basicButton(Swhite, () {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            type: PageTransitionType.fade,
-                            alignment: Alignment.bottomCenter,
-                            duration: Duration(milliseconds: 300),
-                            child: resetPassword()));
+                    connfirmPassword();
+
                   }, "Confirm")),
               SizedBox(
                 height: 25,
@@ -127,7 +134,9 @@ class _confirmAccountState extends State<confirmAccount> {
                           fontSize: medium,
                           fontWeight: FontWeight.w600),
                       text: "Resend",
-                      recognizer: TapGestureRecognizer()..onTap = () async {},
+                      recognizer: TapGestureRecognizer()..onTap = () async {
+
+                      },
                     ),
                   ],
                 ),
@@ -137,5 +146,36 @@ class _confirmAccountState extends State<confirmAccount> {
         ),
       ),
     );
+  }
+
+  Future<void> connfirmPassword() async {
+    var url = "$url1/otp-verify";
+
+    Map<String, String> header = {"_token": token};
+
+    var map = new Map<String, dynamic>();
+
+    map["email"] = widget.responseJson["data"]["email"].toString();
+    map["otp"] = userotp.toString();
+
+    final response = await http.post(url, body: map, headers: header);
+
+    final responseJson = json.decode(response.body);
+
+    print("otp-verify === " + responseJson.toString());
+
+    if (responseJson["status"].toString() == "success") {
+      displayToast(responseJson["message"].toString());
+      Navigator.push(
+          context,
+          PageTransition(
+              type: PageTransitionType.fade,
+              alignment: Alignment.bottomCenter,
+              duration: Duration(milliseconds: 300),
+              child: resetPassword(widget.responseJson)));
+    }else{
+      displayToast(responseJson["message"].toString());
+    }
+
   }
 }

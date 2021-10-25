@@ -159,10 +159,8 @@ class _gender_selectionState extends State<gender_selection> {
                           "_token": token.toString()
                         };
                         var map = new Map<String, dynamic>();
-                        map["f_name"] =
-                            widget.fbresponse["data"]["f_name"].toString();
-                        map["l_name"] =
-                            widget.fbresponse["data"]["l_name"].toString();
+                        map["username"] =
+                            widget.fbresponse["data"]["username"].toString();
                         map["email"] =
                             widget.fbresponse["data"]["email"].toString();
                         map["userId"] =

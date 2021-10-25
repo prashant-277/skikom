@@ -55,7 +55,7 @@ class _history_pageState extends State<history_page> {
           appBar: AppBar(),
           appbartext: "History",
           colorImage: Colors.transparent,
-          fontsize: 18.sp,
+          fontsize: 16.sp,
           imageBack: false,
 
         ),

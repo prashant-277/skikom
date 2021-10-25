@@ -35,7 +35,7 @@ class _login_ScreenState extends State<login_Screen> {
 
   bool isLoggedIn = false;
   var profileData;
-
+  
   void onLoginStatusChanged(bool isLoggedIn, {profileData}) {
     setState(() {
       this.isLoggedIn = isLoggedIn;
@@ -145,13 +145,12 @@ class _login_ScreenState extends State<login_Screen> {
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  PageTransition(
-                                      type: PageTransitionType.fade,
-                                      alignment: Alignment.bottomCenter,
-                                      duration: Duration(milliseconds: 300),
-                                      child: forgotPassword()));
+                              Navigator.pushReplacement(
+                                  context, PageTransition(
+                                  type: PageTransitionType.fade,
+                                  alignment: Alignment.bottomCenter,
+                                  duration: Duration(milliseconds: 300),
+                                  child: forgotPassword()));
                             },
                             child: Text("Forgot password?",
                                 style: TextStyle(
@@ -248,8 +247,8 @@ class _login_ScreenState extends State<login_Screen> {
                               Map<String, String> header = {"_token": token};
 
                               var map = new Map<String, dynamic>();
-                              map["f_name"] = user.displayName.toString();
-                              map["l_name"] = user.displayName.toString();
+                              map["username"] = user.displayName.toString();
+                              //map["l_name"] = user.displayName.toString();
                               map["email"] = user.email.toString();
                               map["userId"] = user.uid.toString();
                               map["imageUrl"] = user.photoUrl.toString();
@@ -463,6 +462,7 @@ print(profile["first_name"].toString());
     print("signed in " + user.displayName);
     return user;
   }
+
 }
 
 ProgressDialog _getProgress(BuildContext context) {

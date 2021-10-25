@@ -16,6 +16,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
+      brightness: Brightness.dark,
       elevation: 0,
       leading: leadingIcon,
       backgroundColor: backgroundColor,
@@ -75,6 +76,7 @@ class commanAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       centerTitle: false,
       leading: leadingIcon,
+      brightness: Brightness.dark,
       backgroundColor: SBlue,
       title: FlatButton(
         splashColor: Colors.transparent,
@@ -99,7 +101,7 @@ class commanAppBar extends StatelessWidget implements PreferredSizeWidget {
             Padding(
               padding: const EdgeInsets.only(left: 0.0),
               child: Container(
-                width: 200.sp,
+                width: 170.sp,
                 child: Text(
                   appbartext,
                   style: TextStyle(

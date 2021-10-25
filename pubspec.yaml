@@ -45,7 +45,6 @@ dependencies:
   google_sign_in: ^4.4.1
   sign_in_with_apple:
   shared_preferences:
-  permission_handler: ^4.3.0
   image_picker:
   camera:
   flutter_spinkit: ^5.0.0

@@ -100,12 +100,15 @@ class _add_userState extends State<add_user> with TickerProviderStateMixin {
                                 height: 60.sp,
                                 placeholder:
                                     AssetImage("Assets/Images/giphy.gif"))),
-                        Text(userList[index]["username"].toString(),
-                            style: TextStyle(
-                                fontFamily: "SFPro",
-                                fontWeight: FontWeight.w600,
-                                color: SBlack,
-                                fontSize: medium)),
+                        Container(
+                          width: 25.w,
+                          child: Text(userList[index]["username"].toString(),
+                              style: TextStyle(
+                                  fontFamily: "SFPro",
+                                  fontWeight: FontWeight.w600,
+                                  color: SBlack,
+                                  fontSize: medium)),
+                        ),
                         FlatButton(
 
                           color: buttonColor,
